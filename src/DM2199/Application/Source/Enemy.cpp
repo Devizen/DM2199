@@ -6,13 +6,13 @@ unsigned Enemy::enemyCount = 0;
 
 Enemy::Enemy(SceneBase * scene, Vector3 pos) : Object(scene, pos)
 {
-	/*objectType = { SceneBase::GEO_ENEMYHEAD, SceneBase::GEO_ENEMYTORSO,
-		SceneBasee::GEO_ENEMYNECK };
-*/
+	objectType = { SceneBase::GEO_ENEMYHEAD, SceneBase::GEO_ENEMYLEFTARM,
+		SceneBase::GEO_ENEMYRIGHTARM, SceneBase::GEO_ENEMYLEFTLEG,
+	SceneBase::GEO_ENEMYRIGHTLEG,SceneBase::GEO_ENEMYTORSO };
+		
 
-	type = SceneBase::GEO_LIGHTBALL;
 
-	scale = 1.5;
+	scale = 10;
 	enemyCount++;
 }
 
@@ -26,7 +26,7 @@ void Enemy::interact()
 	float moveZ = unitDistance.z * _MovementSpeed * _scene->_dt;
 
 	// Rotate the enemy towards the player
-	rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x)) - 270;
+	rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x));
 
 	// Move the Enemy
 	position_.x -= moveX;

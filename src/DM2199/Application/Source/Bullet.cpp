@@ -7,7 +7,7 @@ Bullet::Bullet(SceneBase* scene, Vector3 pos) : Object(scene, pos)
 
 	type = SceneBase::GEO_LIGHTBALL3;
 	_defaultYaw = _scene->camera.getYaw();
-
+	_defaultPitch = _scene->camera.getPitch();
 	_defaultPosition = pos;
 
 
@@ -20,8 +20,8 @@ Bullet::~Bullet()
 void Bullet::interact(){
 
 
-
 	position_.x += (float)(50 * cos(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
+	position_.y += (float)(50 * tan(Math::DegreeToRadian(_defaultPitch)) * _scene->_dt);
 	position_.z += (float)(50 * sin(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
 
 	rotateY = _scene->camera.getPitch();
@@ -52,6 +52,17 @@ void Bullet::interact(){
 	//}
 
 
+	for (std::vector<Object*>::iterator it = _scene->objFactory.Container.begin(); it != _scene->objFactory.Container.end(); ++it)
+	{
+
+		if ((*it)->objectType.size() > 0 ){
+
+			if  (((*it)->position_ - position_).Length() < 40)
+			_scene->objFactory.destroyFactoryObject(*it);
+
+		}
+
+	}
 
 }
 

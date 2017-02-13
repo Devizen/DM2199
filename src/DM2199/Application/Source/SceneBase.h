@@ -53,9 +53,17 @@ class SceneBase : public Scene
         GEO_MOUNTAIN_2,
         GEO_GROUND,
 
+		//Enemy 
+		GEO_ENEMYHEAD,
+		GEO_ENEMYLEFTARM,
+		GEO_ENEMYRIGHTARM,
+		GEO_ENEMYLEFTLEG,
+		GEO_ENEMYRIGHTLEG,
+		GEO_ENEMYTORSO,
+		
 
 
-
+      
         //Text
         GEO_TEXT,
 

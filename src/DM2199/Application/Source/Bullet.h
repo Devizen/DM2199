@@ -17,6 +17,7 @@ public:
 private:
 	Vector3 _defaultPosition;
 	float _defaultYaw;
+	float _defaultPitch;
 	const float _maxDistance = 40;
 
 };

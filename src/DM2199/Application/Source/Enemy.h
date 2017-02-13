@@ -14,7 +14,7 @@ public:
 	static unsigned enemyCount;
 
 private:
-	const float _MovementSpeed = 2.5f; // Movement speed
+	const float _MovementSpeed = 20.5f; // Movement speed
 };
 
 
