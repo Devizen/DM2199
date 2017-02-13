@@ -1,6 +1,7 @@
 #include "Camera3.h"
 #include "Application.h"
 #include "Mtx44.h"
+#include <GLFW\glfw3.h>
 
 Camera3::Camera3()
 {
@@ -8,6 +9,24 @@ Camera3::Camera3()
 
 Camera3::~Camera3()
 {
+}
+void cbMouseEvent(GLFWwindow* window, int button, int action, int mods) {
+
+	// Toggle cursor on right click
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
+		if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide cursor
+		}
+		else {
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); // Show Cursor
+
+			// Reset the cursor to middle
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+			glfwSetCursorPos(window, (double)w / 2, (double)h / 2);
+		}
+	}
+
 }
 
 void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
@@ -22,11 +41,65 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 
     //Objects Location
     objectsLocation();
+
+
+	// Mouse Variables
+	mouseMovedX = 0;
+	mouseMovedY = 0;
+
+	yaw = 0.0f;
+	pitch = 0.0f;
+	glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Hide cursor
+	glfwSetMouseButtonCallback(glfwGetCurrentContext(), cbMouseEvent);
     
+}
+
+void Camera3::updateCursor() {
+
+	double currentX = 0;
+	double currentY = 0;
+
+	glfwGetCursorPos(glfwGetCurrentContext(), &currentX, &currentY);
+
+	if (currentX != lastX) {
+		mouseMovedX = (currentX > lastX) ? 1 : -1; // 1 for left, -1 for right
+		mouseMovedDistanceX = std::abs((float)(currentX - lastX)); // distance the cursor moved and return a positive value of it
+	}
+	else {
+		mouseMovedX = 0;
+	}
+
+	if (currentY != lastY) {
+		mouseMovedY = (currentY < lastY) ? 1 : -1; // 1 for up, -1 for down
+		mouseMovedDistanceY = std::abs((float)(currentY - lastY)); // distance the cursor moved and return a positive value of it
+	}
+	else {
+		mouseMovedY = 0;
+	}
+
+	lastX = currentX;
+	lastY = currentY;
+
+}
+
+void Camera3::ResetCursorVariables() {
+	mouseMovedX = 0;
+	mouseMovedY = 0;
+	mouseMovedDistanceX = 0;
+	mouseMovedDistanceY = 0;
+	glfwGetCursorPos(glfwGetCurrentContext(), &lastX, &lastY);
 }
 
 void Camera3::Update(double dt)
 {
+	// Cursor is shown, stop rotating the camera
+	if (isMouseEnabled && glfwGetInputMode(glfwGetCurrentContext(), GLFW_CURSOR) == GLFW_CURSOR_DISABLED && !Application::IsKeyPressed(MK_RBUTTON)) {
+		updateCursor();
+	}
+	else {
+		ResetCursorVariables();
+	}
+
 	static const float CAMERA_SPEED = 100.f;
 	float run = 1.f;
 
@@ -35,6 +108,36 @@ void Camera3::Update(double dt)
 	Vector3 right = view.Cross(up);
 	Vector3 upp = view.Cross(right);
   
+
+
+	float rotationSpeed = 2.5f * (float)dt;
+
+	// Rotate Camera with mouse-axis
+	if (mouseMovedX < 0) { // Left
+		yaw -= rotationSpeed * mouseMovedDistanceX;
+	}
+
+	if (mouseMovedX > 0) { // Right
+		yaw += rotationSpeed  * mouseMovedDistanceX;
+	}
+
+	if (mouseMovedY > 0) { // Up
+		pitch += rotationSpeed  * mouseMovedDistanceY;
+	}
+
+	if (mouseMovedY < 0) { // Down
+		pitch -= rotationSpeed * mouseMovedDistanceY;
+	}
+
+
+	pitch = Math::Clamp(pitch, _MinYawAngle, _MaxYawAngle); // clamp the up/down rotation of the camera to these angles
+
+	target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
+	target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
+	target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
+
+
+
     if (enteredPortal == false)
     {
         if (messageFreeze == false)
@@ -413,6 +516,7 @@ void Camera3::Update(double dt)
                 target = position + view;
             }
         }
+
     }
 }
 

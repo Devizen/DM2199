@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <stdlib.h>
 
+
 using std::cout;
 using std::cin;
 
@@ -188,7 +189,6 @@ void SceneBase::Init()
     meshList[GEO_MESSAGES] = MeshBuilder::GenerateText("messages", 16, 16);
     meshList[GEO_MESSAGES]->textureID = LoadTGA("Image//comic.tga");
 
-
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -267,6 +267,7 @@ void SceneBase::Init()
 
     // Make sure you pass uniform parameters after glUseProgram()
     glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+
 
 
 }

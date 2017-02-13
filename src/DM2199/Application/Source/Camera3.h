@@ -71,6 +71,38 @@ public:
     bool end = false;
 
     enum objects;
+
+
+	void ResetCursorVariables();
+private:
+	//----------Mouse Variables -----------
+
+	// Current angle of camera rotation
+	float yaw;
+	float pitch;
+	// Mouse direction moved, possible values: -1, 0, 1
+	double mouseMovedX;
+	double mouseMovedY;
+
+	// Distance the Cursor moved from the current and last frame. Used to determine mouse sensitivity
+	float mouseMovedDistanceX;
+	float mouseMovedDistanceY;
+
+	// Updates the direction in which the cursor has moved
+	void updateCursor();
+
+	bool isMouseEnabled = true;
+
+	// Maximum & Minimum height that the User can look
+	float _MinYawAngle = -50.0f;
+	float _MaxYawAngle = 50.0f;
+
+	// Cursor's previous position
+	double lastX = 0;
+	double lastY = 0;
+
+
+
 };
 
 #endif
