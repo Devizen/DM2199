@@ -72,6 +72,9 @@ public:
 
     enum objects;
 
+	float getPitch() { return pitch; };
+	float getYaw() { return yaw; };
+	Vector3 getPosition() { return position; };
 
 	void ResetCursorVariables();
 private:

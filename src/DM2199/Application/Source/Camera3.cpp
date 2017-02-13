@@ -112,30 +112,6 @@ void Camera3::Update(double dt)
 
 	float rotationSpeed = 2.5f * (float)dt;
 
-	// Rotate Camera with mouse-axis
-	if (mouseMovedX < 0) { // Left
-		yaw -= rotationSpeed * mouseMovedDistanceX;
-	}
-
-	if (mouseMovedX > 0) { // Right
-		yaw += rotationSpeed  * mouseMovedDistanceX;
-	}
-
-	if (mouseMovedY > 0) { // Up
-		pitch += rotationSpeed  * mouseMovedDistanceY;
-	}
-
-	if (mouseMovedY < 0) { // Down
-		pitch -= rotationSpeed * mouseMovedDistanceY;
-	}
-
-
-	pitch = Math::Clamp(pitch, _MinYawAngle, _MaxYawAngle); // clamp the up/down rotation of the camera to these angles
-
-	target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
-	target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
-	target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
-
 
 
     if (enteredPortal == false)
@@ -214,28 +190,31 @@ void Camera3::Update(double dt)
 
             if (Application::IsKeyPressed(VK_NUMPAD4))
             {
-                float yaw = (float)(CAMERA_SPEED * dt* run);
-                rotation.SetToRotation(yaw, 0, 1, 0);
-                view = rotation * view;
-                target = position + view;
+                //float yaw = (float)(CAMERA_SPEED * dt* run);
+                //rotation.SetToRotation(yaw, 0, 1, 0);
+                //view = rotation * view;
+                //target = position + view;
+				yaw -= (CAMERA_SPEED * dt * run);
             }
 
             if (Application::IsKeyPressed(VK_NUMPAD6))
             {
-                float yaw = (float)(-CAMERA_SPEED * dt* run);
-                rotation.SetToRotation(yaw, 0, 1, 0);
-                view = rotation * view;
-                target = position + view;
+                //float yaw = (float)(-CAMERA_SPEED * dt* run);
+                //rotation.SetToRotation(yaw, 0, 1, 0);
+                //view = rotation * view;
+                //target = position + view;
+				yaw += (CAMERA_SPEED * dt * run);
             }
 
             if (Application::IsKeyPressed(VK_NUMPAD8))
             {
                 if (view.y < 0.7f)
                 {
-                    float yaw = (float)(CAMERA_SPEED * dt* run);
-                    rotation.SetToRotation(yaw, right.x, right.y, right.z);
-                    view = rotation * view;
-                    target = position + view;
+                    //float yaw = (float)(CAMERA_SPEED * dt* run);
+                    //rotation.SetToRotation(yaw, right.x, right.y, right.z);
+                    //view = rotation * view;
+                    //target = position + view;
+					pitch += (CAMERA_SPEED * dt * run);
                 }
             }
 
@@ -243,10 +222,11 @@ void Camera3::Update(double dt)
             {
                 if (view.y > -0.7f)
                 {
-                    float yaw = (float)(-CAMERA_SPEED * dt* run);
-                    rotation.SetToRotation(yaw, right.x, right.y, right.z);
-                    view = rotation * view;
-                    target = position + view;
+                    //float yaw = (float)(-CAMERA_SPEED * dt* run);
+                    //rotation.SetToRotation(yaw, right.x, right.y, right.z);
+                    //view = rotation * view;
+                    //target = position + view;
+					pitch -= (CAMERA_SPEED * dt * run);
                 }
             }
 
@@ -475,6 +455,32 @@ void Camera3::Update(double dt)
             {
                 Reset();
             }
+
+			////////////////////////////////////////////////////////////////////////////////////////////////
+			// Rotate Camera with mouse-axis
+			if (mouseMovedX < 0) { // Left
+				yaw -= rotationSpeed * mouseMovedDistanceX;
+			}
+
+			if (mouseMovedX > 0) { // Right
+				yaw += rotationSpeed  * mouseMovedDistanceX;
+			}
+
+			if (mouseMovedY > 0) { // Up
+				pitch += rotationSpeed  * mouseMovedDistanceY;
+			}
+
+			if (mouseMovedY < 0) { // Down
+				pitch -= rotationSpeed * mouseMovedDistanceY;
+			}
+
+
+			pitch = Math::Clamp(pitch, _MinYawAngle, _MaxYawAngle); // clamp the up/down rotation of the camera to these angles
+
+			target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
+			target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
+			target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
+
         }
     }
     else

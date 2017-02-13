@@ -7,6 +7,8 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
+#include "FactoryObject.h"
+#include "Enemy.h"
 
 //Randomize
 #include <stdlib.h>
@@ -14,6 +16,10 @@
 
 class SceneBase : public Scene
 {
+	friend class Object;
+	friend class Bullet;
+	friend class Enemy;
+
     enum GEOMETRY_TYPE
     {
         GEO_FLOOR = 0,
@@ -154,15 +160,15 @@ public:
     void cycleCheck();
     void renderLightSwitch();
 
-
-
-
-
     //Text
     void renderText();
 
     //Reset All Settings
     void resetAll();
+
+	FactoryObject objFactory;
+	float _dt;
+	float _elapsedTime = 0;
 
 
 private:
@@ -187,6 +193,11 @@ private:
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
     void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
     void renderPosition();
+
+
+	//Cool down between shooting each bullet
+	const float bulletCoolDown = 0.2f;
+	float nextBulletTime = 0;
 
 };
 

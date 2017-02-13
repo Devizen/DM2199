@@ -269,17 +269,37 @@ void SceneBase::Init()
     glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 
 
+	
+
 
 }
 
 void SceneBase::Update(double dt)
 {
+	_dt = (float)dt;
+	_elapsedTime += _dt;
+
+	//Process  obj movement
+	objFactory.processInteraction();
+
     static const float LSPEED = 10.f;
     srand(time(NULL));
 
     static float rotateWorld = 1;
 
     float run = 1.f;
+
+	if (Application::IsKeyPressed(MK_LBUTTON))
+	{
+		if (_elapsedTime >= nextBulletTime)
+		{
+			objFactory.createFactoryObject(new Bullet(this, camera.getPosition()));
+			nextBulletTime = _elapsedTime + bulletCoolDown;
+		}
+	}
+
+
+
 
     //Skybox Rotation
     rotateSkybox += (float)(1 * rotateWorld * dt);
@@ -425,7 +445,10 @@ void SceneBase::Render()
     renderGround();
     renderPosition();
 
-    renderText();
+   renderText();
+
+   objFactory.renderFactoryObject();
+
 }
 
 void SceneBase::renderMountains()
