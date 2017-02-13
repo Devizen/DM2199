@@ -1,0 +1,76 @@
+#ifndef CAMERA_3_H
+#define CAMERA_3_H
+
+#include "Camera.h"
+
+class Camera3 : public Camera
+{
+public:
+	//Vector3 position;
+	//Vector3 target;
+	//Vector3 up;
+
+	Vector3 defaultPosition;
+	Vector3 defaultTarget;
+	Vector3 defaultUp;
+
+	Camera3();
+	~Camera3();
+	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
+	virtual void Update(double dt);
+	virtual void Reset();
+	void preventXZOver();
+    void resetDirectionPressed();
+    void collisionCheck();
+
+    //Jump
+	bool jump = false;
+    bool directionJump = false;
+    bool fall = false;
+    bool upPressed = false, downPressed = false, leftPressed = false, rightPressed = false;
+    bool jumpStucked = false;
+
+
+    bool collision = false;
+
+    //Camera View
+    bool firstPerson = true;
+    bool thirdPerson = false;
+	
+	float armRotate = 0.f;
+    float mapSize = 485.f;
+    float jumpHeight = 25.f;
+
+
+    //Messages Freeze Movement
+    bool messageFreeze = false;
+
+
+    //Collision Detection
+    //Total Amount of Objects
+    static unsigned const amountOfObjects = 5;
+
+    //Objects location initializer
+    void objectsLocation();
+
+    //Previous position
+    Vector3 PrevPos = { 0.0f, 0.0f, 0.0f };
+
+    Vector3 objectsMin[amountOfObjects];
+    Vector3 objectsMax[amountOfObjects];
+
+    //Sword
+    bool swordCombined = false;
+
+    //Lumber
+    bool lumberCollected = false;
+
+    //Portal
+    bool portalUnlocked = false;
+    bool enteredPortal = false;
+    bool end = false;
+
+    enum objects;
+};
+
+#endif
