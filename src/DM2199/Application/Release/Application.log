@@ -1,16 +1,10 @@
-﻿Build started 2/14/2017 3:18:04 PM.
-     1>Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Application\Application.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2/15/2017 2:55:13 AM.
+     1>Project "D:\DM2199\src\DM2199\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\161159U\Desktop\Studio Project\src\DM2199\\Common\Source" /I"C:\Users\161159U\Desktop\Studio Project\src\DM2199\\glfw\include" /I"C:\Users\161159U\Desktop\Studio Project\src\DM2199\\glew\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\SceneBase.cpp
-         SceneBase.cpp
-     1>Source\SceneBase.cpp(315): warning C4018: '<' : signed/unsigned mismatch
-     1>Source\SceneBase.cpp(325): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>Source\SceneBase.cpp(400): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>Source\SceneBase.cpp(405): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>Source\SceneBase.cpp(840): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Source\SceneBase.cpp(841): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\DM2199\src\DM2199\\Common\Source /ID:\DM2199\src\DM2199\\glfw\include /ID:\DM2199\src\DM2199\\glew\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp
+         Application.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Application.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release" /LIBPATH:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\\glfw\lib-msvc120" /LIBPATH:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\\glew\lib" glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Application.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Application.lib" /MACHINE:X86 /SAFESEH Release\Application.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\DM2199\src\DM2199\Release\Application.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:D:\DM2199\src\DM2199\Release /LIBPATH:"D:\DM2199\src\DM2199\\glfw\lib-msvc120" /LIBPATH:D:\DM2199\src\DM2199\\glew\lib glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\DM2199\src\DM2199\Release\Application.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\DM2199\src\DM2199\Release\Application.lib" /MACHINE:X86 /SAFESEH Release\Application.obj
          Release\Bullet.obj
          Release\Camera.obj
          Release\Camera2.obj
@@ -26,14 +20,16 @@
          Release\MeshBuilder.obj
          Release\Object.obj
          Release\SceneBase.obj
+         Release\SceneMainMenu.obj
+         Release\SceneSplash.obj
          Release\shader.obj
          Release\Sound.obj
          Release\Utility.obj
          Generating code
          Finished generating code
-         Application.vcxproj -> C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Application.exe
-     1>Done Building Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Application\Application.vcxproj" (Build target(s)).
+         Application.vcxproj -> D:\DM2199\src\DM2199\Release\Application.exe
+     1>Done Building Project "D:\DM2199\src\DM2199\Application\Application.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.63
+Time Elapsed 00:00:06.54

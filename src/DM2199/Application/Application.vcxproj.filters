@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{0c3dadf3-c817-4f39-a624-b85ba458d488}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{4bacd328-d02b-4954-8ccd-5d3533b583be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{9d8f8e67-7f9c-4b3e-8c39-6a3eaed662fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -75,9 +81,6 @@
     <ClCompile Include="Source\LoadOBJ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Object.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
@@ -93,12 +96,18 @@
     <ClCompile Include="Source\Sound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneBase.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneSplash.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneMainMenu.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\shader.hpp">
@@ -137,9 +146,6 @@
     <ClInclude Include="Source\LoadOBJ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Object.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
@@ -154,6 +160,18 @@
     </ClInclude>
     <ClInclude Include="Source\Sound.h">
       <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneBase.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneSplash.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneMainMenu.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

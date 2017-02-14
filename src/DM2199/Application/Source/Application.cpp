@@ -13,6 +13,8 @@
 
 
 #include "SceneBase.h"
+#include "SceneSplash.h"
+#include "SceneMainMenu.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -117,26 +119,30 @@ void Application::Run()
     //Main Loop
     //Scene *scene1 = new SceneA3();
     //Scene *scene2 = new SceneUI();
-    Scene *scene = new SceneBase();
+    //Scene *scene = new SceneBase();
+    Scene *sceneSplash = new SceneSplash();
+    Scene *sceneMainMenu = new SceneMainMenu();
+    Scene *sceneTutorial = new SceneBase();
+    Scene *scene = sceneSplash;
     scene->Init();
 
 
     m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
     while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
     {
-        //std::cout << sceneNumber << std::endl;
-        //if (sceneNumber == 0 && scene != scene1)
-        //{
-        //    scene->Exit();
-        //    scene = scene1;
-        //    scene->Init();
-        //}
-        //else if (sceneNumber == 1 && scene != scene2)
-        //{
-        //    scene->Exit();
-        //    scene = scene2;
-        //    scene->Init();
-        //}
+        if (sceneNumber == 1 && scene != sceneMainMenu)
+        {
+            scene->Exit();
+            scene = sceneMainMenu;
+            scene->Init();
+        }
+
+        if (sceneNumber == 2 && scene != sceneTutorial)
+        {
+            scene->Exit();
+            scene = sceneTutorial;
+            scene->Init();
+        }
 
         scene->Update(m_timer.getElapsedTime());
         scene->Render();

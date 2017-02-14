@@ -19,7 +19,7 @@ public:
     double switchScene1 = 0.0;
 
 
-    static void ChangeScene(int sceneNumber);
+    static void ChangeScene(int sceneNumber); //0 == Splash, 1 == Main Menu, 2 == Game
     //void timeUpdate(float time);
     //float returnTime();
 private:
