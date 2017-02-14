@@ -201,9 +201,6 @@ void SceneSplash::Init()
 
 void SceneSplash::Update(double dt)
 {
-    //Time Out for Splash Screen
-    static float timeOut = 0.f;
-
     srand((unsigned)time(NULL));
 
     timeOut += (float)dt;
@@ -319,8 +316,8 @@ void SceneSplash::Render()
         glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
     }
 
-    RenderMeshOnScreen(meshList[GEO_SPLASH], 40, 30, 100, 100);
-
+    //Render Splash Screen with Scaling
+    RenderMeshOnScreen(meshList[GEO_SPLASH], 40, 30, 100 + (timeOut * 10), 100 + (timeOut * 10));
 }
 
 
@@ -446,7 +443,7 @@ void SceneSplash::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
     glEnable(GL_DEPTH_TEST);
 }
 
-void SceneSplash::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey)
+void SceneSplash::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
     glDisable(GL_DEPTH_TEST);
     Mtx44 ortho;
@@ -458,8 +455,8 @@ void SceneSplash::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int si
 
     modelStack.PushMatrix();
     modelStack.LoadIdentity();
-    modelStack.Translate((float)x, (float)y, 0.f);
-    modelStack.Scale((float)sizex, (float)sizey, 1.f);
+    modelStack.Translate(x, y, 0.f);
+    modelStack.Scale(sizex, sizey, 1.f);
     //to do: scale and translate accordingly
     RenderMesh(mesh, false); //UI should not have light
     projectionStack.PopMatrix();

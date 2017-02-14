@@ -60,21 +60,21 @@ void Camera::Update(double dt)
 {
 	if (Application::IsKeyPressed('W'))
 	{
-		position.y += 10.0f * dt;
+        position.y += 10.0f * (float)dt;
 	}
 
 	if (Application::IsKeyPressed('A'))
 	{
-		position.x -= 10.0f * dt;
+        position.x -= 10.0f * (float)dt;
 	}
 
 	if (Application::IsKeyPressed('S'))
 	{
-		position.y -= 10.0f * dt;
+        position.y -= 10.0f * (float)dt;
 	}
 
 	if (Application::IsKeyPressed('D'))
 	{
-		position.x += 10.0f * dt;
+        position.x += 10.0f * (float)dt;
 	}
 }

@@ -1,9 +1,13 @@
-﻿Build started 2/13/2017 11:50:12 AM.
+﻿Build started 2/15/2017 3:05:12 AM.
      1>Project "D:\DM2199\src\DM2199\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\DM2199\src\DM2199\Debug\Common.lib" /NOLOGO Debug\MatrixStack.obj
+         Debug\Mtx44.obj
+         Debug\timer.obj
+         Debug\Vector3.obj
          Common.vcxproj -> D:\DM2199\src\DM2199\Debug\Common.lib
      1>Done Building Project "D:\DM2199\src\DM2199\Common\Common.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.10
+Time Elapsed 00:00:01.26
