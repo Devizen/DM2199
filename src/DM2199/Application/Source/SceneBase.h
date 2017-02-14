@@ -9,6 +9,7 @@
 #include "Light.h"
 #include "FactoryObject.h"
 #include "Enemy.h"
+#include "Sound.h"
 
 //Randomize
 #include <stdlib.h>
@@ -178,6 +179,8 @@ public:
 	float _dt;
 	float _elapsedTime = 0;
 
+	//Sound
+	std::vector<Sound *> soundStorage;
 
 private:
     unsigned m_vertexArrayID;
