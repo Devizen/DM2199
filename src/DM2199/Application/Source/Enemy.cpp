@@ -39,3 +39,18 @@ void Enemy::interact()
 	}
   
 }
+
+bool Enemy::damageDealt(float posX, float posZ)
+{
+    if ((this->position_.x - 15 < posX && 
+        this->position_.x + 15 > posX) &&
+        (this->position_.z - 15 < posZ &&
+        this->position_.z + 15 > posZ))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

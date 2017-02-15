@@ -115,7 +115,7 @@ void Camera3::Update(double dt)
 	float rotationSpeed = 2.5f * (float)dt;
 
     //Keyboard Controls
-    if (Application::IsKeyPressed(VK_NUMPAD5))
+    if (Application::IsKeyPressed(VK_NUMPAD5) || Application::IsKeyPressed(VK_LSHIFT))
     {
         run = 3.f;
     }

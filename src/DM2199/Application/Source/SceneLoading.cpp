@@ -9,7 +9,11 @@
 #include "shader.hpp"
 #include "Utility.h"
 
+//ofstream: Stream class to write on files
+//ifstream: Stream class to read from files
+//fstream: Stream class to both read and write from / to files.
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <stdlib.h>
 
@@ -27,6 +31,12 @@ SceneLoading::~SceneLoading()
 
 void SceneLoading::Init()
 {
+    ofstream myfile;
+    myfile.open("Text/example.txt");
+    myfile << "Writing this to a file.\n";
+    myfile.close();
+
+
     // Set background color to black 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 

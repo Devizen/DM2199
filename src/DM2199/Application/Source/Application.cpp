@@ -150,7 +150,7 @@ void Application::Run()
 
         if (sceneNumber == 3 && scene != sceneTutorial)
         {
-
+            scene->Exit();
             scene = sceneLoadingAtBack;
 
         }

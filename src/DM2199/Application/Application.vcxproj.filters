@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{9d8f8e67-7f9c-4b3e-8c39-6a3eaed662fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game_Objects">
+      <UniqueIdentifier>{8ab901db-6cdc-49b8-97ae-fa96134dcd80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game_Objects">
+      <UniqueIdentifier>{8a1733ca-f5c2-44b7-a4d6-2c868d16c1fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -108,11 +114,19 @@
     <ClCompile Include="Source\SceneLoading.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+
     <ClCompile Include="Source\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ItemInfo.cpp">
       <Filter>Source Files</Filter>
+
+    <ClCompile Include="Source\gameobject.cpp">
+      <Filter>Source Files\Game_Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\player.cpp">
+      <Filter>Source Files\Game_Objects</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +178,6 @@
     <ClInclude Include="Source\FactoryObject.h">
       <Filter>Header Files\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Sound.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
@@ -185,11 +196,22 @@
     <ClInclude Include="Source\SceneLoading.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+
     <ClInclude Include="Source\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\ItemInfo.h">
       <Filter>Header Files</Filter>
+
+    <ClInclude Include="Source\gameobject.h">
+      <Filter>Header Files\Game_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\player.h">
+      <Filter>Header Files\Game_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Header Files\Game_Objects</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

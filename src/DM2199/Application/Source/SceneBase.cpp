@@ -5,6 +5,7 @@
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
 #include "LoadOBJ.h"
+#include "player.h"
 
 #include "shader.hpp"
 #include "Utility.h"
@@ -360,6 +361,7 @@ void SceneBase::Init()
 
 	objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))));
 
+
 	//----------------Inventory--------------
 	inventoryOpen = false;
 	
@@ -383,6 +385,11 @@ void SceneBase::Init()
 	//delay between keypresses while in menu
 	startTime = 0.0f;
 	cooldown = 15.0f;
+
+   
+    ////Player *hero = new Player();
+    ////Enemy *enemy = new Enemy();
+
 }
 
 void SceneBase::Update(double dt)
@@ -497,6 +504,13 @@ void SceneBase::Update(double dt)
 	FPS = 1 / (float)dt;
 
 	startTime++;
+
+    //If enemy is in range of player, damage HP
+    //if (enemy->damageDealt(camera.position.x, camera.position.z) == true)
+    //{
+    //    Exit();
+    //}
+
 }
 
 void SceneBase::Render()

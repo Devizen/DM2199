@@ -8,7 +8,10 @@ class Enemy : public Object
 {
 public:
 	Enemy(SceneBase * scene, Vector3 pos);
+    Enemy();
 	~Enemy(){ enemyCount--; };
+
+    bool damageDealt(float posX, float posZ);
 
 	virtual void interact();
 	static unsigned enemyCount;

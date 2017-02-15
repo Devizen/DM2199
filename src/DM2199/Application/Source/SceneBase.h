@@ -9,6 +9,7 @@
 #include "Light.h"
 #include "FactoryObject.h"
 #include "Enemy.h"
+#include "player.h"
 #include "Sound.h"
 
 //Randomize
@@ -174,6 +175,9 @@ class SceneBase : public Scene
 
 
     unsigned m_parameters[U_TOTAL];
+
+    Player *hero;
+    Enemy *enemy;
 
 public:
     SceneBase();
