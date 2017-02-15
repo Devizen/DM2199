@@ -296,7 +296,7 @@ void SceneBase::Init()
 
 	soundStorage.push_back(new Sound("gunshot.mp3",1000));
 	soundStorage.push_back(new Sound("bleep.mp3", 100));
-	soundStorage.push_back(new Sound("bleep.mp3"));
+	soundStorage.push_back(new Sound("Footstep.ogg"));
 	soundStorage.push_back(new Sound("backgroundmusic.mp3"));
 
 	/* vec3df somePosition = { 0, 0,0};
