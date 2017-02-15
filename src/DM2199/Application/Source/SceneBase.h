@@ -68,10 +68,22 @@ class SceneBase : public Scene
 		GEO_HP50,
 		GEO_HP25,
 
-      
+		//Item & Inventory
+		GEO_SWORD,
+		GEO_TORCH,
+
+		//minimap
+		GEO_MINI_PLAYER,
+		GEO_MINI_GROUND,
+		GEO_MINI_ENEMY,
+	
+		GEO_INVENTORY,
+		GEO_GAME_HUD,
+		GEO_HP,
+
         //Text
         GEO_TEXT,
-
+	
         //UI
         GEO_FACE,
         GEO_BACKGROUND,
@@ -205,6 +217,12 @@ public:
 	//Sound
 	std::vector<Sound *> soundStorage;
 
+	bool inventoryOpen;
+	
+	float startTime;
+	float cooldown;
+
+
 private:
     unsigned m_vertexArrayID;
     Mesh* meshList[NUM_GEOMETRY];
@@ -222,6 +240,7 @@ private:
     void renderEndBox();
     float rotateSkybox;
 
+	void renderInventory();
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
