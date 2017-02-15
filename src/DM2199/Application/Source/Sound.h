@@ -18,8 +18,8 @@ class Sound
 {
 public:
 	Sound(string soundFile); // constructor 1 
-	Sound(string soundFile, ik_f32 minDistance); // constructor 2 
-	~Sound();
+	Sound(string soundFile, ik_f32 minDistance); // constructor 2  
+	~Sound(); 
  	void play2DSound(bool loop, bool pause, bool startTrack); // Plays entire sound file (2D)  
 	void play3DSound(bool loop, bool pause, bool startTrack, vec3df soundStartingLocation); // Plays entire sound file (3D)     
 

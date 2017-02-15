@@ -288,11 +288,11 @@ void SceneBase::Init()
 	// Make sure you pass uniform parameters after glUseProgram()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 
-	
+
 
 	soundStorage.push_back(new Sound("gunshot.mp3"));
-	soundStorage.push_back(new Sound("bleep.mp3",100));
-	soundStorage.push_back(new Sound(""));
+	soundStorage.push_back(new Sound("bleep.mp3", 100));
+	soundStorage.push_back(new Sound("bleep.mp3"));
 
 	/* vec3df somePosition = { 0, 0,0};
 	 soundStorage[1]->play3DSound(true, false, false, somePosition);*/
@@ -313,7 +313,10 @@ void SceneBase::Update(double dt)
 	vec3df zero = { 0, 0, 0 };
 
 	for (int i = 0; i < soundStorage.size(); ++i)
-	soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
+	{
+		soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
+	}
+	
 
 	_dt = (float)dt;
 	_elapsedTime += _dt;
@@ -333,21 +336,31 @@ void SceneBase::Update(double dt)
 		if (_elapsedTime >= nextBulletTime)
 		{
 			objFactory.createFactoryObject(new Bullet(this, camera.getPosition()));
-		    nextBulletTime = _elapsedTime + bulletCoolDown;
+			nextBulletTime = _elapsedTime + coolDown;
 			soundStorage[0]->play3DSound(false, false, false, camPos);
 		}
 	}
 
-	
-	vec3df footPos = { camera.getPosition().x, camera.getPosition().y-5, camera.getPosition().z };
-	//FootStep
-	if (Application::IsKeyPressed('W'))
+	if (Application::IsKeyPressed(MK_LBUTTON) && (Application::IsKeyPressed('A')))
 	{
-
-	/*	soundStorage[2]->play3DSound(false, false, false, footPos);*/
-
+		if (_elapsedTime >= nextBulletTime)
+		{
+			objFactory.createFactoryObject(new Bullet(this, camera.getPosition()));
+			nextBulletTime = _elapsedTime + coolDown;
+			soundStorage[0]->play3DSound(false, false, false, camPos);
+		}
 	}
-	
+
+
+
+	vec3df footPos = { camera.getPosition().x, camera.getPosition().y-5, camera.getPosition().z };
+	//FootStep Sound
+	if (Application::IsKeyPressed('W') && (_elapsedTime >=nextWalkTime))
+	{
+		nextWalkTime = _elapsedTime + coolDown;
+		 soundStorage[2]->play3DSound(false, false, false, footPos);
+	}
+
 
 	//Skybox Rotation
 	rotateSkybox += (float)(1 * rotateWorld * dt);

@@ -205,10 +205,12 @@ private:
     void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
     void renderPosition();
 
-
+	// Cool Down Time
+	const float coolDown = 0.2f;
 	//Cool down between shooting each bullet
-	const float bulletCoolDown = 0.2f;
 	float nextBulletTime = 0;
+	//Cool Down between each walk sound
+	float nextWalkTime = 0;
 
 };
 

@@ -61,7 +61,6 @@ void Bullet::interact(){
 			_scene->objFactory.destroyFactoryObject(*it);
 
 		}
-
 	}
 
 }

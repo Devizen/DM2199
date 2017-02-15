@@ -31,6 +31,5 @@ void Enemy::interact()
 	// Move the Enemy
 	position_.x -= moveX;
 	position_.z -= moveZ;
-
-
+  
 }

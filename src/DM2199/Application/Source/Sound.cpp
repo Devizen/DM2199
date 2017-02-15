@@ -5,6 +5,7 @@ Sound::Sound(string soundFile)
 	//Starting up the Sound Engine
 	soundEngine = createIrrKlangDevice();
 	currentSound2D = NULL;
+	currentSound3D = NULL;
 
 
 	if (!soundEngine) // creation of soundEngine instance fail
@@ -25,6 +26,7 @@ Sound::Sound(string soundFile, ik_f32 minDistance)
 	//Starting up the Sound Engine
 	soundEngine = createIrrKlangDevice();
 	currentSound2D = NULL;
+	currentSound3D = NULL;
 	
 	soundEngine->setDefault3DSoundMinDistance(minDistance);
 
@@ -71,19 +73,17 @@ void Sound::play2DSound(bool loop, bool pause, bool startTrack)
 	//}
 
 }
-void Sound::play3DSound(bool loop, bool pause, bool startTrack ,vec3df soundStartingLocation)
+
+void Sound::play3DSound(bool loop, bool pause, bool startTrack, vec3df soundStartingLocation)
 {
 	if (fileName == "\0")
 	{
 		cout << "Error: no sound file is selected" << endl;
 		return;
 	}
-
-	
+  
 	currentSound3D = soundEngine->play3D(fileName.c_str(), soundStartingLocation, loop, pause, startTrack);
-
 }
-
 
 
 
