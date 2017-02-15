@@ -13,6 +13,8 @@
 #include <iomanip>
 #include <stdlib.h>
 
+#include "ItemInfo.h"
+#include "Inventory.h"
 
 using std::cout;
 using std::cin;
@@ -25,6 +27,7 @@ SceneBase::~SceneBase()
 {
 }
 
+Inventory* global_inventory = 0;
 void SceneBase::Init()
 {
 	// Set background color to black 
@@ -240,8 +243,30 @@ void SceneBase::Init()
 	meshList[GEO_SWORD3] = MeshBuilder::GenerateQuad("sword3", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_SWORD3]->textureID = LoadTGA("Image//Sprites//Sword3.tga");
 
+	//Item
+	meshList[GEO_SWORD] = MeshBuilder::GenerateOBJ("Sword", "OBJ//Sword.obj");
+	meshList[GEO_SWORD]->textureID = LoadTGA("Image//Sword.tga");
 
+	meshList[GEO_TORCH] = MeshBuilder::GenerateOBJ("Torch", "OBJ//Torch.obj");
+	meshList[GEO_TORCH]->textureID = LoadTGA("Image//Torch.tga");
 
+	meshList[GEO_INVENTORY] = MeshBuilder::GenerateOBJ("Inventory", "OBJ//inventory.obj");
+	meshList[GEO_INVENTORY]->textureID = LoadTGA("Image//inventorytest.tga");
+
+	meshList[GEO_MINI_PLAYER] = MeshBuilder::GenerateOBJ("mini_player", "OBJ//inventory.obj");
+	meshList[GEO_MINI_PLAYER]->textureID = LoadTGA("Image//mini_player.tga");
+
+	meshList[GEO_MINI_GROUND] = MeshBuilder::GenerateOBJ("mini_ground", "OBJ//inventory.obj");
+	meshList[GEO_MINI_GROUND]->textureID = LoadTGA("Image//grass.tga");
+
+	meshList[GEO_MINI_ENEMY] = MeshBuilder::GenerateOBJ("mini_enemy", "OBJ//inventory.obj");
+	meshList[GEO_MINI_ENEMY]->textureID = LoadTGA("Image//mini_enemy.tga");
+
+	meshList[GEO_GAME_HUD] = MeshBuilder::GenerateOBJ("game_hud", "OBJ//inventory.obj");
+	meshList[GEO_GAME_HUD]->textureID = LoadTGA("Image//game_hud.tga");
+	
+	meshList[GEO_HP] = MeshBuilder::GenerateOBJ("game_hp", "OBJ//inventory.obj");
+	meshList[GEO_HP]->textureID = LoadTGA("Image//hp_bar.tga");
 	//Prevent Jerk
 	camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -335,8 +360,29 @@ void SceneBase::Init()
 
 	objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))));
 
+	//----------------Inventory--------------
+	inventoryOpen = false;
+	
+		//initialise singleton of inventory class
+
+	if (global_inventory == 0)
+	{
+		global_inventory = new Inventory();
+		global_inventory->setdefined(1);
+	}
+	ItemInfo* sword = new ItemInfo("sword", 20, 20, 10, 5);
+	global_inventory->addItem(sword);
+
+	ItemInfo* torch = new ItemInfo(("torch"), 0, 50, 0, 10);
+	global_inventory->addItem(torch);
+		// adding items to inventory
+	ItemInfo* fist = new ItemInfo();
+	global_inventory->addItem(fist);
 
 
+	//delay between keypresses while in menu
+	startTime = 0.0f;
+	cooldown = 15.0f;
 }
 
 void SceneBase::Update(double dt)
@@ -377,7 +423,19 @@ void SceneBase::Update(double dt)
 		}
 	}
 
-
+	if (Application::IsKeyPressed('I'))
+	{
+		if (inventoryOpen && startTime >= cooldown)
+		{
+			inventoryOpen = false;
+			startTime = 0;
+		}
+		else if (startTime >= cooldown)
+		{
+			inventoryOpen = true;
+			startTime = 0;
+		}
+	}
 
 	vec3df footPos = { camera.getPosition().x, camera.getPosition().y-5, camera.getPosition().z };
 	//FootStep Sound
@@ -437,6 +495,8 @@ void SceneBase::Update(double dt)
 
 	//FPS Counter
 	FPS = 1 / (float)dt;
+
+	startTime++;
 }
 
 void SceneBase::Render()
@@ -538,9 +598,120 @@ void SceneBase::Render()
 
 	objFactory.renderFactoryObject();
 
+	if (inventoryOpen)
+	{
+		if (startTime >= cooldown)
+		{
+			if (Application::IsKeyPressed(VK_DOWN)) // scroll down item list
+			{
+				global_inventory->CycleDisplay(0);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed(VK_UP)) // scroll up item list
+			{
+				global_inventory->CycleDisplay(1);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed('J')) // equip primary
+			{
+				global_inventory->equipItem(1);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed('K')) // equip secondary
+			{
+				global_inventory->equipItem(0);
+				startTime = 0;
+			}
+		}
+		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65 ,1,0);
+		renderInventory();
+	}
+	else
+	{
+		//in game hud
+		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 1, 0);
 
+		//minimap
+		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 1, 0);
+		for (vector<Object*>::iterator it = objFactory.Container.begin(); it != objFactory.Container.end(); it++)
+		{
+			RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0);
+		}
+	}
 }
+void SceneBase::renderInventory()
+{
+	if (!global_inventory->pointer)
+	{
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 20, 3, 3, 1, 0);
+	}
+	else
+	{
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 10, 3, 3, 1, 0);
+	}
 
+	if (global_inventory->getActiveItem())
+	{
+		ItemInfo* activeItem = global_inventory->getActiveItem();
+		if (activeItem->gettype() == "sword")
+		{
+			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4, 1, 0);
+		}
+		else if (activeItem->gettype() == "fist")
+		{
+			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 30, 10, 10, 1, 0);
+		}
+		else if (activeItem->gettype() == "torch")
+		{
+			RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4, 1, 0);
+		}
+	}
+
+	if (global_inventory->getSecondaryItem())
+	{
+		ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
+		if (secondaryItem->gettype() == "sword")
+		{
+			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4, 1, 0);
+		}
+		else if (secondaryItem->gettype() == "fist")
+		{
+			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 30, 30, 10, 10, 1, 0);
+		}
+		else if (secondaryItem->gettype() == "torch")
+		{
+			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4, 1, 0);
+		}
+	}
+	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
+	if (ItemDisplay1->gettype() == "sword")
+	{
+		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2, 1, 0);
+	}
+	else if (ItemDisplay1->gettype() == "fist")
+	{
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 20, 5, 5, 1, 0);
+	}
+	else if (ItemDisplay1->gettype() == "torch")
+	{
+		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3, 1, 0);
+	}
+
+	ItemInfo* ItemDisplay2 = global_inventory->getDisplay2();
+	if (ItemDisplay2->gettype() == "sword")
+	{
+		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2, 1, 0);
+	}
+	else if (ItemDisplay2->gettype() == "fist")
+	{
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 10, 5, 5, 1, 0);
+	}
+	else if (ItemDisplay2->gettype() == "torch")
+	{
+		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3, 1, 0);
+	}
+}
 void SceneBase::renderMountains()
 {
 
