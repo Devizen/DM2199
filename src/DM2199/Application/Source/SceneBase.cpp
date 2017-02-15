@@ -209,35 +209,35 @@ void SceneBase::Init()
 	meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
 
 	//Flicker
-	meshList[GEO_FLICKER] = MeshBuilder::GenerateQuad("flicker", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
 	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
 
 	//Sprites
-	meshList[GEO_HANDL1] = MeshBuilder::GenerateQuad("handL1", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_HANDL1] = MeshBuilder::GenerateOBJ("handL1", "OBJ//quad.obj");
 	meshList[GEO_HANDL1]->textureID = LoadTGA("Image//Sprites//HandL1.tga");
-	meshList[GEO_HANDR1] = MeshBuilder::GenerateQuad("handR1", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_HANDR1] = MeshBuilder::GenerateOBJ("handR1", "OBJ//quad.obj");
 	meshList[GEO_HANDR1]->textureID = LoadTGA("Image//Sprites//HandR1.tga");
-	meshList[GEO_HANDL2] = MeshBuilder::GenerateQuad("handL2", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_HANDL2] = MeshBuilder::GenerateOBJ("handL2", "OBJ//quad.obj");
 	meshList[GEO_HANDL2]->textureID = LoadTGA("Image//Sprites//HandL2.tga");
-	meshList[GEO_HANDR2] = MeshBuilder::GenerateQuad("handR2", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_HANDR2] = MeshBuilder::GenerateOBJ("handR2", "OBJ//quad.obj");
 	meshList[GEO_HANDR2]->textureID = LoadTGA("Image//Sprites//HandR2.tga");
-	meshList[GEO_GUN1] = MeshBuilder::GenerateQuad("gun1", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_GUN1] = MeshBuilder::GenerateOBJ("gun1", "OBJ//quad.obj");
 	meshList[GEO_GUN1]->textureID = LoadTGA("Image//Sprites//Gun1.tga");
-	meshList[GEO_GUN2] = MeshBuilder::GenerateQuad("gun2", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_GUN2] = MeshBuilder::GenerateOBJ("gun2", "OBJ//quad.obj");
 	meshList[GEO_GUN2]->textureID = LoadTGA("Image//Sprites//Gun2.tga");
-	meshList[GEO_GUN3] = MeshBuilder::GenerateQuad("gun3", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_GUN3] = MeshBuilder::GenerateOBJ("gun3", "OBJ//quad.obj");
 	meshList[GEO_GUN3]->textureID = LoadTGA("Image//Sprites//Gun3.tga");
-	meshList[GEO_CANNON1] = MeshBuilder::GenerateQuad("cannon1", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_CANNON1] = MeshBuilder::GenerateOBJ("cannon1", "OBJ//quad.obj");
 	meshList[GEO_CANNON1]->textureID = LoadTGA("Image//Sprites//Cannon1.tga");
-	meshList[GEO_CANNON2] = MeshBuilder::GenerateQuad("cannon2", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_CANNON2] = MeshBuilder::GenerateOBJ("cannon2", "OBJ//quad.obj");
 	meshList[GEO_CANNON2]->textureID = LoadTGA("Image//Sprites//Cannon2.tga");
-	meshList[GEO_CANNON3] = MeshBuilder::GenerateQuad("cannon3", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_CANNON3] = MeshBuilder::GenerateOBJ("cannon3", "OBJ//quad.obj");
 	meshList[GEO_CANNON3]->textureID = LoadTGA("Image//Sprites//Cannon3.tga");
-	meshList[GEO_SWORD1] = MeshBuilder::GenerateQuad("sword1", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_SWORD1] = MeshBuilder::GenerateOBJ("sword1", "OBJ//quad.obj");
 	meshList[GEO_SWORD1]->textureID = LoadTGA("Image//Sprites//Sword1.tga");
-	meshList[GEO_SWORD2] = MeshBuilder::GenerateQuad("sword2", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_SWORD2] = MeshBuilder::GenerateOBJ("sword2", "OBJ//quad.obj");
 	meshList[GEO_SWORD2]->textureID = LoadTGA("Image//Sprites//Sword2.tga");
-	meshList[GEO_SWORD3] = MeshBuilder::GenerateQuad("sword3", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_SWORD3] = MeshBuilder::GenerateOBJ("sword3", "OBJ//quad.obj");
 	meshList[GEO_SWORD3]->textureID = LoadTGA("Image//Sprites//Sword3.tga");
 
 
@@ -720,27 +720,27 @@ void SceneBase::renderGround()
 void SceneBase::renderSprites()
 {
 	//Default hands
-	RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100, 100, 90);
-	RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100, 100, 90);
+	RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+	RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
 
 	//Punching hands
-	//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100, 120, 90);
-	//RenderMeshOnScreen(meshList[GEO_HANDR2], 65, 10, 100, 100, 120, 90);
+	//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_HANDR2], 65, 10, 100, 100);
 
 	//Gun
-	//RenderMeshOnScreen(meshList[GEO_GUN1], 65, 9, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_GUN2], 65, 12, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_GUN3], 65, 11, 100, 100, 100, 90);
+	//RenderMeshOnScreen(meshList[GEO_GUN1], 65, 9, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_GUN2], 65, 12, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_GUN3], 65, 11, 100, 100);
 
 	//Cannon
-	//RenderMeshOnScreen(meshList[GEO_CANNON1], 40, 11, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_CANNON2], 40, 13, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_CANNON3], 40, 12, 100, 100, 100, 90);
+	//RenderMeshOnScreen(meshList[GEO_CANNON1], 40, 11, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_CANNON2], 40, 13, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_CANNON3], 40, 12, 100, 100);
 
 	//Sword
-	//RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100, 100, 90);
-	//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100, 100, 90);
+	//RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
 }
 
 
@@ -889,7 +889,7 @@ void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 	glEnable(GL_DEPTH_TEST);
 }
 
-void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, int sizez, int rotation)
+void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -902,8 +902,7 @@ void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int size
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
     modelStack.Translate((float)x, (float)y, 0);
-	modelStack.Rotate(rotation, 1, 0, 0);
-	modelStack.Scale((float)sizex, (float)sizey, (float)sizez);
+	modelStack.Scale((float)sizex, (float)sizey, 1);
 	//to do: scale and translate accordingly
 	RenderMesh(mesh, false); //UI should not have light
 	projectionStack.PopMatrix();
