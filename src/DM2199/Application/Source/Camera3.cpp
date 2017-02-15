@@ -468,7 +468,7 @@ void Camera3::Update(double dt)
 	target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
 
 
-    else
+  /*  else
     {
         if (Application::IsKeyPressed(VK_NUMPAD4))
         {
@@ -506,9 +506,9 @@ void Camera3::Update(double dt)
                 view = rotation * view;
                 target = position + view;
             }
-        }
+        }*/
 
-    }
+  /*  }*/
 }
 
 void Camera3::preventXZOver()
