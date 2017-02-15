@@ -1,5 +1,5 @@
-﻿Build started 2/15/2017 9:08:28 AM.
-     1>Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Common\Common.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2/15/2017 4:18:06 PM.
+     1>Project "D:\DM2199_Studio_Project\src\DM2199\Common\Common.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\MatrixStack.cpp Source\Mtx44.cpp Source\timer.cpp Source\Vector3.cpp
          MatrixStack.cpp
@@ -7,13 +7,13 @@
          timer.cpp
          Vector3.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Common.lib" /NOLOGO /LTCG Release\MatrixStack.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"D:\DM2199_Studio_Project\src\DM2199\Release\Common.lib" /NOLOGO /LTCG Release\MatrixStack.obj
          Release\Mtx44.obj
          Release\timer.obj
          Release\Vector3.obj
-         Common.vcxproj -> C:\Users\161159U\Desktop\Studio Project\src\DM2199\Release\Common.lib
-     1>Done Building Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Common\Common.vcxproj" (Rebuild target(s)).
+         Common.vcxproj -> D:\DM2199_Studio_Project\src\DM2199\Release\Common.lib
+     1>Done Building Project "D:\DM2199_Studio_Project\src\DM2199\Common\Common.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.52
+Time Elapsed 00:00:06.05

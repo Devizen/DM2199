@@ -20,6 +20,7 @@ public:
 
 
     static void ChangeScene(int sceneNumber); //0 == Splash, 1 == Main Menu, 2 == Game
+    static void loadSceneTime(unsigned time);
     //void timeUpdate(float time);
     //float returnTime();
 private:

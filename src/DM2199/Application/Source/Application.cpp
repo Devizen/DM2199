@@ -10,17 +10,20 @@
 //Include the standard C++ headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctime>
 
 
 #include "SceneBase.h"
 #include "SceneSplash.h"
 #include "SceneMainMenu.h"
+#include "SceneLoading.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 static int sceneNumber;
+static unsigned loadTime;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -117,15 +120,13 @@ void Application::ChangeScene(int sceneNo)
 void Application::Run()
 {
     //Main Loop
-    //Scene *scene1 = new SceneA3();
-    //Scene *scene2 = new SceneUI();
-    //Scene *scene = new SceneBase();
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
+    Scene *sceneLoading = new SceneLoading();
     Scene *sceneTutorial = new SceneBase();
     Scene *scene = sceneSplash;
+    Scene *sceneLoadingAtBack;
     scene->Init();
-
 
     m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
     while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
@@ -137,11 +138,21 @@ void Application::Run()
             scene->Init();
         }
 
-        if (sceneNumber == 2 && scene != sceneTutorial)
+        if (sceneNumber == 2 && scene != sceneLoading)
         {
             scene->Exit();
-            scene = sceneTutorial;
+            scene = sceneLoading;
             scene->Init();
+
+            sceneLoadingAtBack = sceneTutorial;
+            sceneLoadingAtBack->Init();
+        }
+
+        if (sceneNumber == 3 && scene != sceneTutorial)
+        {
+
+            scene = sceneLoadingAtBack;
+
         }
 
         scene->Update(m_timer.getElapsedTime());
