@@ -30,7 +30,7 @@ void Object::objectRender()
 	}
 
 	if (isFlicker == true)
-	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 5, 5, 5, 5);
+	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 5, 5, 5, 5, 1, 0);
 	
 }
 

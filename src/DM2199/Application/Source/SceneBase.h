@@ -77,6 +77,22 @@ class SceneBase : public Scene
         GEO_BACKGROUND,
         GEO_MESSAGES,
 
+		//Sprites
+		GEO_HANDL1,
+		GEO_HANDL2,
+		GEO_HANDR1,
+		GEO_HANDR2,
+		GEO_GUN1,
+		GEO_GUN2,
+		GEO_GUN3,
+		GEO_CANNON1,
+		GEO_CANNON2,
+		GEO_CANNON3,
+		GEO_SWORD1,
+		GEO_SWORD2,
+		GEO_SWORD3,
+
+
         //Portal Lightball
         GEO_LIGHTBALL3,
 
@@ -176,6 +192,9 @@ public:
     //Text
     void renderText();
 
+	//Sprites
+	void renderSprites();
+
     //Reset All Settings
     void resetAll();
 
@@ -206,7 +225,7 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-    void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
+    void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, int sizez, int rotation);
     void renderPosition();
 
 	// Cool Down Time
