@@ -24,7 +24,16 @@ public:
 	float rotateY = 0;
 	float rotateZ = 0;
 
+	float sizeX = 1;
+	float sizeY = 1;
+	float translateX = 0;
+	float translateY = 0;
+
 	unsigned type = 0;
+	unsigned meshscreenType = 0;
+
+	bool isFlicker = false;
+
 	std::vector <unsigned> objectType;  // to handle multiple obj parts
 protected:
 	SceneBase * _scene;

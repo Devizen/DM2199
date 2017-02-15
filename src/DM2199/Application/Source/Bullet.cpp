@@ -20,9 +20,9 @@ Bullet::~Bullet()
 void Bullet::interact(){
 
 
-	position_.x += (float)(50 * cos(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
-	position_.y += (float)(50 * tan(Math::DegreeToRadian(_defaultPitch)) * _scene->_dt);
-	position_.z += (float)(50 * sin(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
+	position_.x += (float)(bulletSpeed * cos(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
+	position_.y += (float)(bulletSpeed * tan(Math::DegreeToRadian(_defaultPitch)) * _scene->_dt);
+	position_.z += (float)(bulletSpeed* sin(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
 
 	rotateY = _scene->camera.getPitch();
 

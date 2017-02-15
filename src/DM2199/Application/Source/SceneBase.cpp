@@ -208,6 +208,10 @@ void SceneBase::Init()
 	meshList[GEO_ENEMYTORSO] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyTorso.obj");
 	meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
 
+	//Flicker
+	meshList[GEO_FLICKER] = MeshBuilder::GenerateQuad("flicker", Color(1, 1, 1), 1.f, 1.f);
+	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
+
 
 	//Prevent Jerk
 	camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -290,12 +294,15 @@ void SceneBase::Init()
 
 
 
-	soundStorage.push_back(new Sound("gunshot.mp3"));
+	soundStorage.push_back(new Sound("gunshot.mp3",1000));
 	soundStorage.push_back(new Sound("bleep.mp3", 100));
 	soundStorage.push_back(new Sound("bleep.mp3"));
+	soundStorage.push_back(new Sound("backgroundmusic.mp3"));
 
 	/* vec3df somePosition = { 0, 0,0};
 	 soundStorage[1]->play3DSound(true, false, false, somePosition);*/
+
+	//soundStorage[3]->play2DSound(true, false, false); 
 
 	objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))));
 
@@ -312,16 +319,11 @@ void SceneBase::Update(double dt)
 	vec3df up = { camera.up.x, camera.up.y, camera.up.z };
 	vec3df zero = { 0, 0, 0 };
 
-
-	for (int i = 0; i < soundStorage.size(); ++i)
+	for (unsigned i = 0; i < soundStorage.size(); ++i)
 	{
 		soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
+		soundStorage[i]->getSoundEngine()->update();
 	}
-	
-
-	for (unsigned i = 0; i < soundStorage.size(); ++i)
-	soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
-
 
 	_dt = (float)dt;
 	_elapsedTime += _dt;
@@ -346,16 +348,6 @@ void SceneBase::Update(double dt)
 		}
 	}
 
-	if (Application::IsKeyPressed(MK_LBUTTON) && (Application::IsKeyPressed('A')))
-	{
-		if (_elapsedTime >= nextBulletTime)
-		{
-			objFactory.createFactoryObject(new Bullet(this, camera.getPosition()));
-			nextBulletTime = _elapsedTime + coolDown;
-			soundStorage[0]->play3DSound(false, false, false, camPos);
-		}
-	}
-
 
 
 	vec3df footPos = { camera.getPosition().x, camera.getPosition().y-5, camera.getPosition().z };
@@ -363,7 +355,7 @@ void SceneBase::Update(double dt)
 	if (Application::IsKeyPressed('W') && (_elapsedTime >=nextWalkTime))
 	{
 		nextWalkTime = _elapsedTime + coolDown;
-		 soundStorage[2]->play3DSound(false, false, false, footPos);
+		 soundStorage[2]->play3DSound(false, false, true, footPos);
 	}
 
 
@@ -514,8 +506,6 @@ void SceneBase::Render()
 	renderText();
 
 	objFactory.renderFactoryObject();
-
-
 
 
 }

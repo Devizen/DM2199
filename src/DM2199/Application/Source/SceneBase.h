@@ -20,6 +20,7 @@ class SceneBase : public Scene
 	friend class Object;
 	friend class Bullet;
 	friend class Enemy;
+	friend class Sound;
 
     enum GEOMETRY_TYPE
     {
@@ -62,7 +63,10 @@ class SceneBase : public Scene
 		GEO_ENEMYRIGHTLEG,
 		GEO_ENEMYTORSO,
 		
-
+		GEO_FLICKER,
+		GEO_HP75,
+		GEO_HP50,
+		GEO_HP25,
 
       
         //Text

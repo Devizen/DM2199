@@ -19,6 +19,8 @@ private:
 	float _defaultYaw;
 	float _defaultPitch;
 	const float _maxDistance = 40;
+	const float bulletSpeed = 150.0f;
+
 
 };
 

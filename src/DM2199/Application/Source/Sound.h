@@ -6,6 +6,7 @@
 #include <Windows.h> // window sleep function
 #include "Vector3.h"  // For 3D position
 #include <vector>
+#include "SceneBase.h"
 
 #include "include/irrKlang.h"
 #pragma comment(lib, "irrklang.lib")
@@ -18,19 +19,18 @@ class Sound
 {
 public:
 	Sound(string soundFile); // constructor 1 
-	Sound(string soundFile, ik_f32 minDistance); // constructor 2  
+	Sound(string soundFile, ik_f32 minDistance); // constructor 2  ------ minDistance is the distance between listener(character) and origin location of sound
 	~Sound(); 
  	void play2DSound(bool loop, bool pause, bool startTrack); // Plays entire sound file (2D)  
 	void play3DSound(bool loop, bool pause, bool startTrack, vec3df soundStartingLocation); // Plays entire sound file (3D)     
 
-	ISoundEngine* getSoundEngine(){
+	ISoundEngine* getSoundEngine(){  //use to call soundEngine in other place like SceneBase.cpp
 		return soundEngine;
 	}
 
-	string fileName; // Error checking for valid sound file
-	Vector3 position; // variable to set position for 3D sound
-	int volume; // value of volume is between  0 (mute) and 1 (full volume)   ------> idk whether we need adjust volume
 
+	string fileName; // Error checking for valid sound file
+	vec3df position; // variable for updating position
   
 private:
 	ISoundEngine* soundEngine; // instance of class ISoundEngine to start the sound
@@ -43,10 +43,11 @@ private:
 
 	bool playLoop = false; // whether to loop the music
 	bool startPause = false; // false == start the sound , true === pause the sound
+
 	bool track = false; // set it to true if you want to use  ISoundSource::getPlayLength() 
                             /// getPlayLength() is to extract the sound duration
 
-	
+
 };
 
 

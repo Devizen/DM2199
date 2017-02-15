@@ -31,5 +31,11 @@ void Enemy::interact()
 	// Move the Enemy
 	position_.x -= moveX;
 	position_.z -= moveZ;
+
+	if ((position_ - _scene->camera.getPosition()).Length() <= _interactDistance)
+	{
+		meshscreenType = SceneBase::GEO_FLICKER;
+		isFlicker = true;
+	}
   
 }

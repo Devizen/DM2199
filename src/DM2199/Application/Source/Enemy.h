@@ -13,6 +13,8 @@ public:
 	virtual void interact();
 	static unsigned enemyCount;
 
+	const float _interactDistance = 100.0f;
+
 private:
 	const float _MovementSpeed = 20.5f; // Movement speed
 };

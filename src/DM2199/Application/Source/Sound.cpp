@@ -7,6 +7,7 @@ Sound::Sound(string soundFile)
 	currentSound2D = NULL;
 	currentSound3D = NULL;
 
+	
 
 	if (!soundEngine) // creation of soundEngine instance fail
 	{
@@ -27,6 +28,7 @@ Sound::Sound(string soundFile, ik_f32 minDistance)
 	soundEngine = createIrrKlangDevice();
 	currentSound2D = NULL;
 	currentSound3D = NULL;
+
 	
 	soundEngine->setDefault3DSoundMinDistance(minDistance);
 
@@ -83,6 +85,8 @@ void Sound::play3DSound(bool loop, bool pause, bool startTrack, vec3df soundStar
 	}
   
 	currentSound3D = soundEngine->play3D(fileName.c_str(), soundStartingLocation, loop, pause, startTrack);
+
+	 
 }
 
 

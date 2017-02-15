@@ -63,6 +63,7 @@ void FactoryObject::renderFactoryObject()
 	for (std::vector<Object*>::iterator it = Container.begin(); it != Container.end(); ++it)
 	{
 		(*it)->objectRender();
+
 	}
 }
 
