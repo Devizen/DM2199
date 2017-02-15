@@ -312,11 +312,16 @@ void SceneBase::Update(double dt)
 	vec3df up = { camera.up.x, camera.up.y, camera.up.z };
 	vec3df zero = { 0, 0, 0 };
 
+
 	for (int i = 0; i < soundStorage.size(); ++i)
 	{
 		soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
 	}
 	
+
+	for (unsigned i = 0; i < soundStorage.size(); ++i)
+	soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
+
 
 	_dt = (float)dt;
 	_elapsedTime += _dt;
@@ -325,7 +330,7 @@ void SceneBase::Update(double dt)
 	objFactory.processInteraction();
 
 	static const float LSPEED = 10.f;
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	static float rotateWorld = 1;
 
@@ -410,12 +415,12 @@ void SceneBase::Update(double dt)
 	camera.Update(dt);
 
 	//FPS Counter
-	FPS = 1 / dt;
+	FPS = 1 / (float)dt;
 }
 
 void SceneBase::Render()
 {
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	//Clear color & depth buffer every frame
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -850,8 +855,8 @@ void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int size
 
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
-	modelStack.Translate(x, y, 0);
-	modelStack.Scale(sizex, sizey, 1);
+    modelStack.Translate((float)x, (float)y, 0);
+    modelStack.Scale((float)sizex, (float)sizey, 1);
 	//to do: scale and translate accordingly
 	RenderMesh(mesh, false); //UI should not have light
 	projectionStack.PopMatrix();

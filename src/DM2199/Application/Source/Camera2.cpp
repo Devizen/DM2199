@@ -112,7 +112,7 @@ void Camera2::Update(double dt)
             position.y >= 0.f && position.y <= 128.f &&
             position.z >= 0.f && position.z <= 128.f)
         {
-            position += view * dt;
+            position += view * (float)dt;
         }
 
         if (position.x > 128.f)
@@ -156,7 +156,7 @@ void Camera2::Update(double dt)
             position.y >= 0.f && position.y <= 128.f &&
             position.z >= 0.f && position.z <= 128.f)
         {
-            position -= view * dt;
+            position -= view * (float)dt;
         }
 
         if (position.x > 128.f)

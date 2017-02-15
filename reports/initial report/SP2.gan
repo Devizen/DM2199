@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SP2" company="" webLink="http://" view-date="2017-02-13" view-index="0" gantt-divider-location="352" resource-divider-location="-1" version="2.0">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart"/>
+    <view id="resource-table">
+        <field id="0" name="Name" width="55" order="0"/>
+        <field id="1" name="Default role" width="44" order="0"/>
+    </view>
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+    </calendars> <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+	<task id="1" name="Week 1" color="#8cb6ce" meeting="false" start="2017-02-13" duration="14" complete="0" priority="1" expand="true">
+		<task id="2" name="Basic Gameplay" meeting="false" start="2017-02-22" duration="5" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="3" name="Bullet movement moves together with Mouse movement" meeting="false" start="2017-02-13" duration="1" complete="100" color="#33EE33" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="4" name="OBJ &amp; Textures" meeting="false" start="2017-02-13" duration="4" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="5" name="UI &amp; Levels" meeting="false" start="2017-02-13" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="6" name="Map interaction" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="7" name="Levels" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="8" name="Enemy" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="9" name="Shooting" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="10" name="Player" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="11" name="Scene Switching" meeting="false" start="2017-02-17" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="12" name="Inventory" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="13" name="Level Implementation" meeting="false" start="2017-02-15" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="2" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="14" name="Bullet Model with Texture" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="4" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="15" name="Loading of  arms and legs as  separate of obj" meeting="false" start="2017-02-13" duration="4" complete="100" color="#33EE33" priority="1" expand="true"><depend id="16" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="17" name="Tutorial" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="18" name="Spawn bullet with keypress" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="9" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="19" name="Sword model" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="20" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="21" name="Tutorial Level" meeting="false" start="2017-02-15" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="22" name="Splash Screen" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="5" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="23" name="FPS Camera Implementation" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="24" name="Lava" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="6" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="25" name="HP bar" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="26" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="27" name="Changing between weapons and health potion" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="12" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="28" name="Inventory System" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="29" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="30" name="Enemy Pathfinding" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="8" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="16" name="Enemy Model with Texture" meeting="false" start="2017-02-13" duration="4" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="4" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="31" name="Level 1" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="32" name="bullet movement" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="9" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="33" name="Gun Model" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="20" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="34" name="Level 1" meeting="false" start="2017-02-15" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="35" name="Main Menu" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="5" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="36" name="Loading of enemy arms and legs as separate OBJ" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="16" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="37" name="Basic movement" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="38" name="NPC" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="6" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="39" name="TB bar" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="26" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="40" name="Displaying weapon/potion icon on Inventory Interface" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="12" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="41" name="Enemy Range Detection" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="8" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="42" name="Depleting of enemy HP when hit" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="8" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="43" name="Level 2" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="44" name="Deleting bullet on collision" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="9" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="45" name="Torch Model with Texture" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="4" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="46" name="Level 2" meeting="false" start="2017-02-15" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="29" name="Pause Menu" meeting="false" start="2017-02-14" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="5" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="47" name="Arms and Legs  Rotation Implementation" meeting="false" start="2017-02-13" duration="4" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="16" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="48" name="Equipping Weapon" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="49" name="Speed battery" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="6" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="50" name="Enemies remaining counter" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="26" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="20" name="Weapon Model with Texture" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="4" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="51" name="Level 3" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="52" name="Level 3" meeting="false" start="2017-02-15" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="26" name="In game UI" meeting="false" start="2017-02-15" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="5" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="53" name="Collision Detection" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="54" name="Electrical Field" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="6" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="55" name="Hierarchical binding of body parts" meeting="false" start="2017-02-13" duration="4" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="16" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="56" name="Minimap" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="26" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="57" name="Bullet direction based on crosshair" meeting="false" start="2017-02-14" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="9" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="58" name="Level 4" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="59" name="Level 4" meeting="false" start="2017-02-15" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="60" name="SkyBox" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="6" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="61" name="Spawn player model" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="62" name="Boss/Bonus Level" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="7" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="63" name="Boss Level" meeting="false" start="2017-02-16" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="13" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="64" name="Bound Check" meeting="false" start="2017-02-13" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="10" type="3" difference="0" hardness="Rubber"/></task>
+	</task>
+	<task id="65" name="Week 2" color="#8cb6ce" meeting="false" start="2017-02-21" duration="1" complete="0" priority="1" expand="true">
+		<task id="66" name="Save/Load Game" meeting="false" start="2017-02-20" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"><depend id="67" type="3" difference="0" hardness="Rubber"/></task>
+		<task id="67" name="Additional Features" meeting="false" start="2017-02-13" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+	</task>
+	<task id="68" name="Week 3" color="#8cb6ce" meeting="false" start="2017-03-01" duration="3" complete="0" priority="1" expand="true">
+		<task id="69" name="Play Testing" meeting="false" start="2017-02-27" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="70" name="Fixing Bugs" meeting="false" start="2017-02-27" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="71" name="Final documentation" meeting="false" start="2017-03-01" duration="2" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="72" name="Presentation" meeting="false" start="2017-03-03" duration="1" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+		<task id="73" name="Polishing of features" meeting="false" start="2017-02-27" duration="3" complete="0" color="#8cb6ce" priority="1" expand="true"/>
+	</task>
+	</tasks>
+<resources><resource id="122366" name="Beckham Wong" function="Default:0" contacts="beckhamwong1@gmail.com" phone=""/><resource id="122368" name="koh Yoong Soon" function="Default:0" contacts="kohyoongsoon@gmail.com" phone=""/><resource id="122367" name="Lai Eugene" function="Default:0" contacts="devizen@gmail.com" phone=""/><resource id="122369" name="Wei Mingxiu" function="Default:0" contacts="mingxiu26@gmail.com" phone=""/></resources><allocations><allocation task-id="3" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="11" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="14" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="18" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="19" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="21" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="22" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="23" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="24" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="25" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="27" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="28" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="28" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="30" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="16" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="31" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="32" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="33" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="34" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="35" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="36" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="37" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="38" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="39" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="40" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="41" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="42" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="43" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="44" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="45" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="46" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="29" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="47" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="48" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="49" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="50" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="20" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="51" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="52" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="26" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="53" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="54" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="55" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="56" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="57" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="58" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="59" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="60" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="61" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="62" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="62" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="62" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="62" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="63" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="63" resource-id="122369" function="Default:0" responsible="false" load="100.0"/><allocation task-id="63" resource-id="122367" function="Default:0" responsible="false" load="100.0"/><allocation task-id="63" resource-id="122366" function="Default:0" responsible="false" load="100.0"/><allocation task-id="64" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="66" resource-id="122368" function="Default:0" responsible="false" load="100.0"/><allocation task-id="66" resource-id="122367" function="Default:0" responsible="false" load="100.0"/></allocations>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="75"/>
+        <displaycolumn property-id="tpd4" order="1" width="75"/>
+        <displaycolumn property-id="tpd5" order="2" width="75"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>

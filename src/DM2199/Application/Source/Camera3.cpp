@@ -194,7 +194,7 @@ void Camera3::Update(double dt)
                 //rotation.SetToRotation(yaw, 0, 1, 0);
                 //view = rotation * view;
                 //target = position + view;
-				yaw -= (CAMERA_SPEED * dt * run);
+				yaw -= (CAMERA_SPEED * (float)dt * run);
             }
 
             if (Application::IsKeyPressed(VK_NUMPAD6))
@@ -203,7 +203,7 @@ void Camera3::Update(double dt)
                 //rotation.SetToRotation(yaw, 0, 1, 0);
                 //view = rotation * view;
                 //target = position + view;
-				yaw += (CAMERA_SPEED * dt * run);
+                yaw += (CAMERA_SPEED * (float)dt * run);
             }
 
             if (Application::IsKeyPressed(VK_NUMPAD8))
@@ -214,7 +214,7 @@ void Camera3::Update(double dt)
                     //rotation.SetToRotation(yaw, right.x, right.y, right.z);
                     //view = rotation * view;
                     //target = position + view;
-					pitch += (CAMERA_SPEED * dt * run);
+                    pitch += (CAMERA_SPEED * (float)dt * run);
                 }
             }
 
@@ -226,7 +226,7 @@ void Camera3::Update(double dt)
                     //rotation.SetToRotation(yaw, right.x, right.y, right.z);
                     //view = rotation * view;
                     //target = position + view;
-					pitch -= (CAMERA_SPEED * dt * run);
+                    pitch -= (CAMERA_SPEED * (float)dt * run);
                 }
             }
 
