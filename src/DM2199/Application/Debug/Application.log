@@ -1,12 +1,11 @@
-﻿Build started 2/15/2017 3:09:15 AM.
+﻿Build started 2/15/2017 8:57:19 AM.
      1>Project "D:\DM2199\src\DM2199\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\DM2199\src\DM2199\\Common\Source /ID:\DM2199\src\DM2199\\glfw\include /ID:\DM2199\src\DM2199\\glew\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Camera.cpp Source\Camera2.cpp Source\Camera3.cpp Source\SceneSplash.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\DM2199\src\DM2199\\Common\Source /ID:\DM2199\src\DM2199\\glfw\include /ID:\DM2199\src\DM2199\\glew\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\SceneSplash.cpp
          SceneSplash.cpp
-         Camera3.cpp
-         Camera2.cpp
-         Camera.cpp
          Generating Code...
+         Skipping... (no relevant changes detected)
+         Application.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\DM2199\src\DM2199\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:D:\DM2199\src\DM2199\Debug /LIBPATH:"D:\DM2199\src\DM2199\\glfw\lib-msvc120" /LIBPATH:D:\DM2199\src\DM2199\\glew\lib glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\DM2199\src\DM2199\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\DM2199\src\DM2199\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Bullet.obj
@@ -34,4 +33,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:10.95
+Time Elapsed 00:00:05.69

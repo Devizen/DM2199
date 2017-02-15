@@ -93,10 +93,12 @@ void Camera3::ResetCursorVariables() {
 void Camera3::Update(double dt)
 {
 	// Cursor is shown, stop rotating the camera
-	if (isMouseEnabled && glfwGetInputMode(glfwGetCurrentContext(), GLFW_CURSOR) == GLFW_CURSOR_DISABLED && !Application::IsKeyPressed(MK_RBUTTON)) {
+	if (isMouseEnabled && glfwGetInputMode(glfwGetCurrentContext(), GLFW_CURSOR) == GLFW_CURSOR_DISABLED && !Application::IsKeyPressed(MK_RBUTTON)) 
+    {
 		updateCursor();
 	}
-	else {
+	else 
+    {
 		ResetCursorVariables();
 	}
 
@@ -112,377 +114,360 @@ void Camera3::Update(double dt)
 
 	float rotationSpeed = 2.5f * (float)dt;
 
-
-
-    if (enteredPortal == false)
+    //Keyboard Controls
+    if (Application::IsKeyPressed(VK_NUMPAD5))
     {
-        if (messageFreeze == false)
+        run = 3.f;
+    }
+
+    //Directions
+    if (Application::IsKeyPressed('W') && directionJump == false)
+    {
+        preventXZOver();
+        if (Application::IsKeyPressed(VK_SPACE))
         {
-            if (Application::IsKeyPressed(VK_NUMPAD5))
-            {
-                run = 3.f;
-            }
+            directionJump = true;
+        }
+        collisionCheck();
+        position += view * (float)(CAMERA_SPEED * run * dt);
+        position.y = 0.f;
+        target = position + view;
 
-            if (Application::IsKeyPressed('W') && directionJump == false)
-            {
-                preventXZOver();
-                if (Application::IsKeyPressed(VK_SPACE))
-                {
-                    directionJump = true;
-                }
-                collisionCheck();
-                position += view * (float)(CAMERA_SPEED * run * dt);
-                position.y = 0.f;
-                target = position + view;
+        resetDirectionPressed();
+        upPressed = true;
+    }
 
-                resetDirectionPressed();
-                upPressed = true;
-            }
+    if (Application::IsKeyPressed('S') && directionJump == false)
+    {
+        preventXZOver();
+        if (Application::IsKeyPressed(VK_SPACE))
+        {
+            directionJump = true;
+        }
+        collisionCheck();
+        position -= view * (float)(CAMERA_SPEED * run * dt);
+        position.y = 0.f;
+        target = position + view;
 
-            if (Application::IsKeyPressed('S') && directionJump == false)
-            {
-                preventXZOver();
-                if (Application::IsKeyPressed(VK_SPACE))
-                {
-                    directionJump = true;
-                }
-                collisionCheck();
-                position -= view * (float)(CAMERA_SPEED * run * dt);
-                position.y = 0.f;
-                target = position + view;
+        resetDirectionPressed();
+        downPressed = true;
+    }
 
-                resetDirectionPressed();
-                downPressed = true;
-            }
+    if (Application::IsKeyPressed('A') && directionJump == false)
+    {
+        preventXZOver();
+        if (Application::IsKeyPressed(VK_SPACE))
+        {
+            directionJump = true;
+        }
 
-            if (Application::IsKeyPressed('A') && directionJump == false)
-            {
-                preventXZOver();
-                if (Application::IsKeyPressed(VK_SPACE))
-                {
-                    directionJump = true;
-                }
+        collisionCheck();
+        position = position - right * (float)(CAMERA_SPEED * run * dt);
+        target = position + view;
 
-                collisionCheck();
-                position = position - right * (float)(CAMERA_SPEED * run * dt);
-                target = position + view;
+        resetDirectionPressed();
+        leftPressed = true;
+    }
 
-                resetDirectionPressed();
-                leftPressed = true;
-            }
+    if (Application::IsKeyPressed('D') && directionJump == false)
+    {
+        preventXZOver();
+        if (Application::IsKeyPressed(VK_SPACE))
+        {
+            directionJump = true;
+        }
 
-            if (Application::IsKeyPressed('D') && directionJump == false)
-            {
-                preventXZOver();
-                if (Application::IsKeyPressed(VK_SPACE))
-                {
-                    directionJump = true;
-                }
+        collisionCheck();
+        position = position + right * (float)(CAMERA_SPEED * run * dt);
+        target = position + view;
 
-                collisionCheck();
-                position = position + right * (float)(CAMERA_SPEED * run * dt);
-                target = position + view;
+        resetDirectionPressed();
+        rightPressed = true;
 
-                resetDirectionPressed();
-                rightPressed = true;
+    }
 
-            }
+    //Viewing Angle
+    if (Application::IsKeyPressed(VK_NUMPAD4))
+    {
+		yaw -= (CAMERA_SPEED * (float)dt * run);
+    }
 
-            if (Application::IsKeyPressed(VK_NUMPAD4))
-            {
-                //float yaw = (float)(CAMERA_SPEED * dt* run);
-                //rotation.SetToRotation(yaw, 0, 1, 0);
-                //view = rotation * view;
-                //target = position + view;
-				yaw -= (CAMERA_SPEED * (float)dt * run);
-            }
+    if (Application::IsKeyPressed(VK_NUMPAD6))
+    {
+        yaw += (CAMERA_SPEED * (float)dt * run);
+    }
 
-            if (Application::IsKeyPressed(VK_NUMPAD6))
-            {
-                //float yaw = (float)(-CAMERA_SPEED * dt* run);
-                //rotation.SetToRotation(yaw, 0, 1, 0);
-                //view = rotation * view;
-                //target = position + view;
-                yaw += (CAMERA_SPEED * (float)dt * run);
-            }
-
-            if (Application::IsKeyPressed(VK_NUMPAD8))
-            {
-                if (view.y < 0.7f)
-                {
-                    //float yaw = (float)(CAMERA_SPEED * dt* run);
-                    //rotation.SetToRotation(yaw, right.x, right.y, right.z);
-                    //view = rotation * view;
-                    //target = position + view;
-                    pitch += (CAMERA_SPEED * (float)dt * run);
-                }
-            }
-
-            if (Application::IsKeyPressed(VK_NUMPAD2))
-            {
-                if (view.y > -0.7f)
-                {
-                    //float yaw = (float)(-CAMERA_SPEED * dt* run);
-                    //rotation.SetToRotation(yaw, right.x, right.y, right.z);
-                    //view = rotation * view;
-                    //target = position + view;
-                    pitch -= (CAMERA_SPEED * (float)dt * run);
-                }
-            }
-
-            if (Application::IsKeyPressed(VK_SPACE) && jump == false && fall == false)
-            {
-                jump = true;
-                directionJump = false;
-            }
-
-            //Non-movement jump
-            if (jump == true && directionJump == false)
-            {
-                position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
-                target = position + view;
-                if (position.y > jumpHeight)
-                {
-                    jump = false;
-                    fall = true;
-                }
-            }
-
-            if (fall == true && directionJump == false)
-            {
-                position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
-                target = position + view;
-                if (position.y <= 0.f)
-                {
-                    fall = false;
-                }
-            }
-
-            //Directional jump
-            //Up
-            if (jump == true && directionJump == true && upPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position += view * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-                if (position.y > jumpHeight || jumpStucked == true)
-                {
-                    jump = false;
-                    fall = true;
-                }
-            }
-
-            //Up Fall
-            if (fall == true && directionJump == true && upPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position += view * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (jumpStucked == true && position.y > 0)
-                {
-                    collisionCheck();
-                    position.y--;
-                    target = position + view;
-                }
-
-                if (position.y <= 0.f)
-                {
-                    fall = false;
-                    directionJump = false;
-                    upPressed = false;
-                }
-            }
-
-            //Down
-            if (jump == true && directionJump == true && downPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position -= view * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (position.y > jumpHeight || jumpStucked == true)
-                {
-                    jump = false;
-                    fall = true;
-                }
-            }
-
-            //Down Fall
-            if (fall == true && directionJump == true && downPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position -= view * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (jumpStucked == true && position.y > 0)
-                {
-                    collisionCheck();
-                    position.y--;
-                    target = position + view;
-                }
-
-                if (position.y <= 0.f)
-                {
-                    fall = false;
-                    directionJump = false;
-                    downPressed = false;
-                }
-            }
-
-            //Left
-            if (jump == true && directionJump == true && leftPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-  
-
-                if (jumpStucked == false)
-                {
-                    position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position = position - right * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (position.y > jumpHeight || jumpStucked == true)
-                {
-                    jump = false;
-                    fall = true;
-                }
-            }
-
-            //Left Fall
-            if (fall == true && directionJump == true && leftPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position = position - right * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (jumpStucked == true && position.y > 0)
-                {
-                    collisionCheck();
-                    position.y--;
-                    target = position + view;
-                }
-
-                if (position.y <= 0.f)
-                {
-                    fall = false;
-                    directionJump = false;
-                    leftPressed = false;
-                }
-            }
-
-            //Right
-            if (jump == true && directionJump == true && rightPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position = position + right * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (position.y > jumpHeight || jumpStucked == true)
-                {
-                    jump = false;
-                    fall = true;
-                }
-            }
-
-            //Right Fall
-            if (fall == true && directionJump == true && rightPressed == true)
-            {
-                preventXZOver();
-                collisionCheck();
-
-                if (jumpStucked == false)
-                {
-                    position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
-                    position = position + right * (float)(CAMERA_SPEED * run * dt);
-                    target = position + view;
-                }
-
-                if (jumpStucked == true && position.y > 0)
-                {
-                    collisionCheck();
-                    position.y--;
-                    target = position + view;
-                }
-
-                if (position.y <= 0.f)
-                {
-                    fall = false;
-                    directionJump = false;
-                    rightPressed = false;
-                }
-            }
-
-            if (Application::IsKeyPressed('R'))
-            {
-                Reset();
-            }
-
-			////////////////////////////////////////////////////////////////////////////////////////////////
-			// Rotate Camera with mouse-axis
-			if (mouseMovedX < 0) { // Left
-				yaw -= rotationSpeed * mouseMovedDistanceX;
-			}
-
-			if (mouseMovedX > 0) { // Right
-				yaw += rotationSpeed  * mouseMovedDistanceX;
-			}
-
-			if (mouseMovedY > 0) { // Up
-				pitch += rotationSpeed  * mouseMovedDistanceY;
-			}
-
-			if (mouseMovedY < 0) { // Down
-				pitch -= rotationSpeed * mouseMovedDistanceY;
-			}
-
-
-			pitch = Math::Clamp(pitch, _MinYawAngle, _MaxYawAngle); // clamp the up/down rotation of the camera to these angles
-
-			target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
-			target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
-			target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
-
+    if (Application::IsKeyPressed(VK_NUMPAD8))
+    {
+        //Bound check for viewing up.
+        if (view.y < 0.7f)
+        {
+            pitch += (CAMERA_SPEED * (float)dt * run);
         }
     }
+
+    if (Application::IsKeyPressed(VK_NUMPAD2))
+    {
+        //Bound check for viewing down.
+        if (view.y > -0.7f)
+        {
+            pitch -= (CAMERA_SPEED * (float)dt * run);
+        }
+    }
+
+    //Jump
+    if (Application::IsKeyPressed(VK_SPACE) && jump == false && fall == false)
+    {
+        jump = true;
+        directionJump = false;
+    }
+
+    //Non-movement jump
+    if (jump == true && directionJump == false)
+    {
+        position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
+        target = position + view;
+        if (position.y > jumpHeight)
+        {
+            jump = false;
+            fall = true;
+        }
+    }
+
+    if (fall == true && directionJump == false)
+    {
+        position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
+        target = position + view;
+        if (position.y <= 0.f)
+        {
+            fall = false;
+        }
+    }
+
+    //Directional jump
+    //Up
+    if (jump == true && directionJump == true && upPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
+            position += view * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+        if (position.y > jumpHeight || jumpStucked == true)
+        {
+            jump = false;
+            fall = true;
+        }
+    }
+
+    //Up Fall
+    if (fall == true && directionJump == true && upPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
+            position += view * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (jumpStucked == true && position.y > 0)
+        {
+            collisionCheck();
+            position.y--;
+            target = position + view;
+        }
+
+        if (position.y <= 0.f)
+        {
+            fall = false;
+            directionJump = false;
+            upPressed = false;
+        }
+    }
+
+    //Down
+    if (jump == true && directionJump == true && downPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
+            position -= view * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (position.y > jumpHeight || jumpStucked == true)
+        {
+            jump = false;
+            fall = true;
+        }
+    }
+
+    //Down Fall
+    if (fall == true && directionJump == true && downPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
+            position -= view * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (jumpStucked == true && position.y > 0)
+        {
+            collisionCheck();
+            position.y--;
+            target = position + view;
+        }
+
+        if (position.y <= 0.f)
+        {
+            fall = false;
+            directionJump = false;
+            downPressed = false;
+        }
+    }
+
+    //Left
+    if (jump == true && directionJump == true && leftPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+  
+
+        if (jumpStucked == false)
+        {
+            position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
+            position = position - right * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (position.y > jumpHeight || jumpStucked == true)
+        {
+            jump = false;
+            fall = true;
+        }
+    }
+
+    //Left Fall
+    if (fall == true && directionJump == true && leftPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
+            position = position - right * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (jumpStucked == true && position.y > 0)
+        {
+            collisionCheck();
+            position.y--;
+            target = position + view;
+        }
+
+        if (position.y <= 0.f)
+        {
+            fall = false;
+            directionJump = false;
+            leftPressed = false;
+        }
+    }
+
+    //Right
+    if (jump == true && directionJump == true && rightPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y += 1.f * (float)(CAMERA_SPEED * run * dt);
+            position = position + right * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (position.y > jumpHeight || jumpStucked == true)
+        {
+            jump = false;
+            fall = true;
+        }
+    }
+
+    //Right Fall
+    if (fall == true && directionJump == true && rightPressed == true)
+    {
+        preventXZOver();
+        collisionCheck();
+
+        if (jumpStucked == false)
+        {
+            position.y -= 1.f * (float)(CAMERA_SPEED * run * dt);
+            position = position + right * (float)(CAMERA_SPEED * run * dt);
+            target = position + view;
+        }
+
+        if (jumpStucked == true && position.y > 0)
+        {
+            collisionCheck();
+            position.y--;
+            target = position + view;
+        }
+
+        if (position.y <= 0.f)
+        {
+            fall = false;
+            directionJump = false;
+            rightPressed = false;
+        }
+    }
+
+    if (Application::IsKeyPressed('R'))
+    {
+        Reset();
+    }
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	// Rotate Camera with mouse-axis
+	if (mouseMovedX < 0) { // Left
+		yaw -= rotationSpeed * mouseMovedDistanceX;
+	}
+
+	if (mouseMovedX > 0) { // Right
+		yaw += rotationSpeed  * mouseMovedDistanceX;
+	}
+
+	if (mouseMovedY > 0) { // Up
+		pitch += rotationSpeed  * mouseMovedDistanceY;
+	}
+
+	if (mouseMovedY < 0) { // Down
+		pitch -= rotationSpeed * mouseMovedDistanceY;
+	}
+
+
+	pitch = Math::Clamp(pitch, _MinYawAngle, _MaxYawAngle); // clamp the up/down rotation of the camera to these angles
+
+	target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
+	target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
+	target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
+
+
     else
     {
         if (Application::IsKeyPressed(VK_NUMPAD4))
