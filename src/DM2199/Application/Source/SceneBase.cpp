@@ -215,6 +215,11 @@ void SceneBase::Init()
 	meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
 	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
 
+
+	meshList[GEO_SPIDER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Spider.obj");
+	meshList[GEO_SPIDER]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+
+
 	//Sprites
 	meshList[GEO_HANDL1] = MeshBuilder::GenerateOBJ("handL1", "OBJ//quad.obj");
 	meshList[GEO_HANDL1]->textureID = LoadTGA("Image//Sprites//HandL1.tga");
@@ -356,9 +361,11 @@ void SceneBase::Init()
 	/* vec3df somePosition = { 0, 0,0};
 	 soundStorage[1]->play3DSound(true, false, false, somePosition);*/
 
-	//soundStorage[3]->play2DSound(true, false, false); 
+	/*soundStorage[3]->play2DSound(true, false, false); */
 
-	objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))));
+	
+
+	/*objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))) );*/
 
 	//----------------Inventory--------------
 	inventoryOpen = false;
@@ -383,7 +390,11 @@ void SceneBase::Init()
 	//delay between keypresses while in menu
 	startTime = 0.0f;
 	cooldown = 15.0f;
-}
+
+
+	Enemy * newEnemy = new Enemy(Enemy::enemyType::spider ); 
+	enemyStorage.push_back(newEnemy);
+}  
 
 void SceneBase::Update(double dt)
 {
@@ -497,8 +508,63 @@ void SceneBase::Update(double dt)
 	FPS = 1 / (float)dt;
 
 	startTime++;
+
+	enemyUpdate(dt);
 }
 
+void SceneBase::enemyUpdate(double dt)
+{
+
+	for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+	{
+		switch ((*it)->_Type)
+		{
+		case Enemy::enemyType::spider :
+			{
+				switch ((*it)->_State)
+				{
+				case Enemy::enemyState::spider_patrol:
+				{
+					std::cout << ((*it)->_Position - camera.getPosition()).Length() << std::endl;
+					if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+					{
+						(*it)->_State = Enemy::enemyState::spider_chase;
+					}
+				}
+				break;
+				case  Enemy::enemyState::spider_chase:
+				{
+					 //distance between character and  enemy
+					  Vector3 distance = ((*it)->_Position - camera.position);
+						Vector3 unitDistance = distance.Normalized();
+					
+						float moveX = unitDistance.x * (*it)->getMovementSpeed()*dt;
+						float moveZ = unitDistance.z *  (*it)->getMovementSpeed()*dt;
+					
+						// Rotate the enemy towards the player
+						 (*it)->_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
+					
+						// Move the Enemy
+						(*it)->_Position.x -= moveX;
+						(*it)->_Position.z -= moveZ;
+
+						if (((*it)->_Position - camera.getPosition()).Length() > (*it)->getRange())
+						{
+							(*it)->_State = Enemy::enemyState::spider_patrol;
+						}
+						
+				}
+				break;
+				}
+			}
+			break;
+		}
+
+	}
+
+
+
+}
 void SceneBase::Render()
 {
 	srand((unsigned)time(NULL));
@@ -623,32 +689,51 @@ void SceneBase::Render()
 				startTime = 0;
 			}
 		}
-		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65 ,1,0);
+		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65);
 		renderInventory();
 	}
 	else
 	{
 		//in game hud
-		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65);
 
 		//minimap
-		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 1, 0);
-		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
+		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
 		for (vector<Object*>::iterator it = objFactory.Container.begin(); it != objFactory.Container.end(); it++)
 		{
-			RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10);
 		}
 	}
+
+	modelStack.PushMatrix();
+
+	for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+	{
+		switch ((*it)->_Type)
+		{
+		case Enemy::enemyType::spider:
+		{
+			modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+			modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SPIDER], true);
+		}
+		break;
+		}	
+	}
+
+	modelStack.PopMatrix();
 }
 void SceneBase::renderInventory()
 {
 	if (!global_inventory->pointer)
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 20, 3, 3, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 20, 3, 3);
 	}
 	else
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 10, 3, 3, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 10, 3, 3);
 	}
 
 	if (global_inventory->getActiveItem())
@@ -656,15 +741,15 @@ void SceneBase::renderInventory()
 		ItemInfo* activeItem = global_inventory->getActiveItem();
 		if (activeItem->gettype() == "sword")
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4);
 		}
 		else if (activeItem->gettype() == "fist")
 		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 30, 10, 10, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 30, 10, 10);
 		}
 		else if (activeItem->gettype() == "torch")
 		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4);
 		}
 	}
 
@@ -673,43 +758,43 @@ void SceneBase::renderInventory()
 		ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
 		if (secondaryItem->gettype() == "sword")
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4);
 		}
 		else if (secondaryItem->gettype() == "fist")
 		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 30, 30, 10, 10, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 30, 30, 10, 10);
 		}
 		else if (secondaryItem->gettype() == "torch")
 		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4, 1, 0);
+			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4);
 		}
 	}
 	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
 	if (ItemDisplay1->gettype() == "sword")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2);
 	}
 	else if (ItemDisplay1->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 20, 5, 5, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 20, 5, 5);
 	}
 	else if (ItemDisplay1->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3);
 	}
 
 	ItemInfo* ItemDisplay2 = global_inventory->getDisplay2();
 	if (ItemDisplay2->gettype() == "sword")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2);
 	}
 	else if (ItemDisplay2->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 10, 5, 5, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 10, 5, 5);
 	}
 	else if (ItemDisplay2->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3, 1, 0);
+		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3);
 	}
 }
 void SceneBase::renderMountains()

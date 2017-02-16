@@ -29,8 +29,8 @@ void Object::objectRender()
 		}
 	}
 
-	if (isFlicker == true)
-	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 40, 30, 80, 60);
+	/*if (isFlicker == true)
+	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 40, 30, 80, 60);*/
 	
 }
 

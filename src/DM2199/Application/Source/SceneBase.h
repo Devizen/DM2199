@@ -10,6 +10,9 @@
 #include "FactoryObject.h"
 #include "Enemy.h"
 #include "Sound.h"
+#include <vector>
+
+using std::vector;
 
 //Randomize
 #include <stdlib.h>
@@ -19,7 +22,6 @@ class SceneBase : public Scene
 {
 	friend class Object;
 	friend class Bullet;
-	friend class Enemy;
 	friend class Sound;
 
     enum GEOMETRY_TYPE
@@ -103,6 +105,9 @@ class SceneBase : public Scene
 		GEO_SWORD1,
 		GEO_SWORD2,
 		GEO_SWORD3,
+
+		//Spider
+		GEO_SPIDER,
 
 
         //Portal Lightball
@@ -222,6 +227,10 @@ public:
 	float startTime;
 	float cooldown;
 
+	//Enemy
+	void enemyUpdate(double dt);
+
+	std::vector<Enemy *> enemyStorage;
 
 private:
     unsigned m_vertexArrayID;

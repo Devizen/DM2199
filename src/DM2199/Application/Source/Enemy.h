@@ -1,22 +1,73 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+#include <vector>
+#include "Vector3.h"
 
-#include "Object.h"
+using std::vector;
 
-
-class Enemy : public Object
+class Enemy
 {
 public:
-	Enemy(SceneBase * scene, Vector3 pos);
-	~Enemy(){ enemyCount--; };
+	enum enemyType
+	{
+		spider = 0,
+		robot1,
+		robot2,
+		robot3,
+		robot4,
+	};
 
-	virtual void interact();
+	enum enemyState
+	{
+		spider_patrol,
+		spider_chase
+	};
+	Enemy();
+	Enemy(enemyType);
+	virtual ~Enemy(){ enemyCount--; };
+
+	void update();
 	static unsigned enemyCount;
 
-	const float _interactDistance = 100.0f;
+	//void setEnemyType(enemyType value);
+	//enemyType getEnemyType();
 
+	//Setters and Getters for movement speed
+	void setMovementSpeed(float);
+	float getMovementSpeed();
+
+	//Setters and Getters for damage
+	void setDamage(float);
+	float getDamage();
+
+	//Setter and Getters for hp
+	void setHp(int);
+	int  getHp();
+
+	const float _interactDistance = 40.0f;
+
+	 vector<Vector3> wayPoints;
+
+	void setWayPoint(Vector3);
+	Vector3 getWayPoint();
+
+
+	void setRange(float);
+	float getRange();
+
+	Vector3 _Position;
+	float   _Rotation;
+
+	enemyState _State;
+	enemyType _Type;
 private:
-	const float _MovementSpeed = 20.5f; // Movement speed
+    float _MovementSpeed;// Movement speed
+	float _Damage;
+	float _Hp;
+	
+	
+	float _Range;
+	
 };
 
 
