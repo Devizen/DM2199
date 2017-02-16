@@ -5,7 +5,7 @@
 Bullet::Bullet(SceneBase* scene, Vector3 pos) : Object(scene, pos)
 {
 
-	type = SceneBase::GEO_LIGHTBALL3;
+	type = SceneBase::GEO_BULLET;
 	_defaultYaw = _scene->camera.getYaw();
 	_defaultPitch = _scene->camera.getPitch();
 	_defaultPosition = pos;

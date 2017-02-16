@@ -9,7 +9,7 @@ Enemy::Enemy()
 
 
 }
-Enemy::Enemy(Enemy ::enemyType typ)
+Enemy::Enemy(Enemy ::enemyType typ, Vector3 pos)
 
 {
 	_Type = typ;
@@ -22,7 +22,19 @@ Enemy::Enemy(Enemy ::enemyType typ)
 		_Hp = 10;
 		_Range = 100;
 		_State = spider_patrol;
+		_Position = pos;
 	}
+	break;
+	case robot1:
+	{
+		_MovementSpeed = 10;
+		_Damage = 10;
+		_Hp = 10;
+		_Range = 100;
+		_State = robot_patrol;
+		_Position = pos;
+	}
+	break;
 	}
 
 	/*scale = 10;*/
@@ -55,7 +67,6 @@ Enemy::Enemy(Enemy ::enemyType typ)
 //	}
 //  
 //}
-
 
 void Enemy::setDamage(float dam)
 {

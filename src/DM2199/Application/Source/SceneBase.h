@@ -109,6 +109,8 @@ class SceneBase : public Scene
 		//Spider
 		GEO_SPIDER,
 
+        //Bullet 
+		GEO_BULLET,
 
         //Portal Lightball
         GEO_LIGHTBALL3,
@@ -229,6 +231,7 @@ public:
 
 	//Enemy
 	void enemyUpdate(double dt);
+	float rotateArm = 0;
 
 	std::vector<Enemy *> enemyStorage;
 

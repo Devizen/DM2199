@@ -20,10 +20,15 @@ public:
 	enum enemyState
 	{
 		spider_patrol,
-		spider_chase
+		spider_chase,
+		spider_death,
+
+		robot_patrol,
+		robot_chase,
+		robot_death
 	};
 	Enemy();
-	Enemy(enemyType);
+	Enemy(enemyType, Vector3 pos);
 	virtual ~Enemy(){ enemyCount--; };
 
 	void update();

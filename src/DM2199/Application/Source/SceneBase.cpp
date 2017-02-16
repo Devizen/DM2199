@@ -272,6 +272,10 @@ void SceneBase::Init()
 	
 	meshList[GEO_HP] = MeshBuilder::GenerateOBJ("game_hp", "OBJ//inventory.obj");
 	meshList[GEO_HP]->textureID = LoadTGA("Image//hp_bar.tga");
+
+	meshList[GEO_BULLET] = MeshBuilder::GenerateOBJ("Bullet", "OBJ//Bullet.obj");
+	meshList[GEO_BULLET]->textureID = LoadTGA("Image//Bullet.tga");
+	
 	//Prevent Jerk
 	camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -392,8 +396,10 @@ void SceneBase::Init()
 	cooldown = 15.0f;
 
 
-	Enemy * newEnemy = new Enemy(Enemy::enemyType::spider ); 
+	Enemy * newEnemy = new Enemy(Enemy::enemyType::spider,(1,0,1)); 
+	Enemy * newEnemy2 = new Enemy(Enemy::enemyType::robot1,(20,5,30));
 	enemyStorage.push_back(newEnemy);
+	enemyStorage.push_back(newEnemy2);
 }  
 
 void SceneBase::Update(double dt)
@@ -423,6 +429,11 @@ void SceneBase::Update(double dt)
 	static float rotateWorld = 1;
 
 	float run = 1.f;
+
+	if (rotateArm > -20 && rotateArm < 20)
+	{
+
+	}
 
 	if (Application::IsKeyPressed(MK_LBUTTON))
 	{
@@ -519,45 +530,69 @@ void SceneBase::enemyUpdate(double dt)
 	{
 		switch ((*it)->_Type)
 		{
-		case Enemy::enemyType::spider :
+		case Enemy::enemyType::spider:
+		{
+
+			for (vector<Object*>::iterator factoryIt = factoryIt = objFactory.Container.begin(); factoryIt != objFactory.Container.end(); factoryIt++)
 			{
-				switch ((*it)->_State)
+				if ((*factoryIt)->type == SceneBase::GEO_BULLET)
 				{
-				case Enemy::enemyState::spider_patrol:
-				{
-					std::cout << ((*it)->_Position - camera.getPosition()).Length() << std::endl;
-					if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+					if (((*factoryIt)->position_ - (*it)->_Position).Length() < 20)
 					{
-						(*it)->_State = Enemy::enemyState::spider_chase;
+						(*it)->_State = Enemy::enemyState::spider_death;
 					}
 				}
-				break;
-				case  Enemy::enemyState::spider_chase:
-				{
-					 //distance between character and  enemy
-					  Vector3 distance = ((*it)->_Position - camera.position);
-						Vector3 unitDistance = distance.Normalized();
-					
-						float moveX = unitDistance.x * (*it)->getMovementSpeed()*dt;
-						float moveZ = unitDistance.z *  (*it)->getMovementSpeed()*dt;
-					
-						// Rotate the enemy towards the player
-						 (*it)->_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
-					
-						// Move the Enemy
-						(*it)->_Position.x -= moveX;
-						(*it)->_Position.z -= moveZ;
+			}
 
-						if (((*it)->_Position - camera.getPosition()).Length() > (*it)->getRange())
-						{
-							(*it)->_State = Enemy::enemyState::spider_patrol;
-						}
-						
-				}
-				break;
+			switch ((*it)->_State)
+			{
+			case Enemy::enemyState::spider_patrol:
+			{
+				std::cout << ((*it)->_Position - camera.getPosition()).Length() << std::endl;
+				if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+				{
+					(*it)->_State = Enemy::enemyState::spider_chase;
 				}
 			}
 			break;
+			case  Enemy::enemyState::spider_chase:
+			{
+				//distance between character and  enemy
+				Vector3 distance = ((*it)->_Position - camera.position);
+				Vector3 unitDistance = distance.Normalized();
+
+				float moveX = unitDistance.x * (*it)->getMovementSpeed()*dt;
+				float moveZ = unitDistance.z *  (*it)->getMovementSpeed()*dt;
+
+				// Rotate the enemy towards the player
+				(*it)->_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
+
+				// Move the Enemy
+				(*it)->_Position.x -= moveX;
+				(*it)->_Position.z -= moveZ;
+
+				if (((*it)->_Position - camera.getPosition()).Length() > (*it)->getRange())
+				{
+					(*it)->_State = Enemy::enemyState::spider_patrol;
+				}
+
+			}
+			break;
+
+			case Enemy::enemyState::spider_death:
+			{
+
+			}
+			break;
+			}
+		}	
+		break;
+		case  Enemy::enemyType::robot1:
+		{
+
+
+		}
+		break;
 		}
 
 	}
@@ -706,24 +741,36 @@ void SceneBase::Render()
 		}
 	}
 
-	modelStack.PushMatrix();
-
+	
 	for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
+		modelStack.PushMatrix();
 		switch ((*it)->_Type)
 		{
 		case Enemy::enemyType::spider:
 		{
-			modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
-			modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_SPIDER], true);
+			if ((*it)->_State != Enemy::enemyState::spider_death)
+			{
+				
+				modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+				modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDER], true);
+				
+			}
 		}
 		break;
+		case Enemy::enemyType::robot1:
+		{
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_ENEMYTORSO], true);
+		}
+
 		}	
+		modelStack.PopMatrix();
 	}
 
-	modelStack.PopMatrix();
+
 }
 void SceneBase::renderInventory()
 {
