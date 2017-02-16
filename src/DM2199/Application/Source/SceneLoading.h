@@ -110,6 +110,9 @@ public:
     //Sound
     std::vector<Sound *> soundStorage;
 
+    //This changes what scene to change to after the Loading Screen.
+    static void ChangeScene(int sceneToGo); //0 == Splash, 1 == Main Menu, 2 == Game
+
 private:
     unsigned m_vertexArrayID;
     Mesh* meshList[NUM_GEOMETRY];

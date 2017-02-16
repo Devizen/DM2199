@@ -15,12 +15,8 @@ public:
 	//bool IsKeyPressed(unsigned short key);
 	static bool IsKeyPressed(unsigned short key);
 
-    double switchScene = 0.0;
-    double switchScene1 = 0.0;
-
-
-    static void ChangeScene(int sceneNumber); //0 == Splash, 1 == Main Menu, 2 == Game
-    static void loadSceneTime(unsigned time);
+    static void ChangeScene(int sceneNumber, int sceneToGo); //0 == Splash, 1 == Main Menu, 2 == Game
+    static bool loadSceneTime(bool started);
     //void timeUpdate(float time);
     //float returnTime();
 private:

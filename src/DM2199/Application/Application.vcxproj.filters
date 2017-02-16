@@ -120,7 +120,7 @@
     </ClCompile>
     <ClCompile Include="Source\ItemInfo.cpp">
       <Filter>Source Files</Filter>
-
+  </ClCompile>
     <ClCompile Include="Source\gameobject.cpp">
       <Filter>Source Files\Game_Objects</Filter>
     </ClCompile>
@@ -202,7 +202,7 @@
     </ClInclude>
     <ClInclude Include="Source\ItemInfo.h">
       <Filter>Header Files</Filter>
-
+    </ClInclude>
     <ClInclude Include="Source\gameobject.h">
       <Filter>Header Files\Game_Objects</Filter>
     </ClInclude>
@@ -211,7 +211,6 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>Header Files\Game_Objects</Filter>
-
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

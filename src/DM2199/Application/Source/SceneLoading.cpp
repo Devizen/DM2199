@@ -21,6 +21,8 @@
 using std::cout;
 using std::cin;
 
+static int sceneToChange;
+
 SceneLoading::SceneLoading()
 {
 }
@@ -242,12 +244,15 @@ void SceneLoading::Update(double dt)
 
     if (loadTime > 5.f)
     {
-        Application::ChangeScene(3);
+        if (sceneToChange == 3)
+        {
+            Application::ChangeScene(3, 3);
+        }
     }
 
     for (unsigned i = 0; i < 7; i++)
     {
-        translateLetters[i] += (float)dt * lettersMovement[i] * 1.1;
+        translateLetters[i] += (float)dt * lettersMovement[i] * (float)1.1;
     }
 
     if (rotateWheel > 360.f)
@@ -444,6 +449,11 @@ void SceneLoading::Update(double dt)
 
     camera.Update(dt);
 
+}
+
+void SceneLoading::ChangeScene(int sceneToGo)
+{
+    sceneToChange = sceneToGo;
 }
 
 void SceneLoading::Render()

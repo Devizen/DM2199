@@ -715,12 +715,12 @@ Mesh * MeshBuilder::GenerateSphere(const std::string &meshName, Color color, uns
 	}
 
 
-	for (float stack = 0.f; stack <= numStacks; ++stack) //stack //replace with 180 for sphere
+	for (float stack = 0.f; stack <= (float)numStacks; ++stack) //stack //replace with 180 for sphere
 	{
-		for (float slice = 0.f; slice <= numSlices + 1; ++slice) //stack //replace with 180 for sphere
+        for (float slice = 0.f; slice <= (float)numSlices + 1; ++slice) //stack //replace with 180 for sphere
 		{
-			index_buffer_data.push_back(stack * (numSlices + 1) + slice);
-			index_buffer_data.push_back((stack + 1) * (numSlices + 1) + slice);
+            index_buffer_data.push_back(stack * ((float)numSlices + 1) + slice);
+            index_buffer_data.push_back((stack + 1) * ((float)numSlices + 1) + slice);
 		}
 	}
 
@@ -771,12 +771,12 @@ Mesh * MeshBuilder::GenerateHemisphere(const std::string &meshName, Color color,
     }
 
 
-    for (float stack = 0.f; stack <= numStacks; ++stack) //stack //replace with 180 for sphere
+    for (float stack = 0.f; stack <= (float)numStacks; ++stack) //stack //replace with 180 for sphere
     {
-        for (float slice = 0.f; slice <= numSlices + 1; ++slice) //stack //replace with 180 for sphere
+        for (float slice = 0.f; slice <= (float)numSlices + 1; ++slice) //stack //replace with 180 for sphere
         {
-            index_buffer_data.push_back(stack * (numSlices + 1) + slice);
-            index_buffer_data.push_back((stack + 1) * (numSlices + 1) + slice);
+            index_buffer_data.push_back(stack * ((float)numSlices + 1) + slice);
+            index_buffer_data.push_back((stack + 1) * ((float)numSlices + 1) + slice);
         }
     }
 

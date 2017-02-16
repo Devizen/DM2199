@@ -208,7 +208,7 @@ void SceneSplash::Update(double dt)
     cout << timeOut << endl;
     if (timeOut > 2.f)
     {
-        Application::ChangeScene(1);
+        Application::ChangeScene(1, 1);
     }
     if (Application::IsKeyPressed('7'))
     {

@@ -23,6 +23,7 @@ const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 
 static int sceneNumber;
+static int sceneToChange;
 static unsigned loadTime;
 
 //Define an error callback
@@ -112,9 +113,10 @@ void Application::Init()
     }
 }
 
-void Application::ChangeScene(int sceneNo)
+void Application::ChangeScene(int sceneNo, int sceneToGo)
 {
     sceneNumber = sceneNo;
+    sceneToChange = sceneToGo;
 }
 
 void Application::Run()
@@ -135,6 +137,7 @@ void Application::Run()
         {
             scene->Exit();
             scene = sceneMainMenu;
+            sceneLoading->Init();
             scene->Init();
         }
 
@@ -142,10 +145,14 @@ void Application::Run()
         {
             scene->Exit();
             scene = sceneLoading;
-            scene->Init();
+       /*     scene->Init();*/
 
-            sceneLoadingAtBack = sceneTutorial;
-            sceneLoadingAtBack->Init();
+            if (sceneToChange == 3)
+            {
+                sceneLoadingAtBack = sceneTutorial;
+                sceneLoadingAtBack->Init();
+                SceneLoading::ChangeScene(3);
+            }
         }
 
         if (sceneNumber == 3 && scene != sceneTutorial)

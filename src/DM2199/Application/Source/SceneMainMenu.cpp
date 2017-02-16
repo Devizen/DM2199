@@ -225,7 +225,8 @@ void SceneMainMenu::Update(double dt)
     {
         if (selectOptions == 0)
         {
-            Application::ChangeScene(2);
+            //The 2 represent the loading screen while the 3 is the scene is which scene you want to change to
+            Application::ChangeScene(2, 3);
         }
         if (selectOptions == 1)
         {
