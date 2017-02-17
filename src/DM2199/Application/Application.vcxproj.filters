@@ -117,8 +117,11 @@
     <ClCompile Include="Source\Spider.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Robot.cpp">
-      <Filter>Source Files\Object</Filter>
+    <ClCompile Include="Source\WaypointManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Waypoint.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,8 +203,11 @@
     <ClInclude Include="Source\Spider.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Robot.h">
-      <Filter>Header Files\Object</Filter>
+    <ClInclude Include="Source\WaypointManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Waypoint.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

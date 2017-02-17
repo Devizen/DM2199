@@ -99,7 +99,6 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Object.cpp" />
-    <ClCompile Include="Source\Robot.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneLoading.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
@@ -108,6 +107,8 @@
     <ClCompile Include="Source\Sound.cpp" />
     <ClCompile Include="Source\Spider.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Waypoint.cpp" />
+    <ClCompile Include="Source\WaypointManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -126,7 +127,6 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Object.h" />
-    <ClInclude Include="Source\Robot.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneLoading.h" />
@@ -137,6 +137,8 @@
     <ClInclude Include="Source\Spider.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Waypoint.h" />
+    <ClInclude Include="Source\WaypointManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\SimpleFragmentShader.fragmentshader" />

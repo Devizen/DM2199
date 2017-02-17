@@ -2,6 +2,7 @@
 #define ENEMY_H
 #include <vector>
 #include "Vector3.h"
+#include "WaypointManager.h"
 
 using std::vector;
 
@@ -20,15 +21,10 @@ public:
 	enum enemyState
 	{
 		spider_patrol,
-		spider_chase,
-		spider_death,
-
-		robot_patrol,
-		robot_chase,
-		robot_death
+		spider_chase
 	};
 	Enemy();
-	Enemy(enemyType, Vector3 pos);
+	Enemy(enemyType);
 	virtual ~Enemy(){ enemyCount--; };
 
 	void update();
@@ -51,12 +47,6 @@ public:
 
 	const float _interactDistance = 40.0f;
 
-	 vector<Vector3> wayPoints;
-
-	void setWayPoint(Vector3);
-	Vector3 getWayPoint();
-
-
 	void setRange(float);
 	float getRange();
 
@@ -65,6 +55,11 @@ public:
 
 	enemyState _State;
 	enemyType _Type;
+
+	void addWaypoint(Vector3);
+	void movetoWaypoint(double dt);
+	WaypointManager* WPManager;
+	Waypoint* currWaypoint;
 private:
     float _MovementSpeed;// Movement speed
 	float _Damage;
