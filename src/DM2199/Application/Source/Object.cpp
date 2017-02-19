@@ -29,8 +29,13 @@ void Object::objectRender()
 		}
 	}
 
+<<<<<<< HEAD
 	if (isFlicker == true)
 	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 40, 30, 80, 60, 0, 0, 0, 1);
+=======
+	/*if (isFlicker == true)
+	 	_scene->RenderMeshOnScreen(_scene->meshList[meshscreenType], 40, 30, 80, 60);*/
+>>>>>>> origin/master
 	
 }
 

@@ -108,7 +108,10 @@
     <ClCompile Include="Source\SceneSplash.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Sound.cpp" />
+    <ClCompile Include="Source\Spider.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Waypoint.cpp" />
+    <ClCompile Include="Source\WaypointManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -137,8 +140,11 @@
     <ClInclude Include="Source\SceneSplash.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Sound.h" />
+    <ClInclude Include="Source\Spider.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Waypoint.h" />
+    <ClInclude Include="Source\WaypointManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

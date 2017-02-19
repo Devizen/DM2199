@@ -52,16 +52,6 @@ void Bullet::interact(){
 	//}
 
 
-	for (std::vector<Object*>::iterator it = _scene->objFactory.Container.begin(); it != _scene->objFactory.Container.end(); ++it)
-	{
-
-		if ((*it)->objectType.size() > 0 ){
-
-			if  (((*it)->position_ - position_).Length() < 40)
-			_scene->objFactory.destroyFactoryObject(*it);
-
-		}
-	}
 
 }
 

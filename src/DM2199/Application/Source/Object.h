@@ -30,9 +30,7 @@ public:
 	float translateY = 0;
 
 	unsigned type = 0;
-	unsigned meshscreenType = 0;
 
-	bool isFlicker = false;
 
 	std::vector <unsigned> objectType;  // to handle multiple obj parts
 protected:

@@ -120,6 +120,7 @@
     <ClCompile Include="Source\ItemInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\gameobject.cpp">
       <Filter>Source Files\Game_Objects</Filter>
     </ClCompile>
@@ -128,6 +129,16 @@
     </ClCompile>
     <ClCompile Include="Source\SceneEditor.cpp">
       <Filter>Source Files\Scenes</Filter>
+=======
+    <ClCompile Include="Source\Spider.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WaypointManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Waypoint.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +214,7 @@
     <ClInclude Include="Source\ItemInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Source\gameobject.h">
       <Filter>Header Files\Game_Objects</Filter>
     </ClInclude>
@@ -214,6 +226,16 @@
     </ClInclude>
     <ClInclude Include="Source\SceneEditor.h">
       <Filter>Header Files\Scenes</Filter>
+=======
+    <ClInclude Include="Source\Spider.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WaypointManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Waypoint.h">
+      <Filter>Header Files</Filter>
+>>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

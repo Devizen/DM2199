@@ -3,40 +3,117 @@
 
 unsigned Enemy::enemyCount = 0;
 
-
-Enemy::Enemy(SceneBase * scene, Vector3 pos) : Object(scene, pos)
+Enemy::Enemy()
 {
-	objectType = { SceneBase::GEO_ENEMYHEAD, SceneBase::GEO_ENEMYLEFTARM,
-		SceneBase::GEO_ENEMYRIGHTARM, SceneBase::GEO_ENEMYLEFTLEG,
-	SceneBase::GEO_ENEMYRIGHTLEG,SceneBase::GEO_ENEMYTORSO };
-		
 
 
-	scale = 10;
+
+}
+Enemy::Enemy(Enemy ::enemyType typ)
+
+{
+	_Type = typ;
+	switch (_Type)
+	{
+	case  spider:
+	{
+		_MovementSpeed = 70;
+		_Damage = 10;
+		_Hp = 10;
+		_Range = 100;
+		_State = spider_patrol;
+	}
+	}
+
+	/*scale = 10;*/
 	enemyCount++;
+
+	WPManager = new WaypointManager();
 }
 
-void Enemy::interact()
+void Enemy::setDamage(float dam)
 {
-	// distance between character and  enemy
-	Vector3 distance = (position_ - _scene->camera.position);
-	Vector3 unitDistance = distance.Normalized();
+	_Damage = dam;
+}
 
-	float moveX = unitDistance.x * _MovementSpeed * _scene->_dt;
-	float moveZ = unitDistance.z * _MovementSpeed * _scene->_dt;
+float   Enemy::getDamage()
+{
+	return _Damage;
+}
 
-	// Rotate the enemy towards the player
-	rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x));
+void  Enemy::setMovementSpeed(float speed)
+{
+	_MovementSpeed = speed;
+}
 
-	// Move the Enemy
-	position_.x -= moveX;
-	position_.z -= moveZ;
+float  Enemy::getMovementSpeed()
+{
+	return _MovementSpeed;
+}
 
-	if ((position_ - _scene->camera.getPosition()).Length() <= _interactDistance)
+void  Enemy::setHp(int health)
+{
+	_Hp = health;
+}
+
+int  Enemy::getHp()
+{
+	return _Hp;
+}
+
+float Enemy::getRange()
+{
+	return _Range;
+}
+
+void Enemy::setRange(float r)
+{
+	_Range = r;
+}
+
+void Enemy::addWaypoint(Vector3 WPposition)
+{
+	WPManager->addWaypoint(WPposition);
+
+	if (WPManager->WaypointList.size() == 1)
 	{
-		meshscreenType = SceneBase::GEO_FLICKER;
-		isFlicker = true;
+		vector<Waypoint*>::iterator it = WPManager->WaypointList.begin();
+		currWaypoint = (*it);
 	}
+}
+void Enemy::movetoWaypoint(double dt)
+{
+	if (currWaypoint != NULL)
+	{
+		if ((_Position - currWaypoint->getPosition()).Length() > 16)
+		{
+			Vector3 distance = (_Position - currWaypoint->getPosition());
+			Vector3 unitDistance = distance.Normalized();
+
+			float moveX = unitDistance.x * _MovementSpeed * dt;
+			float moveZ = unitDistance.z * _MovementSpeed * dt;
+
+			// Rotate the enemy towards the player
+			//(*it)->_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
+
+			// Move the Enemy
+			_Position.x -= moveX;
+			_Position.z -= moveZ;
+		}
+		else
+		{
+			if (currWaypoint->getNextWaypoint() == NULL)
+			{
+				vector<Waypoint*>::iterator it = WPManager->WaypointList.begin();
+				currWaypoint = (*it);
+			}
+			else
+			{
+				currWaypoint = currWaypoint->getNextWaypoint();
+			}
+		}
+	}
+<<<<<<< HEAD
   
 }
 
@@ -53,4 +130,6 @@ bool Enemy::damageDealt(float posX, float posZ)
     {
         return false;
     }
+=======
+>>>>>>> origin/master
 }
