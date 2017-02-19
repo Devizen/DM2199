@@ -33,12 +33,6 @@ SceneLoading::~SceneLoading()
 
 void SceneLoading::Init()
 {
-    ofstream myfile;
-    myfile.open("Text/example.txt");
-    myfile << "Writing this to a file.\n";
-    myfile.close();
-
-
     // Set background color to black 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -242,13 +236,16 @@ void SceneLoading::Update(double dt)
     loadTime += (float)dt * runTime;
     rotateWheel += (float)dt * spin;
 
-    if (loadTime > 5.f)
+  
+    if (sceneToChange == 3)
     {
-        if (sceneToChange == 3)
-        {
-            Application::ChangeScene(3, 3);
-        }
+        Application::ChangeScene(3);
     }
+    if (sceneToChange == 4)
+    {
+        Application::ChangeScene(4);
+    }
+ 
 
     for (unsigned i = 0; i < 7; i++)
     {

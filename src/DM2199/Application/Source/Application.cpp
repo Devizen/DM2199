@@ -17,6 +17,7 @@
 #include "SceneSplash.h"
 #include "SceneMainMenu.h"
 #include "SceneLoading.h"
+#include "SceneEditor.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -113,10 +114,9 @@ void Application::Init()
     }
 }
 
-void Application::ChangeScene(int sceneNo, int sceneToGo)
+void Application::ChangeScene(int sceneNo)
 {
     sceneNumber = sceneNo;
-    sceneToChange = sceneToGo;
 }
 
 void Application::Run()
@@ -126,6 +126,7 @@ void Application::Run()
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
     Scene *sceneTutorial = new SceneBase();
+    Scene *sceneEditor = new SceneEditor();
     Scene *scene = sceneSplash;
     Scene *sceneLoadingAtBack;
     scene->Init();
@@ -145,21 +146,26 @@ void Application::Run()
         {
             scene->Exit();
             scene = sceneLoading;
-       /*     scene->Init();*/
+            scene->Init();
+        }
 
-            if (sceneToChange == 3)
+        if (scene == sceneLoading)
+        {
+            if (sceneNumber == 3 && scene != sceneTutorial)
             {
                 sceneLoadingAtBack = sceneTutorial;
                 sceneLoadingAtBack->Init();
-                SceneLoading::ChangeScene(3);
+                scene->Exit();
+                scene = sceneLoadingAtBack;
             }
-        }
 
-        if (sceneNumber == 3 && scene != sceneTutorial)
-        {
-            scene->Exit();
-            scene = sceneLoadingAtBack;
-
+            if (sceneNumber == 4 && scene != sceneEditor)
+            {
+                sceneLoadingAtBack = sceneEditor;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
         }
 
         scene->Update(m_timer.getElapsedTime());
@@ -174,19 +180,8 @@ void Application::Run()
     scene->Exit();
     delete scene;
 
-    //delete scene1;
-    //delete scene2;
-}
 
-//void Application::timeUpdate(float time)
-//{
-//    time += switchScene;
-//}
-//
-//float Application::returnTime()
-//{
-//    return switchScene;
-//}
+}
 
 void Application::Exit()
 {

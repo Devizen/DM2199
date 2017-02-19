@@ -8,6 +8,8 @@
 
 #include "shader.hpp"
 #include "Utility.h"
+#include "SceneLoading.h"
+#include "SceneEditor.h"
 
 #include <iostream>
 #include <iomanip>
@@ -117,6 +119,10 @@ void SceneMainMenu::Init()
     meshList[GEO_MAINMENU] = MeshBuilder::GenerateOBJ("splash", "OBJ//menu.obj");
     meshList[GEO_MAINMENU]->textureID = LoadTGA("Image//menu/mainMenu.tga");
 
+    //Level Select
+    meshList[LEVELSELECT] = MeshBuilder::GenerateOBJ("splash", "OBJ//menu.obj");
+    meshList[LEVELSELECT]->textureID = LoadTGA("Image//menu/levelSelect.tga");
+
     //Arrow
     meshList[GEO_ARROW] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
     meshList[GEO_ARROW]->textureID = LoadTGA("Image//menu/arrow.tga");
@@ -206,34 +212,175 @@ void SceneMainMenu::Init()
 void SceneMainMenu::Update(double dt)
 {
     srand((unsigned)time(NULL));
+    _dt = (float)dt;
+    _elapsedTime += _dt;
 
-    if (Application::IsKeyPressed('W') || Application::IsKeyPressed(VK_UP))
+    pressDelay += (float)dt;
+
+    //Prevent pressDelay from exceeding 0.5f
+    if (pressDelay > 0.5f)
     {
-
-            selectOptions = 0;
-        
+        pressDelay = 0.5f;
     }
 
-    if (Application::IsKeyPressed('S') || Application::IsKeyPressed(VK_DOWN))
+    if ((Application::IsKeyPressed('W') || Application::IsKeyPressed(VK_UP)) && pressDelay >= cooldownPressed)
     {
+        //Main Menu
+        if (selectOptions == QUIT)
+        {
+            selectOptions = LEVELEDITOR;
+        }
+        else if(selectOptions == LEVELEDITOR)
+        {
+            selectOptions = NEWGAME;
+        }
+        else if(selectOptions == NEWGAME)
+        {
+            selectOptions = QUIT;
+        }
 
-            selectOptions = 1;
-        
+        //Level Select
+        else if (selectOptions == TUTORIAL)
+        {
+            selectOptions = BOSS;
+        }
+        else if (selectOptions == BOSS)
+        {
+            selectOptions = LEVEL4;
+        }
+        else if (selectOptions == LEVEL4)
+        {
+            selectOptions = LEVEL3;
+        }
+        else if (selectOptions == LEVEL3)
+        {
+            selectOptions = LEVEL2;
+        }
+        else if (selectOptions == LEVEL2)
+        {
+            selectOptions = LEVEL1;
+        }
+        else if (selectOptions == LEVEL1)
+        {
+            selectOptions = TUTORIAL;
+        }
+        pressDelay = 0.f;
     }
 
-    if (Application::IsKeyPressed(VK_RETURN))
+    if ((Application::IsKeyPressed('S') || Application::IsKeyPressed(VK_DOWN)) && pressDelay >= cooldownPressed)
     {
-        if (selectOptions == 0)
+        //Main Menu
+        if (selectOptions == NEWGAME)
+        {
+            selectOptions = LEVELEDITOR;
+        }
+        else if (selectOptions == LEVELEDITOR)
+        {
+            selectOptions = QUIT;
+        }
+        else if(selectOptions == QUIT)
+        {
+            selectOptions = NEWGAME;
+        }
+        
+        //Level Select
+        else if (selectOptions == TUTORIAL)
+        {
+            selectOptions = LEVEL1;
+        }
+        else if (selectOptions == LEVEL1)
+        {
+            selectOptions = LEVEL2;
+        }
+        else if (selectOptions == LEVEL2)
+        {
+            selectOptions = LEVEL3;
+        }
+        else if (selectOptions == LEVEL3)
+        {
+            selectOptions = LEVEL4;
+        }
+        else if (selectOptions == LEVEL4)
+        {
+            selectOptions = BOSS;
+        }
+        else if (selectOptions == BOSS)
+        {
+            selectOptions = TUTORIAL;
+        }
+        pressDelay = 0.f;
+    }
+
+    if (Application::IsKeyPressed(VK_RETURN) && pressDelay >= cooldownPressed)
+    {
+        //Main Menu
+        if (selectOptions == NEWGAME)
         {
             //The 2 represent the loading screen while the 3 is the scene is which scene you want to change to
-            Application::ChangeScene(2, 3);
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(3);
         }
-        if (selectOptions == 1)
+        else if (selectOptions == LEVELEDITOR)
+        {
+            selectOptions = TUTORIAL;
+        }
+        else if(selectOptions == QUIT)
         {
             exit(0);
         }
+
+        //Level Select
+        else if(selectOptions == TUTORIAL)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("tutorial.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        else if(selectOptions == LEVEL1)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("level1.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        else if(selectOptions == LEVEL2)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("level2.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        else if(selectOptions == LEVEL3)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("level3.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        else if(selectOptions == LEVEL4)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("level4.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        else if(selectOptions == BOSS)
+        {
+            //The 2 represent the loading screen while the 4 is the scene is which scene you want to change to
+            SceneEditor::selectLevel("boss.txt");
+            Application::ChangeScene(2);
+            SceneLoading::ChangeScene(4);
+        }
+        pressDelay = 0.f;
     }
 
+    //Return to Main Menu
+    if (Application::IsKeyPressed(VK_BACK) && pressDelay >= cooldownPressed)
+    {
+        selectOptions = NEWGAME;
+        pressDelay = 0.f;
+    }
 
     if (Application::IsKeyPressed('7'))
     {
@@ -341,15 +488,46 @@ void SceneMainMenu::Render()
         glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
     }
 
-    RenderMeshOnScreen(meshList[GEO_MAINMENU], 40, 30, 50, 50);
+    if (selectOptions <= QUIT)
+    {
+        RenderMeshOnScreen(meshList[GEO_MAINMENU], 40, 30, 50, 50);
+    }
+    else if (selectOptions >= TUTORIAL && selectOptions <= BOSS)
+    {
+        RenderMeshOnScreen(meshList[LEVELSELECT], 40, 30, 50, 50);
+    }
 
     switch (selectOptions)
     {
-    case 0:
+        //First Page of Main Menu
+    case NEWGAME:
         RenderMeshOnScreen(meshList[GEO_ARROW], 40, 30, 50, 50);
         break;
-    case 1:
-        RenderMeshOnScreen(meshList[GEO_ARROW], 45, 23, 50, 50);
+    case LEVELEDITOR:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 38, 23, 50, 50);
+        break;
+    case QUIT:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 45, 16, 50, 50);
+        break;
+
+        //Level Select Page of Main Menu
+    case TUTORIAL:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 30, 50, 50);
+        break;
+    case LEVEL1:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 25, 50, 50);
+        break;
+    case LEVEL2:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 20, 50, 50);
+        break;
+    case LEVEL3:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 15, 50, 50);
+        break;
+    case LEVEL4:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 10, 50, 50);
+        break;
+    case BOSS:
+        RenderMeshOnScreen(meshList[GEO_ARROW], 40, 5, 50, 50);
         break;
     }
 

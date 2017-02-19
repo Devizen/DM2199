@@ -1,0 +1,6 @@
+246,-114
+Image//objects.tga
+OBJ//mountain.obj
+285,-411
+Image//objects.tga
+OBJ//mountain.obj

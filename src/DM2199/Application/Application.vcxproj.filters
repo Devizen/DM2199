@@ -114,19 +114,20 @@
     <ClCompile Include="Source\SceneLoading.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-
     <ClCompile Include="Source\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\ItemInfo.cpp">
       <Filter>Source Files</Filter>
-  </ClCompile>
+    </ClCompile>
     <ClCompile Include="Source\gameobject.cpp">
       <Filter>Source Files\Game_Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\player.cpp">
       <Filter>Source Files\Game_Objects</Filter>
-
+    </ClCompile>
+    <ClCompile Include="Source\SceneEditor.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +197,6 @@
     <ClInclude Include="Source\SceneLoading.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-
     <ClInclude Include="Source\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -212,6 +212,9 @@
     <ClInclude Include="Source\Enemy.h">
       <Filter>Header Files\Game_Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneEditor.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\SimpleFragmentShader.fragmentshader">
@@ -220,5 +223,6 @@
     <None Include="Shader\SimpleVertexShader.vertexshader">
       <Filter>Shader</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

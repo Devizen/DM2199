@@ -20,6 +20,9 @@
 using std::cout;
 using std::cin;
 
+static int checkLoad = 0;
+
+
 SceneBase::SceneBase()
 {
 }
@@ -389,7 +392,12 @@ void SceneBase::Init()
    
     ////Player *hero = new Player();
     ////Enemy *enemy = new Enemy();
+    checkLoad = 1;
+}
 
+int SceneBase::Loaded()
+{
+    return checkLoad;
 }
 
 void SceneBase::Update(double dt)
@@ -654,6 +662,7 @@ void SceneBase::Render()
 		}
 	}
 }
+
 void SceneBase::renderInventory()
 {
 	if (!global_inventory->pointer)

@@ -2,9 +2,15 @@
 #define CAMERA_3_H
 
 #include "Camera.h"
+#include <vector>
+#include <string>
+
+using std::vector;
+using std::string;
 
 class Camera3 : public Camera
 {
+    friend class SceneEditor;
 public:
 	//Vector3 position;
 	//Vector3 target;
@@ -30,9 +36,6 @@ public:
     bool upPressed = false, downPressed = false, leftPressed = false, rightPressed = false;
     bool jumpStucked = false;
 
-
-    bool collision = false;
-
     //Camera View
     bool firstPerson = true;
     bool thirdPerson = false;
@@ -50,11 +53,8 @@ public:
     //Total Amount of Objects
     static unsigned const amountOfObjects = 5;
 
-    //Objects location initializer
-    void objectsLocation();
-
     //Previous position
-    Vector3 PrevPos = { 0.0f, 0.0f, 0.0f };
+    Vector3 prevPosCol = { 0.0f, 0.0f, 0.0f };
 
     Vector3 objectsMin[amountOfObjects];
     Vector3 objectsMax[amountOfObjects];
@@ -104,8 +104,11 @@ private:
 	double lastX = 0;
 	double lastY = 0;
 
+    //Collision Enabling and Disabling for Level Editor
+    static void collisionSwitch(bool collisionInput, string levelInput);
 
-
+    //Check if Pause Menu was called
+    static void pauseCheck(bool input);
 };
 
 #endif

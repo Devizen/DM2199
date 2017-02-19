@@ -21,6 +21,7 @@ class SceneMainMenu : public Scene
     {
         //Main Menu
         GEO_MAINMENU = 0,
+        LEVELSELECT,
 
         //Arrow
         GEO_ARROW,
@@ -89,6 +90,21 @@ class SceneMainMenu : public Scene
         U_TOTAL,
     };
 
+    enum MENU
+    {
+        //First Page of Main Menu
+        NEWGAME = 0,
+        LEVELEDITOR,
+        QUIT,
+
+        //Level Select Page of Main Menu
+        TUTORIAL,
+        LEVEL1,
+        LEVEL2,
+        LEVEL3,
+        LEVEL4,
+        BOSS,
+    };
 
     unsigned m_parameters[U_TOTAL];
 
@@ -105,6 +121,10 @@ public:
 
     //Sound
     std::vector<Sound *> soundStorage;
+
+    float _dt;
+    float _elapsedTime = 0;
+
 
 private:
     unsigned m_vertexArrayID;
@@ -124,7 +144,12 @@ private:
     void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
 
     //Options
-    unsigned selectOptions = 0; //0 == New Game, 1 == Quit
+    float pressDelay = 0.f;
+
+    //Cooldown for Button Pressed
+    const float cooldownPressed = 0.2f;
+
+    MENU selectOptions = NEWGAME; //0 == New Game, 1 == Quit
 };
 
 

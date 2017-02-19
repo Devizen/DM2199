@@ -226,6 +226,8 @@ public:
 	float startTime;
 	float cooldown;
 
+    //Loaded check
+    static int Loaded();
 
 private:
     unsigned m_vertexArrayID;
@@ -257,7 +259,6 @@ private:
 	float nextBulletTime = 0;
 	//Cool Down between each walk sound
 	float nextWalkTime = 0;
-
 };
 
 
