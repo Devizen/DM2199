@@ -56,6 +56,15 @@ void Inventory::addItem(ItemInfo* newItem)
 			listposition++;
 		}
 	}
+
+	if (getActiveItem() == NULL)
+	{
+		activeItem = newItem;
+	}
+	else if (getActiveItem() != NULL && getSecondaryItem() == NULL)
+	{
+		secondaryItem = newItem;
+	}
 }
 
 ItemInfo* Inventory::getDisplay1()

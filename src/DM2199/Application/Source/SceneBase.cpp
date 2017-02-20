@@ -247,6 +247,8 @@ void SceneBase::Init()
 	meshList[GEO_HP] = MeshBuilder::GenerateOBJ("game_hp", "OBJ//inventory.obj");
 	meshList[GEO_HP]->textureID = LoadTGA("Image//hp_bar.tga");
 
+	meshList[GEO_EN] = MeshBuilder::GenerateOBJ("game_en", "OBJ//inventory.obj");
+	meshList[GEO_EN]->textureID = LoadTGA("Image//en_bar.tga");
 
 	//Enemy 
 	meshList[GEO_ENEMYHEAD] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyHead.obj");
@@ -315,6 +317,17 @@ void SceneBase::Init()
 
 	meshList[GEO_ENEMYHEALTHBAR] = MeshBuilder::GenerateQuad("enemyHealthBar", Color(1.0f, 0.0f, 0.0f), 1, 1);
 
+	meshList[GEO_ARROW] = MeshBuilder::GenerateOBJ("Arrow", "OBJ//inventory.obj");
+	meshList[GEO_ARROW]->textureID = LoadTGA("Image//Arrow.tga");
+
+	meshList[GEO_ACTIVE_SELECT] = MeshBuilder::GenerateOBJ("active_select", "OBJ//inventory.obj");
+	meshList[GEO_ACTIVE_SELECT]->textureID = LoadTGA("Image//active_select.tga");
+
+	meshList[GEO_SECONDARY_SELECT] = MeshBuilder::GenerateOBJ("secondary_select", "OBJ//inventory.obj");
+	meshList[GEO_SECONDARY_SELECT]->textureID = LoadTGA("Image//secondary_select.tga");
+
+	meshList[GEO_TIME] = MeshBuilder::GenerateOBJ("time_bar", "OBJ//inventory.obj");
+	meshList[GEO_TIME]->textureID = LoadTGA("Image//time_bar.tga");
 
 	//Prevent Jerk
 	camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -639,7 +652,7 @@ void SceneBase::Update(double dt)
 
 	enemyUpdate(dt);
 
-
+	timeleft--;
 }
 
 void SceneBase::enemyUpdate(double dt)
@@ -822,6 +835,18 @@ void SceneBase::Render()
 		//in game hud
 		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65);
 
+		if (health > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * health / 100, 6.1, 105 * health / 100, 9);
+		}
+		if (energy > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 100, 2.3, 105 * energy / 100, 9);
+		}
+		if (timeleft > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft/6000, 14.5, 105 * timeleft/6000 , 11);
+		}
 		//minimap
 		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
 		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
@@ -845,6 +870,7 @@ void SceneBase::Render()
 			soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
 			nextSplatter = _elapsedTime + coolDown;
 			
+			health--;
 		}
 
 		switch ((*it)->enemytype)
@@ -1070,19 +1096,17 @@ void SceneBase::renderInventory()
 {
 	if (!global_inventory->pointer)
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 20, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_ARROW], 20, 20, 27 , 30);
 	}
 	else
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 10, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_ARROW], 20, 10, 27 , 30);
 	}
 
-	if (global_inventory->getActiveItem())
-	{
 		ItemInfo* activeItem = global_inventory->getActiveItem();
 		if (activeItem->gettype() == "sword")
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4);
+			RenderMeshOnScreen(meshList[GEO_SWORD], 15, 30, 4, 4);
 		}
 		else if (activeItem->gettype() == "fist")
 		{
@@ -1090,12 +1114,8 @@ void SceneBase::renderInventory()
 		}
 		else if (activeItem->gettype() == "torch")
 		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4);
+			RenderMeshOnScreen(meshList[GEO_TORCH], 12, 35, 4, 4);
 		}
-	}
-
-	if (global_inventory->getSecondaryItem())
-	{
 		ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
 		if (secondaryItem->gettype() == "sword")
 		{
@@ -1107,23 +1127,30 @@ void SceneBase::renderInventory()
 		}
 		else if (secondaryItem->gettype() == "torch")
 		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4);
+			RenderMeshOnScreen(meshList[GEO_TORCH], 32, 35, 4, 4);
 		}
-	}
 	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
 	if (ItemDisplay1->gettype() == "sword")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2);
+		RenderMeshOnScreen(meshList[GEO_SWORD], 12, 21, 2, 2);
 	}
 	else if (ItemDisplay1->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 20, 5, 5);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 40, 5, 5);
 	}
 	else if (ItemDisplay1->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_TORCH], 12, 23, 3, 3);
 	}
 
+	if (ItemDisplay1 == activeItem)
+	{
+		RenderMeshOnScreen(meshList[GEO_ACTIVE_SELECT], 12, 23.2, 6, 7.2);
+	}
+	else if (ItemDisplay1 == secondaryItem)
+	{
+		RenderMeshOnScreen(meshList[GEO_SECONDARY_SELECT], 12, 23.2, 6, 7.2);
+	}
 	ItemInfo* ItemDisplay2 = global_inventory->getDisplay2();
 	if (ItemDisplay2->gettype() == "sword")
 	{
@@ -1131,11 +1158,19 @@ void SceneBase::renderInventory()
 	}
 	else if (ItemDisplay2->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 10, 5, 5);
+		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 12, 5, 5);
 	}
 	else if (ItemDisplay2->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_TORCH], 12, 13, 3, 3);
+	}
+	if (ItemDisplay2 == activeItem)
+	{
+		RenderMeshOnScreen(meshList[GEO_ACTIVE_SELECT], 12, 13.7, 6, 7.2);
+	}
+	else if (ItemDisplay2 == secondaryItem)
+	{
+		RenderMeshOnScreen(meshList[GEO_SECONDARY_SELECT], 12, 13.7, 6, 7.2);
 	}
 }
 void SceneBase::renderMountains()
@@ -1317,8 +1352,8 @@ void SceneBase::renderGround()
 void SceneBase::renderSprites()
 {
 	//Default hands
-	RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
-	RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
 
 	//Punching hands
 	//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
@@ -1338,6 +1373,17 @@ void SceneBase::renderSprites()
 	//RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
 	//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
 	//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
+	if (global_inventory->getActiveItem()->gettype() == "fist")
+	{
+		RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+		RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
+	}
+	else if (global_inventory->getActiveItem()->gettype() == "sword")
+	{
+		RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
+		//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
+		//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
+	}
 }
 
 

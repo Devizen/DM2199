@@ -108,6 +108,12 @@ class SceneBase : public Scene
 		GEO_GAME_HUD,
 		GEO_HP,
 
+		GEO_EN,
+		GEO_ARROW,
+		GEO_ACTIVE_SELECT,
+		GEO_SECONDARY_SELECT,
+		GEO_TIME,
+
         //Text
         GEO_TEXT,
 	
@@ -268,6 +274,9 @@ public:
 
 	std::vector<Enemy *> enemyStorage;
 
+	int health = 100;
+	int energy = 100;
+	int timeleft = 6000;
 private:
     unsigned m_vertexArrayID;
     Mesh* meshList[NUM_GEOMETRY];
