@@ -9,8 +9,9 @@
 #include "Light.h"
 #include "FactoryObject.h"
 #include "Enemy.h"
-#include "player.h"
 #include "Sound.h"
+#include "Spider.h"
+#include "Robot.h"
 #include <vector>
 
 using std::vector;
@@ -24,6 +25,8 @@ class SceneBase : public Scene
 	friend class Object;
 	friend class Bullet;
 	friend class Sound;
+	friend class Spider;
+	friend class Robot;
 
     enum GEOMETRY_TYPE
     {
@@ -58,13 +61,34 @@ class SceneBase : public Scene
         GEO_MOUNTAIN_2,
         GEO_GROUND,
 
-		//Enemy 
+		//Enemy 1
 		GEO_ENEMYHEAD,
 		GEO_ENEMYLEFTARM,
 		GEO_ENEMYRIGHTARM,
 		GEO_ENEMYLEFTLEG,
 		GEO_ENEMYRIGHTLEG,
 		GEO_ENEMYTORSO,
+
+		//Enemy 2
+		GEO_ENEMYLEFTARM2,
+		GEO_ENEMYRIGHTARM2,
+		GEO_ENEMYLEFTLEG2,
+		GEO_ENEMYRIGHTLEG2,
+		GEO_ENEMYTORSO2,
+
+		//Enemy 3
+		GEO_ENEMYLEFTARM3,
+		GEO_ENEMYRIGHTARM3,
+		GEO_ENEMYLEFTLEG3,
+		GEO_ENEMYRIGHTLEG3,
+		GEO_ENEMYTORSO3,
+
+		//Enemy 4
+		GEO_ENEMYLEFTARM4,
+		GEO_ENEMYRIGHTARM4,
+		GEO_ENEMYLEFTLEG4,
+		GEO_ENEMYRIGHTLEG4,
+		GEO_ENEMYTORSO4,
 		
 		GEO_FLICKER,
 		GEO_HP75,
@@ -109,6 +133,10 @@ class SceneBase : public Scene
 
 		//Spider
 		GEO_SPIDER,
+
+
+
+		GEO_ENEMYHEALTHBAR,
 
 
         //Portal Lightball
@@ -181,9 +209,6 @@ class SceneBase : public Scene
 
     unsigned m_parameters[U_TOTAL];
 
-    Player *hero;
-    Enemy *enemy;
-
 public:
     SceneBase();
     ~SceneBase();
@@ -231,15 +256,17 @@ public:
 	float startTime;
 	float cooldown;
 
-<<<<<<< HEAD
-    //Loaded check
-    static int Loaded();
-=======
 	//Enemy
 	void enemyUpdate(double dt);
 
+
+	float rotateArm = 0.f;
+	float scaleDamage = 0.2f;
+
+	bool bulletTouch = false;
+	bool damaged = false; // character to enemy
+
 	std::vector<Enemy *> enemyStorage;
->>>>>>> origin/master
 
 private:
     unsigned m_vertexArrayID;
@@ -262,15 +289,19 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-    void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
+    void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
     void renderPosition();
 
 	// Cool Down Time
-	const float coolDown = 0.2f;
+	const float coolDown = 0.3f;
 	//Cool down between shooting each bullet
-	float nextBulletTime = 0;
+	float nextBulletTime = 0.f;
 	//Cool Down between each walk sound
-	float nextWalkTime = 0;
+	float nextWalkTime = 0.f;
+	float nextJump = 0.f;
+	float nextSplatter = 0.f;
+	float nextRun = 0.f;
+
 };
 
 

@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "Enemy.h"
+#include "SceneBase.h"
 
 class Spider: public Enemy
 {
@@ -9,12 +10,15 @@ public:
 	{
 		patrolling,
 		chasing,
+		death,
 	};
 
 
-	Spider();
-	Spider(float , float ,int, float);
+	Spider(float, float, float, float,SceneBase * scene);
 	~Spider();
+
+	virtual void addWaypoint(Vector3);
+	virtual void movetoWaypoint(double dt);
 
 	//Setters and Getters for movement speed
 	void setMovementSpeed(float);
@@ -25,23 +29,23 @@ public:
 	float getDamage();
 
 	//Setter and Getters for hp
-	void setHp(int);
-	int  getHp();
+	void setHp(float);
+	float  getHp();
 
-	void setSpiderState(spiderState);
-	spiderState getSpiderState();
+	void setRange(float);
+	float getRange();
+
+
+	virtual void setState(int);
+	virtual int getState();
 
 	void update();
 
 	bool inRange = false;
-
+	
 private:
 	spiderState _State;
-	float _MovementSpeed;// Movement speed
-	float _Damage;
-	float _Hp;
-	Vector3 _Point;
-	float _Range;
+	SceneBase * _scene;
 
 };
 

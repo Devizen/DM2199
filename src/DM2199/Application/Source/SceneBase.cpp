@@ -5,7 +5,6 @@
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
 #include "LoadOBJ.h"
-#include "player.h"
 
 #include "shader.hpp"
 #include "Utility.h"
@@ -17,11 +16,9 @@
 #include "ItemInfo.h"
 #include "Inventory.h"
 
+
 using std::cout;
 using std::cin;
-
-static int checkLoad = 0;
-
 
 SceneBase::SceneBase()
 {
@@ -196,33 +193,6 @@ void SceneBase::Init()
 	meshList[GEO_MESSAGES] = MeshBuilder::GenerateText("messages", 16, 16);
 	meshList[GEO_MESSAGES]->textureID = LoadTGA("Image//comic.tga");
 
-	//Enemy 
-	meshList[GEO_ENEMYHEAD] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyHead.obj");
-	meshList[GEO_ENEMYHEAD]->textureID = LoadTGA("Image//Enemy//EnemyHead.tga");
-
-	meshList[GEO_ENEMYRIGHTARM] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyRightArm.obj");
-	meshList[GEO_ENEMYRIGHTARM]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
-
-	meshList[GEO_ENEMYLEFTARM] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyLeftArm.obj");
-	meshList[GEO_ENEMYLEFTARM]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
-
-	meshList[GEO_ENEMYLEFTLEG] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyLeftLeg.obj");
-	meshList[GEO_ENEMYLEFTLEG]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
-
-	meshList[GEO_ENEMYRIGHTLEG] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyRightLeg.obj");
-	meshList[GEO_ENEMYRIGHTLEG]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
-
-	meshList[GEO_ENEMYTORSO] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyTorso.obj");
-	meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
-
-	//Flicker
-	meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
-	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
-
-
-	meshList[GEO_SPIDER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Spider.obj");
-	meshList[GEO_SPIDER]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
-
 
 	//Sprites
 	meshList[GEO_HANDL1] = MeshBuilder::GenerateOBJ("handL1", "OBJ//quad.obj");
@@ -273,9 +243,79 @@ void SceneBase::Init()
 
 	meshList[GEO_GAME_HUD] = MeshBuilder::GenerateOBJ("game_hud", "OBJ//inventory.obj");
 	meshList[GEO_GAME_HUD]->textureID = LoadTGA("Image//game_hud.tga");
-	
+
 	meshList[GEO_HP] = MeshBuilder::GenerateOBJ("game_hp", "OBJ//inventory.obj");
 	meshList[GEO_HP]->textureID = LoadTGA("Image//hp_bar.tga");
+
+
+	//Enemy 
+	meshList[GEO_ENEMYHEAD] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyHead.obj");
+	meshList[GEO_ENEMYHEAD]->textureID = LoadTGA("Image//Enemy//EnemyHead.tga");
+
+	meshList[GEO_ENEMYRIGHTARM] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyRightArm.obj");
+	meshList[GEO_ENEMYRIGHTARM]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
+
+	meshList[GEO_ENEMYLEFTARM] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyLeftArm.obj");
+	meshList[GEO_ENEMYLEFTARM]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
+
+	meshList[GEO_ENEMYLEFTLEG] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyLeftLeg.obj");
+	meshList[GEO_ENEMYLEFTLEG]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
+
+	meshList[GEO_ENEMYRIGHTLEG] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyRightLeg.obj");
+	meshList[GEO_ENEMYRIGHTLEG]->textureID = LoadTGA("Image//Enemy//EnemyBodyParts.tga");
+
+	meshList[GEO_ENEMYTORSO] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyTorso.obj");
+	meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
+
+
+	//Enemy 2
+	meshList[GEO_ENEMYRIGHTARM2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2RightArm.obj");
+	meshList[GEO_ENEMYRIGHTARM2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+	meshList[GEO_ENEMYLEFTARM2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2LeftArm.obj");
+	meshList[GEO_ENEMYLEFTARM2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+	meshList[GEO_ENEMYLEFTLEG2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2LeftLeg.obj");
+	meshList[GEO_ENEMYLEFTLEG2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+	meshList[GEO_ENEMYRIGHTLEG2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2RightLeg.obj");
+	meshList[GEO_ENEMYRIGHTLEG2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+	meshList[GEO_ENEMYTORSO2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2Torso.obj");
+	meshList[GEO_ENEMYTORSO2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+
+	//Enemy 3
+	meshList[GEO_ENEMYRIGHTARM3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3RightArm.obj");
+	meshList[GEO_ENEMYRIGHTARM3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+	meshList[GEO_ENEMYLEFTARM3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3LeftArm.obj");
+	meshList[GEO_ENEMYLEFTARM3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+	meshList[GEO_ENEMYLEFTLEG3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3LeftLeg.obj");
+	meshList[GEO_ENEMYLEFTLEG3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+	meshList[GEO_ENEMYRIGHTLEG3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3RightLeg.obj");
+	meshList[GEO_ENEMYRIGHTLEG3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+	meshList[GEO_ENEMYTORSO3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3Torso.obj");
+	meshList[GEO_ENEMYTORSO3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+
+	//Enemy 4
+	meshList[GEO_ENEMYRIGHTARM4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4RightArm.obj");
+	meshList[GEO_ENEMYRIGHTARM4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+	meshList[GEO_ENEMYLEFTARM4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4LeftArm.obj");
+	meshList[GEO_ENEMYLEFTARM4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+	meshList[GEO_ENEMYLEFTLEG4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4LeftLeg.obj");
+	meshList[GEO_ENEMYLEFTLEG4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+	meshList[GEO_ENEMYRIGHTLEG4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4RighLeg.obj");
+	meshList[GEO_ENEMYRIGHTLEG4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+	meshList[GEO_ENEMYTORSO4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4Torso.obj");
+	meshList[GEO_ENEMYTORSO4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+
+
+	//Flicker
+	meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
+	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
+
+
+	meshList[GEO_SPIDER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Spider.obj");
+	meshList[GEO_SPIDER]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+
+	meshList[GEO_ENEMYHEALTHBAR] = MeshBuilder::GenerateQuad("enemyHealthBar", Color(1.0f, 0.0f, 0.0f), 1, 1);
+
+
 	//Prevent Jerk
 	camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -284,18 +324,18 @@ void SceneBase::Init()
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 4000.f);
 	projectionStack.LoadMatrix(projection);
 
-
-	light[0].type = Light::LIGHT_DIRECTIONAL;
-	light[0].position.Set(0, 1000, 0);
+	//Spot light
+	light[0].type = Light::LIGHT_SPOT;
+	light[0].position.Set(0, 10, 0);// this is overidden at the update
 	light[0].color.Set(1, 1, 1);
-	light[0].power = 1;
+	light[0].power = 0;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
-	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 30.f;
-	light[0].spotDirection.Set(0.f, 1.f, 0.f);
+	light[0].cosCutoff = cos(Math::DegreeToRadian(25)); // higher angle = more area covered with light
+	light[0].cosInner = cos(Math::DegreeToRadian(15)); // use to toggle inner light , lower angle  = light more concentrated
+	light[0].exponent = 3.f;
+	light[0].spotDirection.Set(0.f, 1.f, 0.f); // this is overidden at the update
 
 	light[1].type = Light::LIGHT_POINT;
 	light[1].position.Set(0.f, 1000.f, 0.f);
@@ -356,26 +396,27 @@ void SceneBase::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
 
 
-
-	soundStorage.push_back(new Sound("gunshot.mp3",1000));
-	soundStorage.push_back(new Sound("bleep.mp3", 100));
-	soundStorage.push_back(new Sound("Footstep.ogg"));
+	// Param 1 - name of sound ---- Param 2 -distance sound able to travel --- Param 3 - volume of sound (0 to 1)
+	soundStorage.push_back(new Sound("gunshot.mp3", 1000, 1));
+	soundStorage.push_back(new Sound("splatter.mp3", 1000, 1));
+	soundStorage.push_back(new Sound("run.mp3", 1000, 0.5));
 	soundStorage.push_back(new Sound("backgroundmusic.mp3"));
+	soundStorage.push_back(new Sound("jump.mp3", 1000, 0.5));
+	soundStorage.push_back(new Sound("footstep.mp3", 1000, 1));
 
 	/* vec3df somePosition = { 0, 0,0};
 	 soundStorage[1]->play3DSound(true, false, false, somePosition);*/
 
 	/*soundStorage[3]->play2DSound(true, false, false); */
 
-	
+
 
 	/*objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))) );*/
 
-
 	//----------------Inventory--------------
 	inventoryOpen = false;
-	
-		//initialise singleton of inventory class
+
+	//initialise singleton of inventory class
 
 	if (global_inventory == 0)
 	{
@@ -387,7 +428,7 @@ void SceneBase::Init()
 
 	ItemInfo* torch = new ItemInfo(("torch"), 0, 50, 0, 10);
 	global_inventory->addItem(torch);
-		// adding items to inventory
+	// adding items to inventory
 	ItemInfo* fist = new ItemInfo();
 	global_inventory->addItem(fist);
 
@@ -396,27 +437,31 @@ void SceneBase::Init()
 	startTime = 0.0f;
 	cooldown = 15.0f;
 
-<<<<<<< HEAD
-   
-    ////Player *hero = new Player();
-    ////Enemy *enemy = new Enemy();
-    checkLoad = 1;
-}
-
-int SceneBase::Loaded()
-{
-    return checkLoad;
-}
-=======
-
-	Enemy * newEnemy = new Enemy(Enemy::enemyType::spider ); 
+	//speed ,damage ,hp, range ,this
+	Enemy * newEnemy = new Spider(70.f, 5.f, 50.f, 100.f, this);
 	newEnemy->addWaypoint(Vector3(200, 0, 200));
 	newEnemy->addWaypoint(Vector3(200, 0, -200));
-	newEnemy->addWaypoint(Vector3(-200, 0,-200));
+	newEnemy->addWaypoint(Vector3(-200, 0, -200));
 	newEnemy->addWaypoint(Vector3(-200, 0, 200));
 	enemyStorage.push_back(newEnemy);
-}  
->>>>>>> origin/master
+
+	// speed , damage ,hp , range , this , int(used to identify which type of robot)
+	Enemy * newEnemy2 = new Robot(70.f, 5.f, 100.f, 100.f, this, 1);
+	newEnemy2->addWaypoint(Vector3(300, 0, -100));
+	newEnemy2->addWaypoint(Vector3(400, 0, -400));
+	newEnemy2->addWaypoint(Vector3(-400, 0, -400));
+	newEnemy2->addWaypoint(Vector3(-400, 0, 400));
+	enemyStorage.push_back(newEnemy2);
+
+	Enemy * newEnemy3 = new Spider(70.f, 5.f, 50.f, 100.f, this);
+	newEnemy3->addWaypoint(Vector3(-400, 0, 200));
+	newEnemy3->addWaypoint(Vector3(300, 0, -300));
+	newEnemy3->addWaypoint(Vector3(-2300, 0, -300));
+	newEnemy3->addWaypoint(Vector3(-2300, 0, 200));
+	enemyStorage.push_back(newEnemy3);
+
+
+}
 
 void SceneBase::Update(double dt)
 {
@@ -436,6 +481,38 @@ void SceneBase::Update(double dt)
 	_dt = (float)dt;
 	_elapsedTime += _dt;
 
+	static float rotateLimit = 1;
+	rotateArm += (float)(50 * rotateLimit * dt);
+
+    if (rotateArm > 10)
+    {
+        rotateArm = 10.f;
+        rotateLimit = -1;
+    }
+
+    if (rotateArm < -10)
+    {
+        rotateArm = -10.f;
+        rotateLimit = 1;
+    }
+
+	static bool canPress = true;
+
+	if (!Application::IsKeyPressed('Q'))
+		canPress = true;
+
+	// Light on
+	if (canPress && Application::IsKeyPressed('Q')) {
+		light[0].power = (light[0].power > 0) ? 0.0f : 3.0f; // Toggle Power between 0 and 2
+		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+		canPress = false;
+	}
+	// Flashlight position and direction
+	light[0].position.Set(camera.position.x, camera.position.y, camera.position.z);
+	light[0].spotDirection = camera.position - camera.target;  // move direction of light along view vector
+
+
+
 	//Process  obj movement
 	objFactory.processInteraction();
 
@@ -450,9 +527,10 @@ void SceneBase::Update(double dt)
 	{
 		if (_elapsedTime >= nextBulletTime)
 		{
-			objFactory.createFactoryObject(new Bullet(this, camera.getPosition()));
+			objFactory.createFactoryObject(new Bullet(this, camera.getPosition(), camera.getYaw(), camera.getPitch()));
 			nextBulletTime = _elapsedTime + coolDown;
 			soundStorage[0]->play3DSound(false, false, false, camPos);
+			bulletTouch = false;
 		}
 	}
 
@@ -470,13 +548,41 @@ void SceneBase::Update(double dt)
 		}
 	}
 
-	vec3df footPos = { camera.getPosition().x, camera.getPosition().y-5, camera.getPosition().z };
+	vec3df footPos = { camera.getPosition().x, camera.getPosition().y - 20, camera.getPosition().z };
 	//FootStep Sound
-	if (Application::IsKeyPressed('W') && (_elapsedTime >=nextWalkTime))
+	if (Application::IsKeyPressed('W') && (_elapsedTime >= nextWalkTime))
 	{
-		nextWalkTime = _elapsedTime + coolDown;
-		 soundStorage[2]->play3DSound(false, false, true, footPos);
+		nextWalkTime = _elapsedTime + coolDown + 0.5f;
+		soundStorage[5]->play3DSound(false, false, true, footPos);
 	}
+	if (Application::IsKeyPressed('A') && (_elapsedTime >= nextWalkTime))
+	{
+		nextWalkTime = _elapsedTime + coolDown + 0.5f;
+		soundStorage[5]->play3DSound(false, false, true, footPos);
+	}
+	if (Application::IsKeyPressed('S') && (_elapsedTime >= nextWalkTime))
+	{
+		nextWalkTime = _elapsedTime + coolDown + 0.5f;
+		soundStorage[5]->play3DSound(false, false, true, footPos);
+	}
+	if (Application::IsKeyPressed('D') && (_elapsedTime >= nextWalkTime))
+	{
+		nextWalkTime = _elapsedTime + coolDown + 0.5f;
+		soundStorage[5]->play3DSound(false, false, true, footPos);
+	}
+
+	if (Application::IsKeyPressed(VK_SPACE) && (_elapsedTime >= nextJump))
+	{
+		nextJump = _elapsedTime + coolDown;
+		soundStorage[4]->play3DSound(false, false, true, footPos);
+	}
+	if (Application::IsKeyPressed(VK_SHIFT) && (_elapsedTime >= nextRun))
+	{
+		nextRun = _elapsedTime + coolDown;
+		soundStorage[2]->play3DSound(false, false, true, footPos);
+	}
+
+
 
 
 	//Skybox Rotation
@@ -531,68 +637,55 @@ void SceneBase::Update(double dt)
 
 	startTime++;
 
-<<<<<<< HEAD
-    //If enemy is in range of player, damage HP
-    //if (enemy->damageDealt(camera.position.x, camera.position.z) == true)
-    //{
-    //    Exit();
-    //}
-
-=======
 	enemyUpdate(dt);
->>>>>>> origin/master
+
+
 }
 
 void SceneBase::enemyUpdate(double dt)
 {
+	//-------This function is called in SceneBase::Update(double dt) to process Enemy interactions-----------------
 
 	for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
-		switch ((*it)->_Type)
+		(*it)->update();
+
+		for (vector<Object*>::iterator factoryIt = factoryIt = objFactory.Container.begin(); factoryIt != objFactory.Container.end(); factoryIt++)
 		{
-		case Enemy::enemyType::spider :
+			if ((*factoryIt)->type == SceneBase::GEO_LIGHTBALL3)   //BULLET INTERACTION WITH ENEMY
 			{
-				switch ((*it)->_State)
+				if (((*factoryIt)->position_ - (*it)->_Position).Length() < 20 && bulletTouch == false)
 				{
-				case Enemy::enemyState::spider_patrol:
-				{
-					std::cout << ((*it)->_Position - camera.getPosition()).Length() << std::endl;
-					(*it)->movetoWaypoint(dt);
-					if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+					if ((*it)->enemytype == 1)
 					{
-						(*it)->_State = Enemy::enemyState::spider_chase;
+						(*it)->_Hp -= 10;
+						(*it)->healthBarSpider -= 2.f;
+						damaged = true;
+						bulletTouch = true;
+
+						if ((*it)->_Hp == 0)
+						{
+							(*it)->setState(2);  //  death is at enum 2
+						}
+					}
+					if ((*it)->enemytype == 2)
+					{
+						(*it)->_Hp -= 10;
+						(*it)->healthBarRobot1 -= 2.f;
+						damaged = true;
+						bulletTouch = true;
+
+						if ((*it)->_Hp == 0)
+						{
+							(*it)->setState(2);  //  death is at enum 2
+						}
 					}
 				}
-				break;
-				case  Enemy::enemyState::spider_chase:
-				{
-					 //distance between character and  enemy
-					  Vector3 distance = ((*it)->_Position - camera.position);
-						Vector3 unitDistance = distance.Normalized();
-					
-						float moveX = unitDistance.x * (*it)->getMovementSpeed()*dt;
-						float moveZ = unitDistance.z *  (*it)->getMovementSpeed()*dt;
-					
-						// Rotate the enemy towards the player
-						 (*it)->_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
-					
-						// Move the Enemy
-						(*it)->_Position.x -= moveX;
-						(*it)->_Position.z -= moveZ;
-
-						if (((*it)->_Position - camera.getPosition()).Length() > (*it)->getRange())
-						{
-							(*it)->_State = Enemy::enemyState::spider_patrol;
-						}
-						
-				}
-				break;
-				}
 			}
-			break;
 		}
-
 	}
+
+
 
 
 
@@ -721,26 +814,12 @@ void SceneBase::Render()
 				startTime = 0;
 			}
 		}
-<<<<<<< HEAD
-        RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65, 1, 0, 0, 1);
-=======
 		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65);
->>>>>>> origin/master
 		renderInventory();
 	}
 	else
 	{
 		//in game hud
-<<<<<<< HEAD
-		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 1, 0, 0, 1);
-
-		//minimap
-        RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 1, 0, 0, 1);
-		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 1, 0, 0, 1);
-		for (vector<Object*>::iterator it = objFactory.Container.begin(); it != objFactory.Container.end(); it++)
-		{
-			RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0, 0, 1);
-=======
 		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65);
 
 		//minimap
@@ -748,48 +827,254 @@ void SceneBase::Render()
 		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
 		for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 		{
-			RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10);
+			if ((*it)->getState() != Robot::robotState::death || (*it)->getState() != Spider::spiderState::death)
+				RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10);
 		}
 	}
 
-	modelStack.PushMatrix();
+
+
 
 	for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
-		switch ((*it)->_Type)
+		if (((*it)->_Position - camera.getPosition()).Length() < 10)
 		{
-		case Enemy::enemyType::spider:
+			RenderMeshOnScreen(meshList[GEO_FLICKER], 40, 30, 80, 60);
+			vec3df bloodStartingLocation = { camera.getPosition().x, camera.getPosition().y , camera.getPosition().z };
+			if (_elapsedTime >= nextSplatter)
+			soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
+			nextSplatter = _elapsedTime + coolDown;
+			
+		}
+
+		switch ((*it)->enemytype)
 		{
-			modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
-			modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_SPIDER], true);
->>>>>>> origin/master
+
+		case   1:    // ----------------Spider ----------------------------
+		{
+			if ((*it)->getState() != Spider::spiderState::death)
+			{
+				//Spider
+				modelStack.PushMatrix();
+				modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+				modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDER], true);
+				modelStack.PopMatrix();
+
+				//Health Bar
+				modelStack.PushMatrix();
+				modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + 1.3f, (*it)->_Position.z);
+				modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+				modelStack.Rotate(90, 0, 0, 1);
+				if ((*it)->healthBarSpider>0)
+					modelStack.Scale(1, 1, (*it)->healthBarSpider);
+				else
+					modelStack.Scale(1, 1, 1);
+				RenderMesh(meshList[GEO_ENEMYHEALTHBAR], true);
+				modelStack.PopMatrix();
+
+			}
 		}
 		break;
-		}	
+		case 2:  // ---------------Robot1 ----------------------
+		{
+			if ((*it)->getState() != Robot::robotState::death)
+			{
+				if ((*it)->robotType == 1)
+				{
+					//Robot
+					modelStack.PushMatrix();
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+					modelStack.PushMatrix();
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYTORSO], true);
+					RenderMesh(meshList[GEO_ENEMYHEAD], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 40, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+                    cout << "-rotateArm: " << -rotateArm << endl;
+					modelStack.Translate(0, -40, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTARM], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 40, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+                    cout << "rotateArm: " << rotateArm << endl;
+					modelStack.Translate(0, -40, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTARM], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 40, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -40, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTLEG], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 40, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -40, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTLEG], true);
+					modelStack.PopMatrix();
+					modelStack.PopMatrix();
+
+					//Health Bar
+					modelStack.PushMatrix();
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + 1.3f, (*it)->_Position.z);
+					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+					modelStack.Rotate(90, 0, 0, 1);
+					if ((*it)->healthBarRobot1>0)
+						modelStack.Scale(1, 1, (*it)->healthBarRobot1);
+					else
+						modelStack.Scale(1, 1, 1);
+					RenderMesh(meshList[GEO_ENEMYHEALTHBAR], true);
+					modelStack.PopMatrix();
+				}
+
+				if ((*it)->robotType == 2)
+				{
+					//Robot 2
+					modelStack.PushMatrix();
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+					modelStack.PushMatrix();
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYTORSO2], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTARM2], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTARM2], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 5, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -5, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTLEG2], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 5, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -5, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTLEG2], true);
+					modelStack.PopMatrix();
+					modelStack.PopMatrix();
+				}
+
+				if ((*it)->robotType == 3)
+				{
+					//Robot 3
+					modelStack.PushMatrix();
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+					modelStack.PushMatrix();
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYTORSO3], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTARM3], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTARM3], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 1, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -1, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTLEG3], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 1, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -1, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTLEG3], true);
+					modelStack.PopMatrix();
+					modelStack.PopMatrix();
+				}
+				if ((*it)->robotType == 4)
+				{
+					//Robot 4
+					modelStack.PushMatrix();
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+					modelStack.PushMatrix();
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYTORSO4], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTARM4], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTARM4], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYRIGHTLEG4], true);
+					modelStack.PopMatrix();
+					modelStack.PushMatrix();
+					modelStack.Translate(0, 10, 0);
+					modelStack.Rotate(rotateArm, 0, 0, 1);
+					modelStack.Translate(0, -10, 0);
+					modelStack.Scale(10, 10, 10);
+					RenderMesh(meshList[GEO_ENEMYLEFTLEG4], true);
+					modelStack.PopMatrix();
+					modelStack.PopMatrix();
+				}
+
+			}
+		}
+		break;
+		}
 	}
 
-	modelStack.PopMatrix();
 }
-
 void SceneBase::renderInventory()
 {
 	if (!global_inventory->pointer)
 	{
-<<<<<<< HEAD
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20.f, 20.f, 3.f, 3.f, 1.f, 0.f, 0.f, 1.f);
-	}
-	else
-	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20.f, 10.f, 3.f, 3.f, 1.f, 0.f, 0.f ,1.f);
-=======
 		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 20, 3, 3);
 	}
 	else
 	{
 		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 20, 10, 3, 3);
->>>>>>> origin/master
 	}
 
 	if (global_inventory->getActiveItem())
@@ -797,17 +1082,6 @@ void SceneBase::renderInventory()
 		ItemInfo* activeItem = global_inventory->getActiveItem();
 		if (activeItem->gettype() == "sword")
 		{
-<<<<<<< HEAD
-			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4, 1, 0, 0, 1);
-		}
-		else if (activeItem->gettype() == "fist")
-		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 30, 10, 10, 1, 0, 0 ,1);
-		}
-		else if (activeItem->gettype() == "torch")
-		{
-            RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4, 1, 0, 0, 1);
-=======
 			RenderMeshOnScreen(meshList[GEO_SWORD], 10, 30, 4, 4);
 		}
 		else if (activeItem->gettype() == "fist")
@@ -817,7 +1091,6 @@ void SceneBase::renderInventory()
 		else if (activeItem->gettype() == "torch")
 		{
 			RenderMeshOnScreen(meshList[GEO_TORCH], 10, 20, 4, 4);
->>>>>>> origin/master
 		}
 	}
 
@@ -826,17 +1099,6 @@ void SceneBase::renderInventory()
 		ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
 		if (secondaryItem->gettype() == "sword")
 		{
-<<<<<<< HEAD
-			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4, 1, 0, 0 ,1);
-		}
-		else if (secondaryItem->gettype() == "fist")
-		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 30, 30, 10, 10, 1, 0, 0, 1);
-		}
-		else if (secondaryItem->gettype() == "torch")
-		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4, 1, 0, 0, 1);
-=======
 			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4);
 		}
 		else if (secondaryItem->gettype() == "fist")
@@ -846,23 +1108,11 @@ void SceneBase::renderInventory()
 		else if (secondaryItem->gettype() == "torch")
 		{
 			RenderMeshOnScreen(meshList[GEO_TORCH], 30, 20, 4, 4);
->>>>>>> origin/master
 		}
 	}
 	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
 	if (ItemDisplay1->gettype() == "sword")
 	{
-<<<<<<< HEAD
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2, 1, 0, 0 ,1);
-	}
-	else if (ItemDisplay1->gettype() == "fist")
-	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 20, 5, 5, 1, 0, 0, 1);
-	}
-	else if (ItemDisplay1->gettype() == "torch")
-	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3, 1, 0, 0, 1);
-=======
 		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 20, 2, 2);
 	}
 	else if (ItemDisplay1->gettype() == "fist")
@@ -872,23 +1122,11 @@ void SceneBase::renderInventory()
 	else if (ItemDisplay1->gettype() == "torch")
 	{
 		RenderMeshOnScreen(meshList[GEO_TORCH], 10, 5, 3, 3);
->>>>>>> origin/master
 	}
 
 	ItemInfo* ItemDisplay2 = global_inventory->getDisplay2();
 	if (ItemDisplay2->gettype() == "sword")
 	{
-<<<<<<< HEAD
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2, 1, 0, 0, 1);
-	}
-	else if (ItemDisplay2->gettype() == "fist")
-	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 10, 5, 5, 1, 0, 0 , 1);
-	}
-	else if (ItemDisplay2->gettype() == "torch")
-	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3, 1, 0, 0 , 1);
-=======
 		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2);
 	}
 	else if (ItemDisplay2->gettype() == "fist")
@@ -898,7 +1136,6 @@ void SceneBase::renderInventory()
 	else if (ItemDisplay2->gettype() == "torch")
 	{
 		RenderMeshOnScreen(meshList[GEO_TORCH], 10, -10, 3, 3);
->>>>>>> origin/master
 	}
 }
 void SceneBase::renderMountains()
@@ -1080,8 +1317,8 @@ void SceneBase::renderGround()
 void SceneBase::renderSprites()
 {
 	//Default hands
-	RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100, 0, 0, 0, 1);
-    RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100, 0, 0, 0, 1);
+	RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+	RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
 
 	//Punching hands
 	//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
@@ -1249,7 +1486,7 @@ void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 	glEnable(GL_DEPTH_TEST);
 }
 
-void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
+void SceneBase::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -1261,8 +1498,7 @@ void SceneBase::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int size
 
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
-    modelStack.Translate((float)x, (float)y, 0);
-    modelStack.Rotate(rotateAngle, xAxis, yAxis, zAxis);
+	modelStack.Translate((float)x, (float)y, 0);
 	modelStack.Scale((float)sizex, (float)sizey, 1);
 	//to do: scale and translate accordingly
 	RenderMesh(mesh, false); //UI should not have light

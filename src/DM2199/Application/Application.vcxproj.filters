@@ -40,12 +40,6 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{9d8f8e67-7f9c-4b3e-8c39-6a3eaed662fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game_Objects">
-      <UniqueIdentifier>{8ab901db-6cdc-49b8-97ae-fa96134dcd80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game_Objects">
-      <UniqueIdentifier>{8a1733ca-f5c2-44b7-a4d6-2c868d16c1fc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -120,16 +114,6 @@
     <ClCompile Include="Source\ItemInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Source\gameobject.cpp">
-      <Filter>Source Files\Game_Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\player.cpp">
-      <Filter>Source Files\Game_Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneEditor.cpp">
-      <Filter>Source Files\Scenes</Filter>
-=======
     <ClCompile Include="Source\Spider.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
@@ -138,7 +122,12 @@
     </ClCompile>
     <ClCompile Include="Source\Waypoint.cpp">
       <Filter>Source Files</Filter>
->>>>>>> origin/master
+    </ClCompile>
+    <ClCompile Include="Source\Robot.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneEditor.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +179,9 @@
     <ClInclude Include="Source\FactoryObject.h">
       <Filter>Header Files\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Sound.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
@@ -214,19 +206,6 @@
     <ClInclude Include="Source\ItemInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Source\gameobject.h">
-      <Filter>Header Files\Game_Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\player.h">
-      <Filter>Header Files\Game_Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Header Files\Game_Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneEditor.h">
-      <Filter>Header Files\Scenes</Filter>
-=======
     <ClInclude Include="Source\Spider.h">
       <Filter>Header Files\Object</Filter>
     </ClInclude>
@@ -235,7 +214,12 @@
     </ClInclude>
     <ClInclude Include="Source\Waypoint.h">
       <Filter>Header Files</Filter>
->>>>>>> origin/master
+    </ClInclude>
+    <ClInclude Include="Source\Robot.h">
+      <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneEditor.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +229,5 @@
     <None Include="Shader\SimpleVertexShader.vertexshader">
       <Filter>Shader</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

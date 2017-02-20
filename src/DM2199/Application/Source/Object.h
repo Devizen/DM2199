@@ -32,7 +32,6 @@ public:
 	unsigned type = 0;
 
 
-	std::vector <unsigned> objectType;  // to handle multiple obj parts
 protected:
 	SceneBase * _scene;
 };

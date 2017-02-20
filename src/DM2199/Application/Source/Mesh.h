@@ -33,7 +33,8 @@ public:
 
 	Material material;
 
-	unsigned textureID;
+	unsigned textureID;
+
 };
 
 #endif

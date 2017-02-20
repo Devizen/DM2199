@@ -1,13 +1,11 @@
 #include "Sound.h"
 
-Sound::Sound(string soundFile)
+Sound::Sound(string soundFile, ik_f32 volume)
 {
 	//Starting up the Sound Engine
 	soundEngine = createIrrKlangDevice();
 	currentSound2D = NULL;
-	currentSound3D = NULL;
 
-	
 
 	if (!soundEngine) // creation of soundEngine instance fail
 	{
@@ -17,16 +15,16 @@ Sound::Sound(string soundFile)
 	if (soundFile != "")
 		fileName = soundFile;
 
+	soundEngine->setSoundVolume(volume);
 }
 
 
 
 
-Sound::Sound(string soundFile, ik_f32 minDistance)
+Sound::Sound(string soundFile, ik_f32 minDistance, ik_f32 volume)
 {
 	//Starting up the Sound Engine
 	soundEngine = createIrrKlangDevice();
-	currentSound2D = NULL;
 	currentSound3D = NULL;
 
 	
@@ -39,7 +37,8 @@ Sound::Sound(string soundFile, ik_f32 minDistance)
 
 	if (soundFile != "")
 		fileName = soundFile;
-
+	
+	soundEngine->setSoundVolume(volume);
 }
 
 

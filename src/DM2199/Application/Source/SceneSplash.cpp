@@ -1,5 +1,4 @@
 #include "SceneSplash.h"
-#include "SceneLoading.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "Application.h"
@@ -211,15 +210,6 @@ void SceneSplash::Update(double dt)
     {
         Application::ChangeScene(1);
     }
-
-    if (Application::IsKeyPressed('1'))
-    {
-
-        Application::ChangeScene(2);
-        SceneLoading::ChangeScene(4);
-
-    }
-
     if (Application::IsKeyPressed('7'))
     {
         light[0].type = Light::LIGHT_POINT;

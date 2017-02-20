@@ -2,14 +2,16 @@
 #include "SceneBase.h"
 
 
-Bullet::Bullet(SceneBase* scene, Vector3 pos) : Object(scene, pos)
+Bullet::Bullet(SceneBase* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
 {
 
 	type = SceneBase::GEO_LIGHTBALL3;
 	_defaultYaw = _scene->camera.getYaw();
 	_defaultPitch = _scene->camera.getPitch();
 	_defaultPosition = pos;
-
+	scale = 5;
+	rotateY = -rotateYaw;
+	rotateZ = rotatePitch;
 
 }
 
@@ -24,13 +26,25 @@ void Bullet::interact(){
 	position_.y += (float)(bulletSpeed * tan(Math::DegreeToRadian(_defaultPitch)) * _scene->_dt);
 	position_.z += (float)(bulletSpeed* sin(Math::DegreeToRadian(_defaultYaw))* _scene->_dt);
 
-	rotateY = _scene->camera.getPitch();
+
 
 	//Delete bullet once it reachs max distance
 	if ((_defaultPosition - position_).Length() >= _maxDistance) {
 		_scene->objFactory.destroyFactoryObject(this);
 		return;
 	}
+	
+	//
+	//for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
+	//{
+	//	if ((position_ - (*itEnemy)->_Position).Length() < 20)
+	//	{
+	//		_scene->objFactory.destroyFactoryObject(this);
+	//	}
+	//	
+	//}
+
+	//	
 
 	//for (std::vector<Object*>::iterator it = _scene->objFactory.Container.begin(); it != _scene->objFactory.Container.end(); ++it)
 	//{

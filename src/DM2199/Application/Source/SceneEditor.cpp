@@ -5,7 +5,6 @@
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
 #include "LoadOBJ.h"
-#include "player.h"
 
 #include "shader.hpp"
 #include "Utility.h"
@@ -444,10 +443,16 @@ void SceneEditor::Init()
 
 
 
-    soundStorage.push_back(new Sound("gunshot.mp3", 1000));
-    soundStorage.push_back(new Sound("bleep.mp3", 100));
-    soundStorage.push_back(new Sound("Footstep.ogg"));
+    //soundStorage.push_back(new Sound("gunshot.mp3", 1000));
+    //soundStorage.push_back(new Sound("bleep.mp3", 100));
+    //soundStorage.push_back(new Sound("Footstep.ogg"));
+    //soundStorage.push_back(new Sound("backgroundmusic.mp3"));
+    soundStorage.push_back(new Sound("gunshot.mp3", 1000, 1));
+    soundStorage.push_back(new Sound("splatter.mp3", 1000, 1));
+    soundStorage.push_back(new Sound("run.mp3", 1000, 0.5));
     soundStorage.push_back(new Sound("backgroundmusic.mp3"));
+    soundStorage.push_back(new Sound("jump.mp3", 1000, 0.5));
+    soundStorage.push_back(new Sound("footstep.mp3", 1000, 1));
 
     /* vec3df somePosition = { 0, 0,0};
     soundStorage[1]->play3DSound(true, false, false, somePosition);*/

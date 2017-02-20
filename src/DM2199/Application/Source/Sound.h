@@ -18,8 +18,11 @@ using std::vector;
 class Sound
 {
 public:
-	Sound(string soundFile); // constructor 1 
-	Sound(string soundFile, ik_f32 minDistance); // constructor 2  ------ minDistance is the distance between listener(character) and origin location of sound
+	// 2D constructor
+	Sound(string soundFile, ik_f32 volume =1); 
+	// 3D constructor ------ minDistance is the distance between listener(character) and origin location of sound
+	Sound(string soundFile, ik_f32 minDistance, ik_f32 volume =1); 
+
 	~Sound(); 
  	void play2DSound(bool loop, bool pause, bool startTrack); // Plays entire sound file (2D)  
 	void play3DSound(bool loop, bool pause, bool startTrack, vec3df soundStartingLocation); // Plays entire sound file (3D)     

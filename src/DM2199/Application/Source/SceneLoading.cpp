@@ -9,11 +9,7 @@
 #include "shader.hpp"
 #include "Utility.h"
 
-//ofstream: Stream class to write on files
-//ifstream: Stream class to read from files
-//fstream: Stream class to both read and write from / to files.
 #include <iostream>
-#include <fstream>
 #include <iomanip>
 #include <stdlib.h>
 
@@ -236,20 +232,21 @@ void SceneLoading::Update(double dt)
     loadTime += (float)dt * runTime;
     rotateWheel += (float)dt * spin;
 
-  
-    if (sceneToChange == 3)
+    if (loadTime > 2.f)
     {
-        Application::ChangeScene(3);
+        if (sceneToChange == 3)
+        {
+            Application::ChangeScene(3);
+        }
+        if (sceneToChange == 4)
+        {
+            Application::ChangeScene(4);
+        }
     }
-    if (sceneToChange == 4)
-    {
-        Application::ChangeScene(4);
-    }
- 
 
     for (unsigned i = 0; i < 7; i++)
     {
-        translateLetters[i] += (float)dt * lettersMovement[i] * (float)1.1;
+        translateLetters[i] += (float)dt * lettersMovement[i] * 5;
     }
 
     if (rotateWheel > 360.f)
