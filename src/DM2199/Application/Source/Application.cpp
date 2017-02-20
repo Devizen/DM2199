@@ -128,7 +128,8 @@ void Application::Run()
     Scene *sceneLoading = new SceneLoading();
     Scene *sceneTutorial = new Tutorial();
     Scene *sceneEditor = new SceneEditor();
-    Scene *scene = sceneSplash;
+	Scene *sceneBase = new SceneBase();
+    Scene *scene = sceneBase;
     Scene *sceneLoadingAtBack;
     scene->Init();
 

@@ -114,6 +114,8 @@ class SceneBase : public Scene
 		GEO_SECONDARY_SELECT,
 		GEO_TIME,
 
+		GEO_COUNTDOWN,
+
         //Text
         GEO_TEXT,
 	
@@ -276,7 +278,8 @@ public:
 
 	int health = 100;
 	int energy = 100;
-	int timeleft = 6000;
+	int timeleft = 60000;
+
 private:
     unsigned m_vertexArrayID;
     Mesh* meshList[NUM_GEOMETRY];
@@ -300,6 +303,9 @@ private:
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
     void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
     void renderPosition();
+
+	void renderRemainingTime();
+	void renderStats();
 
 	// Cool Down Time
 	const float coolDown = 0.3f;

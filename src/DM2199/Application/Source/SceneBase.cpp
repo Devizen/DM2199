@@ -181,6 +181,8 @@ void SceneBase::Init()
 	meshList[GEO_FPS] = MeshBuilder::GenerateText("FPS", 16, 16);
 	meshList[GEO_FPS]->textureID = LoadTGA("Image//comic.tga");
 
+	meshList[GEO_COUNTDOWN] = MeshBuilder::GenerateText("Time", 16, 16);
+	meshList[GEO_COUNTDOWN]->textureID = LoadTGA("Image//comic.tga");
 	//Environment
 
 
@@ -230,7 +232,7 @@ void SceneBase::Init()
 	meshList[GEO_TORCH]->textureID = LoadTGA("Image//Torch.tga");
 
 	meshList[GEO_INVENTORY] = MeshBuilder::GenerateOBJ("Inventory", "OBJ//inventory.obj");
-	meshList[GEO_INVENTORY]->textureID = LoadTGA("Image//inventorytest.tga");
+	meshList[GEO_INVENTORY]->textureID = LoadTGA("Image//inventory.tga");
 
 	meshList[GEO_MINI_PLAYER] = MeshBuilder::GenerateOBJ("mini_player", "OBJ//inventory.obj");
 	meshList[GEO_MINI_PLAYER]->textureID = LoadTGA("Image//mini_player.tga");
@@ -436,6 +438,7 @@ void SceneBase::Init()
 		global_inventory = new Inventory();
 		global_inventory->setdefined(1);
 	}
+	//type , damage , range , reload speed , attack speed
 	ItemInfo* sword = new ItemInfo("sword", 20, 20, 10, 5);
 	global_inventory->addItem(sword);
 
@@ -473,7 +476,10 @@ void SceneBase::Init()
 	newEnemy3->addWaypoint(Vector3(-2300, 0, 200));
 	enemyStorage.push_back(newEnemy3);
 
-
+	for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+	{
+		(*it)->_Position = (*it)->currWaypoint->getPosition();
+	}
 }
 
 void SceneBase::Update(double dt)
@@ -829,6 +835,7 @@ void SceneBase::Render()
 		}
 		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65);
 		renderInventory();
+		renderStats();
 	}
 	else
 	{
@@ -845,7 +852,7 @@ void SceneBase::Render()
 		}
 		if (timeleft > 0)
 		{
-			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft/6000, 14.5, 105 * timeleft/6000 , 11);
+			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft/60000, 14.5, 105 * timeleft/60000 , 11);
 		}
 		//minimap
 		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
@@ -856,9 +863,6 @@ void SceneBase::Render()
 				RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10);
 		}
 	}
-
-
-
 
 	for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
@@ -1084,13 +1088,12 @@ void SceneBase::Render()
 					modelStack.PopMatrix();
 					modelStack.PopMatrix();
 				}
-
 			}
 		}
 		break;
 		}
 	}
-
+	renderRemainingTime();
 }
 void SceneBase::renderInventory()
 {
@@ -1110,7 +1113,7 @@ void SceneBase::renderInventory()
 		}
 		else if (activeItem->gettype() == "fist")
 		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 30, 10, 10);
+			RenderMeshOnScreen(meshList[GEO_HANDR1], 15, 34, 50, 50);
 		}
 		else if (activeItem->gettype() == "torch")
 		{
@@ -1123,7 +1126,7 @@ void SceneBase::renderInventory()
 		}
 		else if (secondaryItem->gettype() == "fist")
 		{
-			RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 30, 30, 10, 10);
+			RenderMeshOnScreen(meshList[GEO_HANDR1], 33, 34, 50, 50);
 		}
 		else if (secondaryItem->gettype() == "torch")
 		{
@@ -1136,7 +1139,7 @@ void SceneBase::renderInventory()
 	}
 	else if (ItemDisplay1->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 40, 5, 5);
+		RenderMeshOnScreen(meshList[GEO_HANDR1], 10, 40, 5, 5);
 	}
 	else if (ItemDisplay1->gettype() == "torch")
 	{
@@ -1158,7 +1161,7 @@ void SceneBase::renderInventory()
 	}
 	else if (ItemDisplay2->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 10, 12, 5, 5);
+		RenderMeshOnScreen(meshList[GEO_HANDR1], 12, 13, 25 , 25);
 	}
 	else if (ItemDisplay2->gettype() == "torch")
 	{
@@ -1410,6 +1413,40 @@ void SceneBase::renderText()
 	RenderTextOnScreen(meshList[GEO_FPS], sFPS, Color(1, 1, 0), 2, 0, 29);
 }
 
+void SceneBase::renderRemainingTime()
+{
+
+	std::string rTime = "";
+	int tempTime = timeleft;
+	int seconds = 0;
+	int minutes = 0;
+	while (tempTime >= 60)
+	{
+		tempTime -= 60;
+		seconds += 1;
+	}
+	while (seconds > 60)
+	{
+		seconds -= 60;
+		minutes += 1;
+	}
+	if (seconds > 9)
+	{
+		rTime = std::to_string(minutes) + ":" + std::to_string(seconds);
+	}
+	else
+	{
+		rTime = std::to_string(minutes) + ":0" + std::to_string(seconds);
+	}
+	RenderTextOnScreen(meshList[GEO_COUNTDOWN], rTime, Color(1, 0 ,0), 2, 30, 7);
+}
+
+void SceneBase::renderStats()
+{
+	/*ItemInfo* active = global_inventory->getActiveItem();
+	string itemName = active->gettype();
+	RenderTextOnScreen(meshList[GEO_FPS], itemName, Color(0,0,0), 2, 25, 20);*/
+}
 void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
