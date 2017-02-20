@@ -91,6 +91,7 @@
     <ClCompile Include="Source\FactoryObject.cpp" />
     <ClCompile Include="Source\Inventory.cpp" />
     <ClCompile Include="Source\ItemInfo.cpp" />
+    <ClCompile Include="Source\Levels\Tutorial.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Source\FactoryObject.h" />
     <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\ItemInfo.h" />
+    <ClInclude Include="Source\Levels\Tutorial.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

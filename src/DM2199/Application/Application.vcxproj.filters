@@ -40,6 +40,12 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{9d8f8e67-7f9c-4b3e-8c39-6a3eaed662fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes\Levels">
+      <UniqueIdentifier>{6a947b6a-09e2-4b53-b411-b84d78745a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Levels">
+      <UniqueIdentifier>{47b1a9a3-1ca7-4c82-ab39-1184c20c22bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp">
@@ -128,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="Source\SceneEditor.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\Tutorial.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneEditor.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Tutorial.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

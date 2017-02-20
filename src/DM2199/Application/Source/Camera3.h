@@ -11,6 +11,7 @@ using std::string;
 class Camera3 : public Camera
 {
     friend class SceneEditor;
+	friend class Tutorial;
 public:
 	//Vector3 position;
 	//Vector3 target;
