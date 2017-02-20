@@ -18,6 +18,7 @@
 #include "SceneMainMenu.h"
 #include "SceneLoading.h"
 #include "SceneEditor.h"
+#include "Levels/Tutorial.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -125,7 +126,7 @@ void Application::Run()
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
-    Scene *sceneTutorial = new SceneBase();
+    Scene *sceneTutorial = new Tutorial();
     Scene *sceneEditor = new SceneEditor();
     Scene *scene = sceneSplash;
     Scene *sceneLoadingAtBack;
