@@ -15,8 +15,9 @@ public:
 	};
 
 
-	Spider(float, float, float, float,SceneBase * scene);
+	Spider(float, float, float, float);
 	~Spider();
+	
 
 	virtual void addWaypoint(Vector3);
 	virtual void movetoWaypoint(double dt);
@@ -48,13 +49,13 @@ public:
 	virtual void setState(int);
 	virtual int getState();
 
-	void update();
+	virtual void update();
 
 	bool inRange = false;
 	
 private:
 	spiderState _State;
-	SceneBase * _scene;
+	SceneBase  _spiderScene();
 
 };
 

@@ -152,6 +152,8 @@ class SceneBase : public Scene
 
 		GEO_ENEMYHEALTHBAR,
 
+		//lantern
+		GEO_LANTERN,
 
         //Portal Lightball
         GEO_LIGHTBALL3,
@@ -226,6 +228,7 @@ class SceneBase : public Scene
 public:
     SceneBase();
     ~SceneBase();
+	SceneBase(const SceneBase & _scene);
 
     void RenderMesh(Mesh *mesh, bool enableLight);
     void renderGround();

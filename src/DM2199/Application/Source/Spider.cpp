@@ -1,7 +1,7 @@
 #include "Spider.h"
 
-Spider::Spider(float speed, float damage, float hp, float range, SceneBase * scene)
-	:Enemy(speed, damage, hp, range), _scene(scene)
+Spider::Spider(float speed, float damage, float hp, float range)
+	:Enemy(speed, damage, hp, range)
 {
 	enemytype = 1;
 	_State = Spider::spiderState::patrolling;
@@ -13,17 +13,24 @@ Spider::Spider(float speed, float damage, float hp, float range, SceneBase * sce
 
 void Spider::update()
 {
+	SceneBase * whatever = new SceneBase();
+	SceneBase *_spiderScene(whatever); // copy constructor
+
 	switch (_State)
 	{
 	case patrolling:
 	{
-		movetoWaypoint(_scene->_dt); //  move from one waypoint to another ,return to current waypoint
+		movetoWaypoint(_spiderScene->_dt); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
 
 		jump = false;
 		fall = false;
 
-		if ((_Position - _scene->camera.getPosition()).Length() < getRange())
+//<<<<<<< a8973e63e76c62b26e6400ab8c5478b5597fe6d8
+//		if ((_Position - _scene->camera.getPosition()).Length() < getRange())
+//=======
+		if ((_Position - _spiderScene->camera.getPosition()).Length() < getRange())
+//>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 		{
 			_State = Spider::spiderState::chasing;
 		}
@@ -32,14 +39,14 @@ void Spider::update()
 	case chasing:
 	{
 		//distance between character and  enemy
-		Vector3 distance = (_Position - _scene->camera.position);
+		Vector3 distance = (_Position - _spiderScene->camera.position);
 		Vector3 unitDistance = distance.Normalized();
 
-		float moveX = unitDistance.x * getMovementSpeed()*_scene->_dt;
-		float moveZ = unitDistance.z * getMovementSpeed()*_scene->_dt;
+		float moveX = unitDistance.x * getMovementSpeed()*_spiderScene->_dt;
+		float moveZ = unitDistance.z * getMovementSpeed()*_spiderScene->_dt;
 
-		float moveDistanceX = distance.x *getMovementSpeed()*_scene->_dt;
-		float moveDistanceZ = distance.z * getMovementSpeed()*_scene->_dt;
+		float moveDistanceX = distance.x *getMovementSpeed()*_spiderScene->_dt;
+		float moveDistanceZ = distance.z * getMovementSpeed()*_spiderScene->_dt;
 
 		// Rotate the enemy towards the player
 		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
@@ -48,7 +55,13 @@ void Spider::update()
 		_Position.x -= moveX;
 		_Position.z -= moveZ;
 
+/*<<<<<<< a8973e63e76c62b26e6400ab8c5478b5597fe6d8
 		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
+=======*/
+		
+
+		if ((_Position - _spiderScene->camera.getPosition()).Length() > getRange())
+//>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 		{
 			_State = Spider::spiderState::patrolling;
 		}

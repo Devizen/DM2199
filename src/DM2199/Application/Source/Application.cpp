@@ -19,6 +19,7 @@
 #include "SceneLoading.h"
 #include "SceneEditor.h"
 #include "Levels/Tutorial.h"
+#include "Enemy.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -126,7 +127,7 @@ void Application::Run()
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
-    Scene *sceneTutorial = new Tutorial();
+    Scene *sceneTutorial = new SceneBase();
     Scene *sceneEditor = new SceneEditor();
 	Scene *sceneBase = new SceneBase();
     Scene *scene = sceneBase;
@@ -169,8 +170,9 @@ void Application::Run()
                 scene = sceneLoadingAtBack;
             }
         }
-
-        scene->Update(m_timer.getElapsedTime());
+	
+		scene->Update(m_timer.getElapsedTime());
+	     
         scene->Render();
         //Swap buffers
         glfwSwapBuffers(m_window);

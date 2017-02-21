@@ -5,6 +5,7 @@
 
 class Robot : public Enemy
 {
+	friend class SceneBase;
 public:
 	enum robotState
 	{
@@ -14,8 +15,8 @@ public:
 		shooting,
 	};
 
-
-	Robot(float, float, float, float, SceneBase * scene, int typeRobot );
+	Robot();
+	Robot(float, float, float, float, int typeRobot );
 	~Robot();
 
 	virtual void addWaypoint(Vector3);
@@ -39,14 +40,18 @@ public:
 	virtual void setState(int);
 	virtual int getState();
 
-	void update();
+	virtual void update();
 
 	bool shoot = false;
 
 	bool inRange = false;
+	
+	//Get DT
+	static void dtFromScene(double dt);
+	static void positionFromCamera(Camera3 pos);
 
 private:
 	robotState _State;
-	SceneBase * _scene;
+	
 
 };

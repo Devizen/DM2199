@@ -1,30 +1,47 @@
 #include "Robot.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
+static double copyDT = 0.f;
+static Camera3 copyPos;
 
-Robot::Robot(float speed, float damage, float hp, float range, SceneBase * scene, int typeRobot)
-	:Enemy(speed, damage, hp, range), _scene(scene)
+Robot::Robot(float speed, float damage, float hp, float range, int typeRobot)
+	:Enemy(speed, damage, hp, range)
 {
 	enemytype = 2;
 	robotType = typeRobot;
 	
 	_State = Robot::robotState::patrolling;
 
+	currWaypoint
 }
 
 
-
-
-void Robot::update()
+void Robot::dtFromScene(double dt)
 {
+	copyDT = dt;
+}
+
+void Robot::positionFromCamera(Camera3 pos)
+{
+	copyPos = pos;
+}
+
+
+void Robot::update( )
+{
+	
+
 	switch (_State)
 	{
 	case patrolling:
 	{
-		movetoWaypoint(_scene->_dt); //  move from one waypoint to another ,return to current waypoint
+		movetoWaypoint(copyDT); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
-
-
-		if ((_Position - _scene->camera.getPosition()).Length() < getRange())
+		/*cout << "Position: " << _Position << endl;*/
+	
+		if ((_Position - copyPos.getPosition()).Length() < getRange())
 		{
 			_State = Robot::robotState::chasing;
 		}
@@ -33,11 +50,10 @@ void Robot::update()
 	case chasing:
 	{
 		//distance between character and  enemy
-		Vector3 distance = (_Position - _scene->camera.position);
+		Vector3 distance = (_Position - copyPos.position);
 		Vector3 unitDistance = distance.Normalized();
-
-		float moveX = unitDistance.x * getMovementSpeed()*_scene->_dt;
-		float moveZ = unitDistance.z * getMovementSpeed()*_scene->_dt;
+		float moveX = unitDistance.x * getMovementSpeed()* copyDT;
+		float moveZ = unitDistance.z * getMovementSpeed()* copyDT;
 
 		// Rotate the enemy towards the player
 		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
@@ -46,7 +62,7 @@ void Robot::update()
 		_Position.x -= moveX;
 		_Position.z -= moveZ;
 
-		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
+		if ((_Position - copyPos.getPosition()).Length() > getRange())
 		{
 			_State = Robot::robotState::patrolling;
 		}
@@ -150,6 +166,8 @@ int Robot::getState()
 	return _State;
 }
 
+
+
 void Robot::addWaypoint(Vector3 WPposition)
 {
 	WPManager->addWaypoint(WPposition);
@@ -169,8 +187,8 @@ void Robot::movetoWaypoint(double dt)
 			Vector3 distance = (_Position - currWaypoint->getPosition());
 			Vector3 unitDistance = distance.Normalized();
 
-			float moveX = unitDistance.x * _MovementSpeed * dt;
-			float moveZ = unitDistance.z * _MovementSpeed * dt;
+			float moveX = unitDistance.x * _MovementSpeed * copyDT;
+			float moveZ = unitDistance.z * _MovementSpeed * copyDT;
 
 			//// Rotate the enemy towards the player
 			_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));

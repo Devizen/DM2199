@@ -1,13 +1,19 @@
+<<<<<<< c6ad5e99c8dc67c6270ac4718f215fee08e8e051
 ﻿Build started 2/21/2017 9:30:43 AM.
      1>Project "C:\Users\162934W\Documents\SP2\src\DM2199\Common\Common.vcxproj" on node 2 (Build target(s)).
+=======
+﻿Build started 2/20/2017 5:48:46 PM.
+     1>Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Common\Common.vcxproj" on node 2 (Build target(s)).
+>>>>>>> 5fbfd86897236c1146dbe9a7c31126ef5ad3cc44
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\MatrixStack.cpp Source\Mtx44.cpp Source\timer.cpp Source\Vector3.cpp
-         Vector3.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\MatrixStack.cpp Source\Mtx44.cpp Source\Vector3.cpp Source\timer.cpp
          timer.cpp
+         Vector3.cpp
          Mtx44.cpp
          MatrixStack.cpp
          Generating Code...
        Lib:
+<<<<<<< c6ad5e99c8dc67c6270ac4718f215fee08e8e051
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\162934W\Documents\SP2\src\DM2199\Debug\Common.lib" /NOLOGO Debug\MatrixStack.obj
          Debug\Mtx44.obj
          Debug\timer.obj
@@ -18,3 +24,15 @@
 Build succeeded.
 
 Time Elapsed 00:00:02.77
+=======
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\161159U\Desktop\Studio Project\src\DM2199\Debug\Common.lib" /NOLOGO Debug\MatrixStack.obj
+         Debug\Mtx44.obj
+         Debug\timer.obj
+         Debug\Vector3.obj
+         Common.vcxproj -> C:\Users\161159U\Desktop\Studio Project\src\DM2199\Debug\Common.lib
+     1>Done Building Project "C:\Users\161159U\Desktop\Studio Project\src\DM2199\Common\Common.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.51
+>>>>>>> 5fbfd86897236c1146dbe9a7c31126ef5ad3cc44
