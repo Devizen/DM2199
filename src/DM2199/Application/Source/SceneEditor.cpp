@@ -187,16 +187,17 @@ void SceneEditor::Init()
         meshList[i] = NULL;
     }
 
-    int generateMesh = 0;
+    //int generateMesh = 0;
     for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
     {
-        for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
+        for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateObjects/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
         {
-            meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-            meshListPredefined[generateMesh]->textureID = LoadTGA(texrIt->data());
+			meshListPredefined[generateObjects/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+			meshListPredefined[generateObjects/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
             break;
         }
-        generateMesh++;
+       /* generateMesh++;*/
+		generateObjects++;
     }
     //while (objectName.size() != 0)
     //{ 
@@ -361,6 +362,27 @@ void SceneEditor::Init()
     //Arrow
     meshList[ARROW] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
     meshList[ARROW]->textureID = LoadTGA("Image//menu/arrow.tga");
+
+	meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("arrow", "OBJ//mountain.obj");
+	meshList[GEO_MOUNTAIN]->textureID = LoadTGA("Image//objects.tga");
+
+	meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("arrow", "OBJ//lamp.obj");
+	meshList[GEO_LAMP]->textureID = LoadTGA("Image//lamp.tga");
+
+	meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("arrow", "OBJ//lantern.obj");
+	meshList[GEO_LANTERN]->textureID = LoadTGA("Image//lantern.tga");
+
+	meshList[GEO_TOMBSTONE] = MeshBuilder::GenerateOBJ("arrow", "OBJ//tombstone.obj");
+	meshList[GEO_TOMBSTONE]->textureID = LoadTGA("Image//tombstone.tga");
+
+	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("arrow", "OBJ//tree.obj");
+	meshList[GEO_TREE]->textureID = LoadTGA("Image//tree.tga");
+
+	meshList[GEO_STATUE1] = MeshBuilder::GenerateOBJ("arrow", "OBJ//statue1.obj");
+	meshList[GEO_STATUE1]->textureID = LoadTGA("Image//statue1.tga");
+
+	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("arrow", "OBJ//statue2.obj");
+	meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
 
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -602,48 +624,38 @@ void SceneEditor::Update(double dt)
 
     if (Application::IsKeyPressed('1'))
     {
-        selectObject = 0;
+        selectObject = MOUNTAIN;
     }
 
     if (Application::IsKeyPressed('2'))
     {
-        selectObject = 1;
+        selectObject = LAMP;
     }
 
     if (Application::IsKeyPressed('3'))
     {
-        selectObject = 2;
+        selectObject = LANTERN;
     }
 
     if (Application::IsKeyPressed('4'))
     {
-        selectObject = 3;
+		selectObject = TOMBSTONE;
     }
 
-    if (Application::IsKeyPressed('7'))
-    {
-        light[0].type = Light::LIGHT_POINT;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_POINT;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to POINT and pass the information to shader
-    }
-    if (Application::IsKeyPressed('8'))
-    {
-        light[0].type = Light::LIGHT_DIRECTIONAL;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_DIRECTIONAL;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to DIRECTIONAL and pass the information to shader
-    }
-    if (Application::IsKeyPressed('9'))
-    {
-        light[0].type = Light::LIGHT_SPOT;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_SPOT;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to SPOT and pass the information to shader
-    }
+	if (Application::IsKeyPressed('5'))
+	{
+		selectObject = TREE;
+	}
+
+	if (Application::IsKeyPressed('6'))
+	{
+		selectObject = STATUE1;
+	}
+
+	if (Application::IsKeyPressed('7'))
+	{
+		selectObject = STATUE2;
+	}
 
     camera.Update(dt);
 
@@ -747,25 +759,9 @@ void SceneEditor::Render()
     RenderSkybox();
     modelStack.PopMatrix();
 
-    float x, z;
-    int generateObjects = 0;
-    for (vector<string>::reverse_iterator objectrItX = objectPosX.rbegin(); objectrItX != objectPosX.rend(); objectrItX++)
-    {
-        for (vector<string>::reverse_iterator objectrItZ = objectPosZ.rbegin() + generateObjects; objectrItZ != objectPosZ.rend(); objectrItZ++)
-        {
-            x = stof(objectrItX->data());
-            z = stof(objectrItZ->data());
-            modelStack.PushMatrix();
-            modelStack.Translate(x, -30.f, z);
-            modelStack.Scale(100.f, 50.f, 100.f);
-            RenderMesh(meshListPredefined[generateObjects], true);
-            modelStack.PopMatrix();
-            break;
-        }
-        generateObjects++;
-    }
 
     renderGround();
+	renderObjects();
     renderPosition();
     renderSprites();
     renderSelectObject();
@@ -793,6 +789,178 @@ void SceneEditor::Render()
 void SceneEditor::selectLevel(string input)
 {
     choosenLevel = input;
+}
+
+void SceneEditor::renderObjects()
+{
+	if (removedObject == true)
+	{
+		objectName.clear();
+		objectTexture.clear();
+		objectPosX.clear();
+		objectPosZ.clear();
+
+		static int linePos = 1;
+
+		string line = "";
+		ifstream myfile(choosenLevel);
+
+		while (myfile.peek() != EOF)
+		{
+			getline(myfile, line);
+
+			if (linePos == 1)
+			{
+				string pos, posX, posZ;
+				bool x = false;
+				pos = line;
+
+				for (unsigned i = 0; i < pos.size(); i++)
+				{
+					if (pos[i] != ',' && x == false)
+					{
+						posX += pos[i];
+					}
+					if (pos[i] == ',')
+					{
+						x = true;
+						objectPosX.push_back(posX);
+						continue;
+					}
+					if (x == true)
+					{
+						posZ += pos[i];
+					}
+				}
+				objectPosZ.push_back(posZ);
+				posX = "";
+				posZ = "";
+			}
+			if (linePos == 2)
+			{
+				objectTexture.push_back(line);
+			}
+			if (linePos == 3)
+			{
+				objectName.push_back(line);
+			}
+			++numOfObjects;
+
+			if (linePos < 3)
+			{
+				linePos++;
+			}
+			else
+			{
+				linePos = 1;
+			}
+
+		}
+
+		int generateMesh = 0;
+		for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+		{
+			for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
+			{
+				meshListPredefined[generateMesh/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+				meshListPredefined[generateMesh/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
+				break;
+			}
+			/* generateMesh++;*/
+			generateMesh++;
+		}
+
+		removedObject = false;
+	}
+	////////////////////////////////////////////////////////////////////////////////
+	float x, z;
+	int generateObjects = 0;
+	bool nextStep = false;
+	//To check and enable collision according to objects.
+	const string mountain = "OBJ//mountain.obj";
+	const string lamp = "OBJ//lamp.obj";
+	const string lantern = "OBJ//lantern.obj";
+	const string tombstone = "OBJ//tombstone.obj";
+	const string tree = "OBJ//tree.obj";
+	const string statue1 = "OBJ//statue1.obj";
+	const string statue2 = "OBJ//statue2.obj";
+
+	for (vector<string>::reverse_iterator objectrItName = objectName.rbegin(); objectrItName != objectName.rend(); objectrItName++)
+	{
+		for (vector<string>::reverse_iterator objectrItX = objectPosX.rbegin() + generateObjects; objectrItX != objectPosX.rend() && nextStep == false; objectrItX++)
+		{
+			nextStep = true;
+			for (vector<string>::reverse_iterator objectrItZ = objectPosZ.rbegin() + generateObjects; objectrItZ != objectPosZ.rend(); objectrItZ++)
+			{
+				x = stof(objectrItX->data());
+				z = stof(objectrItZ->data());
+				modelStack.PushMatrix();
+
+				if (objectrItName->data() == mountain)
+				{
+
+					modelStack.Translate(x, -30.f, z);
+					modelStack.Scale(100.f, 50.f, 100.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == lamp)
+				{
+
+					modelStack.Translate(x, -30.f, z);
+					modelStack.Scale(10.f, 10.f, 10.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == lantern)
+				{
+
+					modelStack.Translate(x, -30.f, z);
+					modelStack.Scale(10.f, 10.f, 10.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == tombstone)
+				{
+
+					modelStack.Translate(x, -30.f, z);
+					modelStack.Scale(10.f, 10.f, 10.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == tree)
+				{
+
+					modelStack.Translate(x, 60.f, z);
+					modelStack.Scale(10.f, 10.f, 10.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == statue1)
+				{
+
+					modelStack.Translate(x, 0.f, z);
+					modelStack.Scale(20.f, 20.f, 20.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+				else if (objectrItName->data() == statue2)
+				{
+
+					modelStack.Translate(x, 0.f, z);
+					modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+					modelStack.Scale(10.f, 10.f, 10.f);
+					RenderMesh(meshListPredefined[generateObjects], true);
+
+				}
+
+				modelStack.PopMatrix();
+				break;
+			}
+		}
+		nextStep = false;
+		generateObjects++;
+	}
 }
 
 void SceneEditor::pause()
@@ -837,50 +1005,84 @@ void SceneEditor::pause()
 
 void SceneEditor::renderSelectObject()
 {
-    if (selectObject == 0)
-    {
-        modelStack.PushMatrix();
-        RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 5, 5, 10, 5, 1, 0, 0, 1);
-        modelStack.PopMatrix();
 
-        //modelStack.PushMatrix();
-        //modelStack.Translate(camera.position.x, camera.position.y - 30.f, camera.position.z - 200.f);
-        //modelStack.Scale(100.f, 50.f, 100.f);
-        //RenderMesh(meshList[GEO_MOUNTAIN], true);
-        //modelStack.PopMatrix();
-    }
+        RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 5, 5, 10, 5, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_LAMP], 15, 5, 5, 5, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_LANTERN], 20, 5, 5, 5, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 25, 5, 1, 1, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_TREE], 30, 10, 0.5, 0.5, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_STATUE1], 38.5, 10, 4, 4, 0, 0, 0, 1);
+
+		RenderMeshOnScreen(meshList[GEO_STATUE2], 45, 10, 2, 2, 0, 0, 0, 1);
+
+
+
 }
 
 void SceneEditor::addObject()
 {
     if (Application::IsKeyPressed('E') && pressDelay >= cooldownPressed)
     {
-        if (selectObject == 0)
+		if (selectObject == MOUNTAIN)
+		{
+			objectName.push_back("OBJ//mountain.obj");
+			objectTexture.push_back("Image//objects.tga");
+		}
+		if (selectObject == LAMP)
+		{
+			objectName.push_back("OBJ//lamp.obj");
+			objectTexture.push_back("Image//lamp.tga");
+		}
+		if (selectObject == LANTERN)
+		{
+			objectName.push_back("OBJ//lantern.obj");
+			objectTexture.push_back("Image//lantern.tga");
+		}
+		if (selectObject == TOMBSTONE)
+		{
+			objectName.push_back("OBJ//tombstone.obj");
+			objectTexture.push_back("Image//tombstone.tga");
+		}
+		if (selectObject == TREE)
+		{
+			objectName.push_back("OBJ//tree.obj");
+			objectTexture.push_back("Image//tree.tga");
+		}
+		if (selectObject == STATUE1)
+		{
+			objectName.push_back("OBJ//statue1.obj");
+			objectTexture.push_back("Image//statue1.tga");
+		}
+		if (selectObject == STATUE2)
+		{
+			objectName.push_back("OBJ//statue2.obj");
+			objectTexture.push_back("Image//statue2.tga");
+		}
+        objectPosX.push_back(to_string((int)camera.position.x));
+        objectPosZ.push_back(to_string((int)camera.position.z));
+
+        ofstream outputFile;
+        outputFile.open(choosenLevel, ios::app);
+        outputFile << objectPosX.back() << "," << objectPosZ.back() << endl;
+        outputFile << objectTexture.back() << endl;
+        outputFile << objectName.back() << endl;
+        outputFile.close();
+
+        int generateMesh = 0;
+        for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
         {
-
-            objectName.push_back("OBJ//mountain.obj");
-            objectTexture.push_back("Image//objects.tga");
-            objectPosX.push_back(to_string((int)camera.position.x));
-            objectPosZ.push_back(to_string((int)camera.position.z));
-
-            ofstream outputFile;
-            outputFile.open(choosenLevel, ios::app);
-            outputFile << objectPosX.back() << "," << objectPosZ.back() << endl;
-            outputFile << objectTexture.back() << endl;
-            outputFile << objectName.back() << endl;
-            outputFile.close();
-
-            int generateMesh = 0;
-            for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+            for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
             {
-                for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
-                {
-                    meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-                    meshListPredefined[generateMesh]->textureID = LoadTGA(texrIt->data());
-                    break;
-                }
-                generateMesh++;
+                meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+                meshListPredefined[generateMesh]->textureID = LoadTGA(texrIt->data());
+                break;
             }
+            generateMesh++;
         }
         pressDelay = 0.f;
     }
@@ -902,22 +1104,19 @@ void SceneEditor::removeObject()
             objectPosZ.pop_back();
 
             int generateMesh = 0;
-            bool texture = false, posX = false, posZ = false;
+            bool toTexture = false, toPosition = false;
             for (vector<string>::iterator objIt = objectName.begin(); objIt < objectName.end(); objIt++)
             {
-                texture = true;
+     
                 for (vector<string>::iterator texIt = objectTexture.begin() + generateMesh; 
-                    texture == true && 
-                    posX == false &&
-                    texIt != objectTexture.end();)
+					toTexture == false;)
                 {
-                    posX = true;
+					toTexture = true;
+					
                     for (vector<string>::iterator posXIt = objectPosX.begin() + generateMesh; 
-                        posX == true &&
-                        posZ == false &&
-                        posXIt != objectPosX.end();)
+						toPosition == false;)
                     {
-                        posZ = true;
+						toPosition = true;
                         for (vector<string>::iterator posZIt = objectPosZ.begin() + generateMesh; 
                             posZIt != objectPosZ.end();)
                         {
@@ -934,8 +1133,8 @@ void SceneEditor::removeObject()
  
                 }
                 generateMesh++;
-                posX = false;
-                posZ = false;
+                toTexture = false;
+                toPosition = false;
             }
             if (choosenLevel == "tutorial.txt")
             {
@@ -974,6 +1173,7 @@ void SceneEditor::removeObject()
             outputFile.open(choosenLevel);
             outputFile.close();
         }
+		removedObject = true;
         pressDelay = 0.f;
     }
 }
@@ -1294,7 +1494,7 @@ void SceneEditor::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
     glEnable(GL_DEPTH_TEST);
 }
 
-void SceneEditor::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
+void SceneEditor::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
 {
     glDisable(GL_DEPTH_TEST);
     Mtx44 ortho;
@@ -1306,9 +1506,9 @@ void SceneEditor::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int si
 
     modelStack.PushMatrix();
     modelStack.LoadIdentity();
-    modelStack.Translate((float)x, (float)y, 0);
+    modelStack.Translate(x, y, 0);
     modelStack.Rotate(rotateAngle, xAxis, yAxis, zAxis);
-    modelStack.Scale((float)sizex, (float)sizey, 1);
+    modelStack.Scale(sizex, sizey, 1);
     //to do: scale and translate accordingly
     RenderMesh(mesh, false); //UI should not have light
     projectionStack.PopMatrix();

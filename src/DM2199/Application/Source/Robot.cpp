@@ -8,7 +8,7 @@ Robot::Robot(float speed, float damage, float hp, float range, int typeRobot)
 {
 	enemytype = 2;
 	robotType = typeRobot;
-	
+
 	_State = Robot::robotState::patrolling;
 
 }

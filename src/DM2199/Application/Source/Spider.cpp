@@ -30,7 +30,7 @@ void Spider::update()
 	{
 		movetoWaypoint(copyDT); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
-		
+
 
 //<<<<<<< 6931c871721755c46b9251c0acede3809e30716d
 		jump = false;

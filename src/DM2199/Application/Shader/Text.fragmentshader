@@ -41,7 +41,7 @@ float getSpotlightEffect(Light light, vec3 lightDirection) {
 	vec3 S = normalize(light.spotDirection);
 	vec3 L = normalize(lightDirection);
 	float cosDirection = dot(L, S);
-	//return smoothstep(light.cosCutoff, light.cosInner, cosDirection);
+	return smoothstep(light.cosCutoff, light.cosInner, cosDirection);
 	if(cosDirection < light.cosCutoff)
 		return 0;
 	else

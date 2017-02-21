@@ -5,12 +5,12 @@
 #include "Camera3.h"
 #include <vector>
 
-class SceneBase;
+class Tutorial;
 
 class Object
 {
 public:
-	Object(SceneBase* scene, Vector3 pos) : _scene(scene), position_(pos){};
+	Object(Tutorial* scene, Vector3 pos) : _scene(scene), position_(pos){};
 	Object(Vector3 pos) : position_(pos){};
 	virtual ~Object(){};
 
@@ -33,6 +33,6 @@ public:
 	unsigned type = 0;
 
 protected:
-	SceneBase * _scene;
+	Tutorial * _scene;
 };
 #endif

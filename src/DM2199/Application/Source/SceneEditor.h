@@ -21,171 +21,189 @@ using std::vector;
 
 class SceneEditor : public Scene
 {
-    friend class Object;
-    friend class Bullet;
-    friend class Enemy;
-    friend class Sound;
-    friend class Camera3;
-    friend class SceneMainMenu;
+	friend class Object;
+	friend class Bullet;
+	friend class Enemy;
+	friend class Sound;
+	friend class Camera3;
+	friend class SceneMainMenu;
 
-    enum GEOMETRY_TYPE
-    {
-        GEO_FLOOR = 0,
-        GEO_AXES,
-        GEO_X,
-        GEO_Y,
-        GEO_Z,
-        GEO_FPS,
+	enum GEOMETRY_TYPE
+	{
+		GEO_FLOOR = 0,
+		GEO_AXES,
+		GEO_X,
+		GEO_Y,
+		GEO_Z,
+		GEO_FPS,
 
-        GEO_LIGHTBALL,
-        GEO_LIGHTBALL2,
+		GEO_LIGHTBALL,
+		GEO_LIGHTBALL2,
 
-        //Skybox Day
-        GEO_LEFT,
-        GEO_RIGHT,
-        GEO_TOP,
-        GEO_BOTTOM,
-        GEO_FRONT,
-        GEO_BACK,
+		//Skybox Day
+		GEO_LEFT,
+		GEO_RIGHT,
+		GEO_TOP,
+		GEO_BOTTOM,
+		GEO_FRONT,
+		GEO_BACK,
 
-        //SkyBox Night
-        GEO_LEFTn,
-        GEO_RIGHTn,
-        GEO_TOPn,
-        GEO_BOTTOMn,
-        GEO_FRONTn,
-        GEO_BACKn,
+		//SkyBox Night
+		GEO_LEFTn,
+		GEO_RIGHTn,
+		GEO_TOPn,
+		GEO_BOTTOMn,
+		GEO_FRONTn,
+		GEO_BACKn,
 
-        //Environment
-        GEO_MOUNTAIN,
-        GEO_MOUNTAIN_2,
-        GEO_GROUND,
+		//Environment
+		GEO_GROUND,
 
-        //Enemy 
-        GEO_ENEMYHEAD,
-        GEO_ENEMYLEFTARM,
-        GEO_ENEMYRIGHTARM,
-        GEO_ENEMYLEFTLEG,
-        GEO_ENEMYRIGHTLEG,
-        GEO_ENEMYTORSO,
+		//Enemy 
+		GEO_ENEMYHEAD,
+		GEO_ENEMYLEFTARM,
+		GEO_ENEMYRIGHTARM,
+		GEO_ENEMYLEFTLEG,
+		GEO_ENEMYRIGHTLEG,
+		GEO_ENEMYTORSO,
 
-        GEO_FLICKER,
-        GEO_HP75,
-        GEO_HP50,
-        GEO_HP25,
+		GEO_FLICKER,
+		GEO_HP75,
+		GEO_HP50,
+		GEO_HP25,
 
-        //Item & Inventory
-        GEO_SWORD,
-        GEO_TORCH,
+		//Item & Inventory
+		GEO_SWORD,
+		GEO_TORCH,
 
-        //minimap
-        GEO_MINI_PLAYER,
-        GEO_MINI_GROUND,
-        GEO_MINI_ENEMY,
+		//minimap
+		GEO_MINI_PLAYER,
+		GEO_MINI_GROUND,
+		GEO_MINI_ENEMY,
 
-        GEO_INVENTORY,
-        GEO_GAME_HUD,
-        GEO_HP,
+		GEO_INVENTORY,
+		GEO_GAME_HUD,
+		GEO_HP,
 
-        //Text
-        GEO_TEXT,
+		//Text
+		GEO_TEXT,
 
-        //UI
-        GEO_FACE,
-        GEO_BACKGROUND,
-        GEO_MESSAGES,
+		//UI
+		GEO_FACE,
+		GEO_BACKGROUND,
+		GEO_MESSAGES,
 
-        //Sprites
-        GEO_HANDL1,
-        GEO_HANDL2,
-        GEO_HANDR1,
-        GEO_HANDR2,
-        GEO_GUN1,
-        GEO_GUN2,
-        GEO_GUN3,
-        GEO_CANNON1,
-        GEO_CANNON2,
-        GEO_CANNON3,
-        GEO_SWORD1,
-        GEO_SWORD2,
-        GEO_SWORD3,
+		//Sprites
+		GEO_HANDL1,
+		GEO_HANDL2,
+		GEO_HANDR1,
+		GEO_HANDR2,
+		GEO_GUN1,
+		GEO_GUN2,
+		GEO_GUN3,
+		GEO_CANNON1,
+		GEO_CANNON2,
+		GEO_CANNON3,
+		GEO_SWORD1,
+		GEO_SWORD2,
+		GEO_SWORD3,
 
-        //Portal Lightball
-        GEO_LIGHTBALL3,
+		//Portal Lightball
+		GEO_LIGHTBALL3,
 
-        //Pause Menu
-        PAUSE,
-        ARROW,
+		//Pause Menu
+		PAUSE,
+		ARROW,
 
-        NUM_GEOMETRY,
-    };
+		//Objects
+		GEO_MOUNTAIN,
+		GEO_LAMP,
+		GEO_LANTERN,
+		GEO_TOMBSTONE,
+		GEO_TREE,
+		GEO_STATUE1,
+		GEO_STATUE2,
 
-    enum UNIFORM_TYPE
-    {
-        U_MVP = 0,
-        U_MODELVIEW,
-        U_MODELVIEW_INVERSE_TRANSPOSE,
-        U_MATERIAL_AMBIENT,
-        U_MATERIAL_DIFFUSE,
-        U_MATERIAL_SPECULAR,
-        U_MATERIAL_SHININESS,
-        U_LIGHT0_POSITION,
-        U_LIGHT0_COLOR,
-        U_LIGHT0_POWER,
-        U_LIGHT0_KC,
-        U_LIGHT0_KL,
-        U_LIGHT0_KQ,
+		NUM_GEOMETRY,
+	};
 
-        U_LIGHT0_TYPE,
-        U_LIGHT0_SPOTDIRECTION,
-        U_LIGHT0_COSCUTOFF,
-        U_LIGHT0_COSINNER,
-        U_LIGHT0_EXPONENT,
+	enum UNIFORM_TYPE
+	{
+		U_MVP = 0,
+		U_MODELVIEW,
+		U_MODELVIEW_INVERSE_TRANSPOSE,
+		U_MATERIAL_AMBIENT,
+		U_MATERIAL_DIFFUSE,
+		U_MATERIAL_SPECULAR,
+		U_MATERIAL_SHININESS,
+		U_LIGHT0_POSITION,
+		U_LIGHT0_COLOR,
+		U_LIGHT0_POWER,
+		U_LIGHT0_KC,
+		U_LIGHT0_KL,
+		U_LIGHT0_KQ,
 
-        U_LIGHT1_POSITION,
-        U_LIGHT1_COLOR,
-        U_LIGHT1_POWER,
-        U_LIGHT1_KC,
-        U_LIGHT1_KL,
-        U_LIGHT1_KQ,
+		U_LIGHT0_TYPE,
+		U_LIGHT0_SPOTDIRECTION,
+		U_LIGHT0_COSCUTOFF,
+		U_LIGHT0_COSINNER,
+		U_LIGHT0_EXPONENT,
 
-        U_LIGHT1_TYPE,
-        U_LIGHT1_SPOTDIRECTION,
-        U_LIGHT1_COSCUTOFF,
-        U_LIGHT1_COSINNER,
-        U_LIGHT1_EXPONENT,
+		U_LIGHT1_POSITION,
+		U_LIGHT1_COLOR,
+		U_LIGHT1_POWER,
+		U_LIGHT1_KC,
+		U_LIGHT1_KL,
+		U_LIGHT1_KQ,
 
-        U_LIGHT2_POSITION,
-        U_LIGHT2_COLOR,
-        U_LIGHT2_POWER,
-        U_LIGHT2_KC,
-        U_LIGHT2_KL,
-        U_LIGHT2_KQ,
+		U_LIGHT1_TYPE,
+		U_LIGHT1_SPOTDIRECTION,
+		U_LIGHT1_COSCUTOFF,
+		U_LIGHT1_COSINNER,
+		U_LIGHT1_EXPONENT,
 
-        U_LIGHT2_TYPE,
-        U_LIGHT2_SPOTDIRECTION,
-        U_LIGHT2_COSCUTOFF,
-        U_LIGHT2_COSINNER,
-        U_LIGHT2_EXPONENT,
+		U_LIGHT2_POSITION,
+		U_LIGHT2_COLOR,
+		U_LIGHT2_POWER,
+		U_LIGHT2_KC,
+		U_LIGHT2_KL,
+		U_LIGHT2_KQ,
 
-        U_LIGHTENABLED,
-        U_NUMLIGHTS,
+		U_LIGHT2_TYPE,
+		U_LIGHT2_SPOTDIRECTION,
+		U_LIGHT2_COSCUTOFF,
+		U_LIGHT2_COSINNER,
+		U_LIGHT2_EXPONENT,
 
-        U_COLOR_TEXTURE_ENABLED,
-        U_COLOR_TEXTURE,
+		U_LIGHTENABLED,
+		U_NUMLIGHTS,
 
-        //Text
-        U_TEXT_ENABLED,
-        U_TEXT_COLOR,
+		U_COLOR_TEXTURE_ENABLED,
+		U_COLOR_TEXTURE,
 
-        U_TOTAL,
-    };
+		//Text
+		U_TEXT_ENABLED,
+		U_TEXT_COLOR,
 
-    enum MENU
-    {
-        CONTINUE = 0,
-        BACKTOMAINMENU,
-    };
+		U_TOTAL,
+	};
+
+	enum MENU
+	{
+		CONTINUE = 0,
+		BACKTOMAINMENU,
+	};
+
+	enum OBJECTS
+	{
+		MOUNTAIN = 0,
+		LAMP,
+		LANTERN,
+		TOMBSTONE,
+		TREE,
+		STATUE1,
+		STATUE2,
+	};
 
     unsigned m_parameters[U_TOTAL];
 
@@ -273,10 +291,13 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-    void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
+	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
     void renderPosition();
 
     void renderSelectObject();
+	
+	//Render objects from text file
+	void renderObjects();
 
     // Cool Down Time
     const float coolDown = 0.25f;
@@ -292,13 +313,15 @@ private:
     float pressDelay = 0.f;
 
     //Choosing Object, 0 is mountain.
-    int selectObject = 0;
+    OBJECTS selectObject = MOUNTAIN;
 
     //Add object to scene
     void addObject();
 
     //Remove previous object from scene
     void removeObject();
+	int generateObjects = 0;
+	bool removedObject = false;
 
     //Enabling and Disabling Collison.
     bool passCol;

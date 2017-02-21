@@ -1,6 +1,12 @@
--45,130
+-485,-490
 Image//objects.tga
 OBJ//mountain.obj
--55,225
-Image//objects.tga
-OBJ//mountain.obj
+-388,-484
+Image//lamp.tga
+OBJ//lamp.obj
+-291,-485
+Image//lantern.tga
+OBJ//lantern.obj
+-188,-471
+Image//tombstone.tga
+OBJ//tombstone.obj

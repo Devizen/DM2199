@@ -61,13 +61,34 @@ class Tutorial : public Scene
 		GEO_MOUNTAIN_2,
 		GEO_GROUND,
 
-		//Enemy 
+		//Enemy 1
 		GEO_ENEMYHEAD,
 		GEO_ENEMYLEFTARM,
 		GEO_ENEMYRIGHTARM,
 		GEO_ENEMYLEFTLEG,
 		GEO_ENEMYRIGHTLEG,
 		GEO_ENEMYTORSO,
+
+		//Enemy 2
+		GEO_ENEMYLEFTARM2,
+		GEO_ENEMYRIGHTARM2,
+		GEO_ENEMYLEFTLEG2,
+		GEO_ENEMYRIGHTLEG2,
+		GEO_ENEMYTORSO2,
+
+		//Enemy 3
+		GEO_ENEMYLEFTARM3,
+		GEO_ENEMYRIGHTARM3,
+		GEO_ENEMYLEFTLEG3,
+		GEO_ENEMYRIGHTLEG3,
+		GEO_ENEMYTORSO3,
+
+		//Enemy 4
+		GEO_ENEMYLEFTARM4,
+		GEO_ENEMYRIGHTARM4,
+		GEO_ENEMYLEFTLEG4,
+		GEO_ENEMYRIGHTLEG4,
+		GEO_ENEMYTORSO4,
 
 		GEO_FLICKER,
 		GEO_HP75,
@@ -76,7 +97,6 @@ class Tutorial : public Scene
 
 		//Item & Inventory
 		GEO_SWORD,
-		GEO_TORCH,
 
 		//minimap
 		GEO_MINI_PLAYER,
@@ -86,6 +106,14 @@ class Tutorial : public Scene
 		GEO_INVENTORY,
 		GEO_GAME_HUD,
 		GEO_HP,
+
+		GEO_EN,
+		GEO_ARROW,
+		GEO_ACTIVE_SELECT,
+		GEO_SECONDARY_SELECT,
+		GEO_TIME,
+
+		GEO_COUNTDOWN,
 
 		//Text
 		GEO_TEXT,
@@ -100,15 +128,21 @@ class Tutorial : public Scene
 		GEO_HANDL2,
 		GEO_HANDR1,
 		GEO_HANDR2,
+		GEO_HANDI,
 		GEO_GUN1,
 		GEO_GUN2,
 		GEO_GUN3,
-		GEO_CANNON1,
-		GEO_CANNON2,
-		GEO_CANNON3,
+		GEO_GUNI,
 		GEO_SWORD1,
 		GEO_SWORD2,
 		GEO_SWORD3,
+		GEO_SWORDI,
+		GEO_TORCH,
+		GEO_TORCHI,
+		GEO_HEALTHPOTION,
+		GEO_ANTIDOTE,
+
+		GEO_GUN_ICON,
 
 		//Portal Lightball
 		GEO_LIGHTBALL3,
@@ -116,6 +150,11 @@ class Tutorial : public Scene
 		//Pause Menu
 		PAUSE,
 		ARROW,
+
+		//Spider
+		GEO_SPIDER,
+
+		GEO_ENEMYHEALTHBAR,
 
 		NUM_GEOMETRY,
 	};
@@ -221,8 +260,14 @@ public:
 	//Text
 	void renderText();
 
+	//Torch
+	bool torchDead = false;
+
 	//Sprites
 	void renderSprites();
+	bool swing = false;
+	int potionCount = 0;
+	int antidoteCount = 0;
 
 	//Reset All Settings
 	void resetAll();
@@ -230,6 +275,7 @@ public:
 	FactoryObject objFactory;
 	float _dt;
 	float _elapsedTime = 0;
+	float swingTime = 0;
 
 	//Sound
 	std::vector<Sound *> soundStorage;
@@ -247,6 +293,21 @@ public:
 	//Defining the meshList
 	static const int totalObjects = 100;
 
+	//Enemy
+	void enemyUpdate(double dt);
+
+
+	float rotateArm = 0.f;
+	float scaleDamage = 0.2f;
+
+	bool bulletTouch = false;
+	bool damaged = false; // character to enemy
+
+	std::vector<Enemy *> enemyStorage;
+
+	int health = 100;
+	int energy = 10000;
+	int timeleft = 60000;
 
 private:
 	vector<string>objectName;
@@ -301,7 +362,25 @@ private:
 
 	//Cooldown for Button Pressed
 	const float cooldownPressed = 0.5f;
+
+	float nextJump = 0.f;
+
+	float nextSplatter = 0.f;
+
+	float nextRun = 0.f;
+
+	void renderRemainingTime();
+	void renderStats();
+	void renderPotionCount();
+	void renderAntidoteCount();
+
+	void renderInventory();
+	void renderHUD();
+	void renderEnemy();
+
+	void renderObjects();
 };
+
 
 
 

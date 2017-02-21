@@ -218,6 +218,11 @@ void SceneSplash::Update(double dt)
 	static bool checkAlphabet[8] = { false, false, false, false, false, false, false, false};
 
 
+	if (Application::IsKeyPressed('1'))
+	{
+		Application::ChangeScene(4);
+	}
+
     timeOut += (float)dt;
 
     cout << timeOut << endl;
@@ -313,17 +318,6 @@ void SceneSplash::Update(double dt)
 	{
 		translateProgressUp += (float)dt * 250.f;
 	}
-
-	//if (rotateProgress <= 0.f && checkAlphabet[7] == true)
-	//{
-	//	rotateProgress = 0.f;
-	//}
-
-	//if (rotateProgress < 0.f && checkAlphabet[8] == true)
-	//{
-	//	translateProgress = 110.f;
-	//	checkAlphabet[6] = true;
-	//}
 
     camera.Update(dt);
 

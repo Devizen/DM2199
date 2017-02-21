@@ -15,7 +15,7 @@ public:
 	};
 
 
-	Robot(float, float, float, float, int typeRobot );
+	Robot(float, float, float, float, int typeRobot);
 	~Robot();
 
 	virtual void addWaypoint(Vector3);
@@ -51,6 +51,6 @@ public:
 
 private:
 	robotState _State;
-	
+	Tutorial * _scene;
 
 };

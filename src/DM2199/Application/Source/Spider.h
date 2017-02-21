@@ -58,7 +58,7 @@ public:
 	
 private:
 	spiderState _State;
-	
+	Tutorial * _scene;
 
 };
 

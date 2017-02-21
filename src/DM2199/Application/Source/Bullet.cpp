@@ -1,11 +1,11 @@
 #include "Bullet.h"
-#include "SceneBase.h"
+#include "Levels\Tutorial.h"
 
 
-Bullet::Bullet(SceneBase* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+Bullet::Bullet(Tutorial* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
 {
 
-	type = SceneBase::GEO_LIGHTBALL3;
+	type = Tutorial::GEO_LIGHTBALL3;
 	_defaultYaw = _scene->camera.getYaw();
 	_defaultPitch = _scene->camera.getPitch();
 	_defaultPosition = pos;

@@ -5,12 +5,12 @@
 #include "Object.h"
 
 
-class SceneBase;
+class Tutorial;
 
 class Bullet : public Object
 {
 public:
-	Bullet(SceneBase* scene, Vector3 pos, float rotateYaw,float rotatePitch);
+	Bullet(Tutorial* scene, Vector3 pos, float rotateYaw, float rotatePitch);
 	~Bullet();
 
 	virtual void interact();
@@ -19,8 +19,8 @@ private:
 	Vector3 _defaultPosition;
 	float _defaultYaw;
 	float _defaultPitch;
-	const float _maxDistance = 40;
-	const float bulletSpeed = 150.0f;
+	const float _maxDistance = 1000.f;
+	const float bulletSpeed = 600.0f;
 	
 
 
