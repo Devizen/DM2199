@@ -931,7 +931,7 @@ void SceneEditor::renderObjects()
 				else if (objectrItName->data() == tree)
 				{
 
-					modelStack.Translate(x, 60.f, z);
+					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[generateObjects], true);
 
@@ -1014,7 +1014,7 @@ void SceneEditor::renderSelectObject()
 
 		RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 25, 5, 1, 1, 0, 0, 0, 1);
 
-		RenderMeshOnScreen(meshList[GEO_TREE], 30, 10, 0.5, 0.5, 0, 0, 0, 1);
+		RenderMeshOnScreen(meshList[GEO_TREE], 30, 5, 0.5, 0.5, 0, 0, 0, 1);
 
 		RenderMeshOnScreen(meshList[GEO_STATUE1], 38.5, 10, 4, 4, 0, 0, 0, 1);
 
