@@ -21,6 +21,13 @@ class SceneSplash : public Scene
     {
         //Splash Screen
         GEO_SPLASH = 0,
+        L,
+        a,
+        z,
+        y,
+        i,
+        s,
+        progress,
      
         //Text
         GEO_TEXT,
@@ -121,10 +128,23 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-    void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
+    void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
 
     //Time Out for Splash Screen
     float timeOut = 0.f;
+
+    //Animation
+    float translateLDown = 0.f;
+    float translateaDown = 0.f;
+    float translatezDown = 0.f;
+    float translateyDown = 0.f;
+
+    float scalei = 0.f;
+    float scales = 0.f;
+
+    float translateProgress = 0.f;
+    float rotateProgress = 0.f;
+	float translateProgressUp = 0.f;
 };
 
 

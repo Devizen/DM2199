@@ -129,7 +129,7 @@ void Application::Run()
     Scene *sceneTutorial = new Tutorial();
     Scene *sceneEditor = new SceneEditor();
 	Scene *sceneBase = new SceneBase();
-    Scene *scene = sceneBase;
+    Scene *scene = sceneSplash;
     Scene *sceneLoadingAtBack;
     scene->Init();
 

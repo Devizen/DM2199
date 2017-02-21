@@ -104,18 +104,29 @@ void SceneSplash::Init()
     m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
     m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
 
-
     // Use our shader
     glUseProgram(m_programID);
 
-    for (int i = 0; i < NUM_GEOMETRY; ++i)
+    for (int i = 0; i < NUM_GEOMETRY; i++)
     {
         meshList[i] = NULL;
     }
 
     //Splash Screen
-    meshList[GEO_SPLASH] = MeshBuilder::GenerateOBJ("splash", "OBJ//menu.obj");
-    meshList[GEO_SPLASH]->textureID = LoadTGA("Image//splash.tga");
+    meshList[L] = MeshBuilder::GenerateOBJ("L", "OBJ//menu.obj");
+    meshList[L]->textureID = LoadTGA("Image/menu/L.tga");
+    meshList[a] = MeshBuilder::GenerateOBJ("a", "OBJ//menu.obj");
+    meshList[a]->textureID = LoadTGA("Image/menu/a.tga");
+    meshList[z] = MeshBuilder::GenerateOBJ("z", "OBJ//menu.obj");
+    meshList[z]->textureID = LoadTGA("Image/menu/z.tga");
+    meshList[y] = MeshBuilder::GenerateOBJ("y", "OBJ//menu.obj");
+    meshList[y]->textureID = LoadTGA("Image/menu/y.tga");
+    meshList[i] = MeshBuilder::GenerateOBJ("i", "OBJ//menu.obj");
+    meshList[i]->textureID = LoadTGA("Image/menu/i.tga");
+    meshList[s] = MeshBuilder::GenerateOBJ("s", "OBJ//menu.obj");
+    meshList[s]->textureID = LoadTGA("Image/menu/s.tga");
+    meshList[progress] = MeshBuilder::GenerateOBJ("progress", "OBJ//menu.obj");
+    meshList[progress]->textureID = LoadTGA("Image/menu/progress.tga");
 
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -202,38 +213,117 @@ void SceneSplash::Init()
 void SceneSplash::Update(double dt)
 {
     srand((unsigned)time(NULL));
+    static float translateDown = 1;
+
+	static bool checkAlphabet[8] = { false, false, false, false, false, false, false, false};
+
 
     timeOut += (float)dt;
 
     cout << timeOut << endl;
-    if (timeOut > 2.f)
+	if (translateProgressUp > 50.f)
     {
         Application::ChangeScene(1);
     }
-    if (Application::IsKeyPressed('7'))
+
+    if (translateLDown <= 40.f && checkAlphabet[0] == false)
     {
-        light[0].type = Light::LIGHT_POINT;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_POINT;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to POINT and pass the information to shader
+        translateLDown += (float)dt * 250.f;
     }
-    if (Application::IsKeyPressed('8'))
+	if (translateLDown > 40.f)
+	{
+		translateLDown = 40.f;
+		checkAlphabet[0] = true;
+	}
+
+	if (translateaDown <= 40.f && checkAlphabet[0] == true)
     {
-        light[0].type = Light::LIGHT_DIRECTIONAL;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_DIRECTIONAL;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to DIRECTIONAL and pass the information to shader
+        translateaDown += (float)dt * 250.f;
     }
-    if (Application::IsKeyPressed('9'))
+	if (translateaDown > 40.f)
+	{
+		translateaDown = 40.f;
+		checkAlphabet[1] = true;
+	}
+
+	if (translatezDown <= 40.f&& checkAlphabet[1] == true)
     {
-        light[0].type = Light::LIGHT_SPOT;
-        glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-        light[1].type = Light::LIGHT_SPOT;
-        glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-        //to do: switch light type to SPOT and pass the information to shader
+        translatezDown += (float)dt * 250.f;
     }
+	if (translatezDown > 40.f)
+	{
+		translatezDown = 40.f;
+		checkAlphabet[2] = true;
+	}
+
+	if (translateyDown <= 40.f&& checkAlphabet[2] == true)
+    {
+        translateyDown += (float)dt * 250.f;
+    }
+	if (translateyDown > 40.f)
+	{
+		translateyDown = 40.f;
+		checkAlphabet[3] = true;
+	}
+
+	if (scalei <= 50.f&& checkAlphabet[3] == true)
+	{
+		scalei += (float)dt * 250.f;
+	}
+	if (scalei > 50.f)
+	{
+		scalei = 50.f;
+		checkAlphabet[4] = true;
+	}
+
+	if (scales <= 50.f&& checkAlphabet[4] == true)
+	{
+		scales += (float)dt * 250.f;
+	}
+	if (scales > 50.f)
+	{
+		scales = 50.f;
+		checkAlphabet[5] = true;
+	}
+
+	if (translateProgress <= 110.f && checkAlphabet[5] == true)
+	{
+		translateProgress += (float)dt * 250.f;
+	}
+
+	if (translateProgress > 110.f && checkAlphabet[5] == true)
+	{
+		translateProgress = 110.f;
+		checkAlphabet[6] = true;
+	}
+
+	if (rotateProgress < 80.f && checkAlphabet[6] == true)
+	{
+
+		rotateProgress += (float)dt * 250.f;
+
+	}
+
+	if (rotateProgress >= 80.f && checkAlphabet[6] == true)
+	{
+		checkAlphabet[7] = true;
+	}
+
+	if (checkAlphabet[7] == true)
+	{
+		translateProgressUp += (float)dt * 250.f;
+	}
+
+	//if (rotateProgress <= 0.f && checkAlphabet[7] == true)
+	//{
+	//	rotateProgress = 0.f;
+	//}
+
+	//if (rotateProgress < 0.f && checkAlphabet[8] == true)
+	//{
+	//	translateProgress = 110.f;
+	//	checkAlphabet[6] = true;
+	//}
 
     camera.Update(dt);
 
@@ -317,7 +407,20 @@ void SceneSplash::Render()
     }
 
     //Render Splash Screen with Scaling
-    RenderMeshOnScreen(meshList[GEO_SPLASH], 40, 30, 100 + (timeOut * 10), 100 + (timeOut * 10));
+    //Lazy
+    RenderMeshOnScreen(meshList[L], 40, 70 - translateLDown + translateProgressUp, 50, 50, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[a], 40, 70 - translateaDown + translateProgressUp, 50, 50, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[z], 40, 70 - translatezDown + translateProgressUp, 50, 50, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[y], 40, 70 - translateyDown + translateProgressUp, 50, 50, 0.f, 0.f, 0.f, 1.f);
+
+    //is
+	RenderMeshOnScreen(meshList[i], 40, 30 + translateProgressUp, 1 * scalei, 1 * scalei, 0.f, 0.f, 0.f, 1.f);
+	RenderMeshOnScreen(meshList[s], 40, 30 + translateProgressUp, 1 * scales, 1 * scales, 0.f, 0.f, 0.f, 1.f);
+
+    //Progress
+    RenderMeshOnScreen(meshList[progress], 150 - translateProgress, 30 + translateProgressUp, 50, 50, rotateProgress, 0.f, 0.f, 1.f);
+	cout << rotateProgress << endl;
+
 }
 
 
@@ -443,7 +546,7 @@ void SceneSplash::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
     glEnable(GL_DEPTH_TEST);
 }
 
-void SceneSplash::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
+void SceneSplash::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
 {
     glDisable(GL_DEPTH_TEST);
     Mtx44 ortho;
@@ -455,8 +558,9 @@ void SceneSplash::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, 
 
     modelStack.PushMatrix();
     modelStack.LoadIdentity();
-    modelStack.Translate(x, y, 0.f);
-    modelStack.Scale(sizex, sizey, 1.f);
+    modelStack.Translate((float)x, (float)y, 0);
+    modelStack.Rotate(rotateAngle, xAxis, yAxis, zAxis);
+    modelStack.Scale((float)sizex, (float)sizey, 1);
     //to do: scale and translate accordingly
     RenderMesh(mesh, false); //UI should not have light
     projectionStack.PopMatrix();
@@ -464,6 +568,7 @@ void SceneSplash::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, 
     modelStack.PopMatrix();
     glEnable(GL_DEPTH_TEST);
 }
+
 
 
 void SceneSplash::Exit()
