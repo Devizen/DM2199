@@ -29,21 +29,22 @@ void Bullet::interact(){
 
 
 	//Delete bullet once it reachs max distance
-	if ((_defaultPosition - position_).Length() >= _maxDistance) {
-		_scene->objFactory.destroyFactoryObject(this);
-		return;
-	}
-	
-	//
-	//for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
-	//{
-	//	if ((position_ - (*itEnemy)->_Position).Length() < 20)
-	//	{
-	//		_scene->objFactory.destroyFactoryObject(this);
-	//	}
-	//	
+	//if ((_defaultPosition - position_).Length() >= _maxDistance) {
+	//	_scene->objFactory.destroyFactoryObject(this);
+	//	return;
 	//}
 
+	
+	
+	for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
+	{
+		if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+		{
+			_scene->objFactory.destroyFactoryObject(this);
+			return;
+		}
+		
+	}
 	//	
 
 	//for (std::vector<Object*>::iterator it = _scene->objFactory.Container.begin(); it != _scene->objFactory.Container.end(); ++it)

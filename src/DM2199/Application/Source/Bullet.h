@@ -19,8 +19,10 @@ private:
 	Vector3 _defaultPosition;
 	float _defaultYaw;
 	float _defaultPitch;
+
 	const float _maxDistance = 1000.f;
 	const float bulletSpeed = 600.0f;
+
 	
 
 

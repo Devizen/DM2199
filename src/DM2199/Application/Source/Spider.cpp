@@ -1,7 +1,5 @@
 #include "Spider.h"
 
-
-
 static double copyDT = 0.f;
 static Camera3 copyPos;
 
@@ -176,6 +174,11 @@ void Spider::update()
 		{
 			_State = Spider::spiderState::patrolling;
 		}
+	}
+	break;
+	case attack:
+	{
+		
 	}
 	break;
 	}
