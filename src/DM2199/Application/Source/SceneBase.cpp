@@ -28,6 +28,11 @@ SceneBase::SceneBase()
 SceneBase::~SceneBase()
 {
 }
+SceneBase::SceneBase(const SceneBase & _scene)
+	:SceneBase(_scene)
+{
+
+}
 
 Inventory* global_inventory = 0;
 void SceneBase::Init()
@@ -336,6 +341,11 @@ void SceneBase::Init()
 
 	meshList[GEO_ENEMYHEALTHBAR] = MeshBuilder::GenerateQuad("enemyHealthBar", Color(1.0f, 0.0f, 0.0f), 1, 1);
 
+	meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("lantern", "OBJ//lantern.obj");
+	meshList[GEO_LANTERN]->textureID = LoadTGA("Image//Lamp.tga");
+
+
+
 	meshList[GEO_ARROW] = MeshBuilder::GenerateOBJ("Arrow", "OBJ//inventory.obj");
 	meshList[GEO_ARROW]->textureID = LoadTGA("Image//Arrow.tga");
 
@@ -468,6 +478,7 @@ void SceneBase::Init()
 	cooldown = 15.0f;
 
 	//speed ,damage ,hp, range ,this
+
 	Enemy * newEnemy = new Spider(70.f, 5.f, 50.f, 100.f);
 	newEnemy->addWaypoint(Vector3(200, 0, 200));
 	newEnemy->addWaypoint(Vector3(200, 0, -200));
@@ -489,6 +500,7 @@ void SceneBase::Init()
 	newEnemy3->addWaypoint(Vector3(-2300, 0, -300));
 	newEnemy3->addWaypoint(Vector3(-2300, 0, 200));
 	enemyStorage.push_back(newEnemy3);
+
 
 	for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
@@ -513,11 +525,13 @@ void SceneBase::Update(double dt)
 	Robot::dtFromScene(dt);
 	Robot::positionFromCamera(camera);
 
+
 	Spider::dtFromScene(dt);
 	Spider::positionFromCamera(camera);
 
 	//Bullet::dtFromScene(dt);
 	//Bullet::positionFromCamera(camera);
+
 
 	_dt = (float)dt;
 	_elapsedTime += _dt;
@@ -833,6 +847,13 @@ void SceneBase::Render()
 
 	renderText();
 
+
+	renderSprites();
+
+	modelStack.Scale(10, 10, 10);
+	RenderMesh(meshList[GEO_LANTERN], false);
+
+
 	objFactory.renderFactoryObject();
 
 	renderEnemy();
@@ -947,7 +968,8 @@ void SceneBase::renderEnemy()
 				{
 					//Robot
 					modelStack.PushMatrix();
-					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y -20.f, (*it)->_Position.z);
+					cout << "Translation, X: "<< (*it)->_Position.x <<" Y: " <<(*it)->_Position.y - 20.f<<" Z: " << (*it)->_Position.z<<endl;
 					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
 					modelStack.PushMatrix();
 					modelStack.Scale(10, 10, 10);
@@ -957,6 +979,7 @@ void SceneBase::renderEnemy()
 					modelStack.PushMatrix();
 					modelStack.Translate(0, 40, 0);
 					modelStack.Rotate(-rotateArm, 0, 0, 1);
+
 					modelStack.Translate(0, -40, 0);
 					modelStack.Scale(10, 10, 10);
 					RenderMesh(meshList[GEO_ENEMYLEFTARM], true);
@@ -964,6 +987,7 @@ void SceneBase::renderEnemy()
 					modelStack.PushMatrix();
 					modelStack.Translate(0, 40, 0);
 					modelStack.Rotate(rotateArm, 0, 0, 1);
+
 					modelStack.Translate(0, -40, 0);
 					modelStack.Scale(10, 10, 10);
 					RenderMesh(meshList[GEO_ENEMYRIGHTARM], true);

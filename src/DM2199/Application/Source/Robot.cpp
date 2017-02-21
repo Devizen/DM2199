@@ -1,4 +1,7 @@
 #include "Robot.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 static double copyDT = 0.f;
 static Camera3 copyPos;
@@ -11,13 +14,25 @@ Robot::Robot(float speed, float damage, float hp, float range, int typeRobot)
 
 	_State = Robot::robotState::patrolling;
 
+	currWaypoint
 }
 
 
-
-
-void Robot::update()
+void Robot::dtFromScene(double dt)
 {
+	copyDT = dt;
+}
+
+void Robot::positionFromCamera(Camera3 pos)
+{
+	copyPos = pos;
+}
+
+
+void Robot::update( )
+{
+	
+
 	switch (_State)
 	{
 	case patrolling:
@@ -160,6 +175,8 @@ int Robot::getState()
 	return _State;
 }
 
+
+
 void Robot::addWaypoint(Vector3 WPposition)
 {
 	WPManager->addWaypoint(WPposition);
@@ -179,8 +196,8 @@ void Robot::movetoWaypoint(double dt)
 			Vector3 distance = (_Position - currWaypoint->getPosition());
 			Vector3 unitDistance = distance.Normalized();
 
-			float moveX = unitDistance.x * _MovementSpeed * dt;
-			float moveZ = unitDistance.z * _MovementSpeed * dt;
+			float moveX = unitDistance.x * _MovementSpeed * copyDT;
+			float moveZ = unitDistance.z * _MovementSpeed * copyDT;
 
 			//// Rotate the enemy towards the player
 			_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));

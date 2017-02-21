@@ -1,8 +1,10 @@
 #include "Spider.h"
 
 
+
 static double copyDT = 0.f;
 static Camera3 copyPos;
+
 Spider::Spider(float speed, float damage, float hp, float range)
 	:Enemy(speed, damage, hp, range)
 {
@@ -24,10 +26,14 @@ void Spider::positionFromCamera(Camera3 pos)
 
 void Spider::update()
 {
+	SceneBase * whatever = new SceneBase();
+	SceneBase *_spiderScene(whatever); // copy constructor
+
 	switch (_State)
 	{
 	case patrolling:
 	{
+<<<<<<< ab62977ce1a25f1f6550dd79e35774ee2fcefc9e
 		movetoWaypoint(copyDT); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
 
@@ -44,6 +50,13 @@ void Spider::update()
 //=======
 		if ((_Position - copyPos.getPosition()).Length() < getRange())
 //>>>>>>> 48b8361c306e892cf119d9de053f2e6d8ebdbe3e
+
+		movetoWaypoint(_spiderScene->_dt); //  move from one waypoint to another ,return to current waypoint
+		//  after character goes out of range
+
+
+		if ((_Position - _spiderScene->camera.getPosition()).Length() < getRange())
+
 		{
 			_State = Spider::spiderState::chasing;
 		}
@@ -52,10 +65,21 @@ void Spider::update()
 	case chasing:
 	{
 		//distance between character and  enemy
+//<<<<<<< ab62977ce1a25f1f6550dd79e35774ee2fcefc9e
 		Vector3 distance = (_Position - copyPos.position);
 		Vector3 unitDistance = distance.Normalized();
 		float moveX = unitDistance.x * getMovementSpeed()* copyDT;
 		float moveZ = unitDistance.z * getMovementSpeed()* copyDT;
+//=======
+		Vector3 distance = (_Position - _spiderScene->camera.position);
+		Vector3 unitDistance = distance.Normalized();
+
+		float moveX = unitDistance.x * getMovementSpeed()*_spiderScene->_dt;
+		float moveZ = unitDistance.z * getMovementSpeed()*_spiderScene->_dt;
+
+		float moveDistanceX = distance.x *getMovementSpeed()*_spiderScene->_dt;
+		float moveDistanceZ = distance.z * getMovementSpeed()*_spiderScene->_dt;
+//>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 
 		// Rotate the enemy towards the player
 		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
@@ -71,10 +95,13 @@ void Spider::update()
 		
 
 		if ((_Position - _spiderScene->camera.getPosition()).Length() > getRange())
+//<<<<<<< ab62977ce1a25f1f6550dd79e35774ee2fcefc9e
 //>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 //=======
 		if ((_Position - copyPos.getPosition()).Length() > getRange())
 //>>>>>>> 48b8361c306e892cf119d9de053f2e6d8ebdbe3e
+//=======
+//>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 		{
 			_State = Spider::spiderState::patrolling;
 		}
