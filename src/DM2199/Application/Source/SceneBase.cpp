@@ -3487,9 +3487,7 @@ void SceneBase::Exit()
 //
 //	glDeleteProgram(m_programID);
 //}
-<<<<<<< 2caf17e89735eaead64887ae120c43b8a402ed2a
-=======
-=======
+
 #include "SceneBase.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
