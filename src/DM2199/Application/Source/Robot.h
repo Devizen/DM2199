@@ -5,7 +5,6 @@
 
 class Robot : public Enemy
 {
-	friend class SceneBase;
 public:
 	enum robotState
 	{
@@ -41,12 +40,12 @@ public:
 	virtual void setState(int);
 	virtual int getState();
 
-	virtual void update();
+	void update();
 
 	bool shoot = false;
 
 	bool inRange = false;
-	
+
 	//Get DT
 	static void dtFromScene(double dt);
 	static void positionFromCamera(Camera3 pos);

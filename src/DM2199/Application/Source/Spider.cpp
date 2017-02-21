@@ -26,14 +26,11 @@ void Spider::positionFromCamera(Camera3 pos)
 
 void Spider::update()
 {
-	SceneBase * whatever = new SceneBase();
-	SceneBase *_spiderScene(whatever); // copy constructor
-
 	switch (_State)
 	{
 	case patrolling:
 	{
-<<<<<<< ab62977ce1a25f1f6550dd79e35774ee2fcefc9e
+
 		movetoWaypoint(copyDT); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
 
@@ -52,10 +49,17 @@ void Spider::update()
 //>>>>>>> 48b8361c306e892cf119d9de053f2e6d8ebdbe3e
 
 		movetoWaypoint(_spiderScene->_dt); //  move from one waypoint to another ,return to current waypoint
+
+		movetoWaypoint(copyDT); //  move from one waypoint to another ,return to current waypoint
+
 		//  after character goes out of range
+		
 
 
 		if ((_Position - _spiderScene->camera.getPosition()).Length() < getRange())
+
+
+		//if ((_Position - copyPos.getPosition()).Length() < getRange())
 
 		{
 			_State = Spider::spiderState::chasing;
@@ -65,6 +69,7 @@ void Spider::update()
 	case chasing:
 	{
 		//distance between character and  enemy
+
 //<<<<<<< ab62977ce1a25f1f6550dd79e35774ee2fcefc9e
 		Vector3 distance = (_Position - copyPos.position);
 		Vector3 unitDistance = distance.Normalized();
@@ -81,12 +86,19 @@ void Spider::update()
 		float moveDistanceZ = distance.z * getMovementSpeed()*_spiderScene->_dt;
 //>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
 
+		//Vector3 distance = (_Position - copyPos.position);
+		//Vector3 unitDistance = distance.Normalized();
+		//float moveX = unitDistance.x * getMovementSpeed()* copyDT;
+		//float moveZ = unitDistance.z * getMovementSpeed()* copyDT;
+
+
 		// Rotate the enemy towards the player
 		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
 
 		// Move the Enemy
 		_Position.x -= moveX;
 		_Position.z -= moveZ;
+
 
 //<<<<<<< 6931c871721755c46b9251c0acede3809e30716d
 /*<<<<<<< a8973e63e76c62b26e6400ab8c5478b5597fe6d8
@@ -102,6 +114,7 @@ void Spider::update()
 //>>>>>>> 48b8361c306e892cf119d9de053f2e6d8ebdbe3e
 //=======
 //>>>>>>> 5763ed7c9efd901a1fd7526044c1c177504c2698
+
 		{
 			_State = Spider::spiderState::patrolling;
 		}

@@ -3,17 +3,17 @@
 #include <vector>
 #include "Vector3.h"
 #include "WaypointManager.h"
-#include "Camera3.h"
 
 using std::vector;
 
 class Enemy    // Abstract class
 {
 public:
+
 	Enemy(float, float, float, float);
 	virtual ~Enemy(){ enemyCount--; };
-  
-	virtual void update()=0;
+
+	virtual void update()= 0;     // This the function responsible for enemy interaction, etc enemy movement
 	static unsigned enemyCount;
 
 	const float _interactDistance = 40.0f;
@@ -28,7 +28,6 @@ public:
 	virtual void setState(int) =0;
 	virtual int getState() =0;
 
-	Camera3 camera;
 
 
 	///-----------Variables--------- (will be passed down to derived class)
