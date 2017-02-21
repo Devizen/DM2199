@@ -10,3 +10,5 @@ Enemy::Enemy(float speed, float damage, float hp, float range)
 	enemyCount++;
 	WPManager = new WaypointManager();
 }
+
+

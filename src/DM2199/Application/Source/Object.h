@@ -11,12 +11,13 @@ class Object
 {
 public:
 	Object(SceneBase* scene, Vector3 pos) : _scene(scene), position_(pos){};
+	Object(Vector3 pos) : position_(pos){};
 	virtual ~Object(){};
 
 	virtual void interact() = 0; // update
 	virtual void objectRender();
 
-	Camera3 camera;
+	/*Camera3 camera;*/
 
 	Vector3 position_;
 	float scale = 1;
@@ -30,7 +31,6 @@ public:
 	float translateY = 0;
 
 	unsigned type = 0;
-
 
 protected:
 	SceneBase * _scene;
