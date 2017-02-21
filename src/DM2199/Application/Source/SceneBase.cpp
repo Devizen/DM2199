@@ -124,7 +124,7 @@ void SceneBase::Init()
 	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("lightball_3", Color(1.f, 1.f, 0.f), 20, 20, 1);
 
 	meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("grass", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_GROUND]->textureID = LoadTGA("Image//grass.tga");
+	meshList[GEO_GROUND]->textureID = LoadTGA("Image//MetalFloor.tga");
 
 	//Skybox Day
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
@@ -164,7 +164,6 @@ void SceneBase::Init()
 	meshList[GEO_RIGHTn] = MeshBuilder::GenerateQuad("rightn", Color(1, 1, 1), 1.f, 1.f);
 	meshList[GEO_RIGHTn]->textureID = LoadTGA("Image//rightn.tga");
 
-
 	//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//comic.tga");
@@ -183,9 +182,8 @@ void SceneBase::Init()
 
 	meshList[GEO_COUNTDOWN] = MeshBuilder::GenerateText("Time", 16, 16);
 	meshList[GEO_COUNTDOWN]->textureID = LoadTGA("Image//comic.tga");
+
 	//Environment
-
-
 	meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("mountain", "OBJ//mountain.obj");
 	meshList[GEO_MOUNTAIN]->textureID = LoadTGA("Image//objects.tga");
 
@@ -194,7 +192,6 @@ void SceneBase::Init()
 
 	meshList[GEO_MESSAGES] = MeshBuilder::GenerateText("messages", 16, 16);
 	meshList[GEO_MESSAGES]->textureID = LoadTGA("Image//comic.tga");
-
 
 	//Sprites
 	meshList[GEO_HANDL1] = MeshBuilder::GenerateOBJ("handL1", "OBJ//quad.obj");
@@ -254,7 +251,7 @@ void SceneBase::Init()
 	meshList[GEO_EN] = MeshBuilder::GenerateOBJ("game_en", "OBJ//inventory.obj");
 	meshList[GEO_EN]->textureID = LoadTGA("Image//en_bar.tga");
 
-	//Enemy 
+	//Enemy 1
 	meshList[GEO_ENEMYHEAD] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyHead.obj");
 	meshList[GEO_ENEMYHEAD]->textureID = LoadTGA("Image//Enemy//EnemyHead.tga");
 
@@ -272,7 +269,6 @@ void SceneBase::Init()
 
 	meshList[GEO_ENEMYTORSO] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyTorso.obj");
 	meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
-
 
 	//Enemy 2
 	meshList[GEO_ENEMYRIGHTARM2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2RightArm.obj");
@@ -310,14 +306,29 @@ void SceneBase::Init()
 	meshList[GEO_ENEMYTORSO4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4Torso.obj");
 	meshList[GEO_ENEMYTORSO4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
 
-
 	//Flicker
 	meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
 	meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
 
 
-	meshList[GEO_SPIDER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Spider.obj");
-	meshList[GEO_SPIDER]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERBODY] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderBody.obj");
+	meshList[GEO_SPIDERBODY]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERL1] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderL1.obj");
+	meshList[GEO_SPIDERL1]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERL2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderL2.obj");
+	meshList[GEO_SPIDERL2]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERL3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderL3.obj");
+	meshList[GEO_SPIDERL3]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERR1] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderR1.obj");
+	meshList[GEO_SPIDERR1]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERR2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderR2.obj");
+	meshList[GEO_SPIDERR2]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+	meshList[GEO_SPIDERR3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//SpiderR3.obj");
+	meshList[GEO_SPIDERR3]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+
+
+	meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Lamp.obj");
+	meshList[GEO_LAMP]->textureID = LoadTGA("Image//Lamp.tga");
 
 	meshList[GEO_ENEMYHEALTHBAR] = MeshBuilder::GenerateQuad("enemyHealthBar", Color(1.0f, 0.0f, 0.0f), 1, 1);
 
@@ -426,8 +437,6 @@ void SceneBase::Init()
 
 	/*soundStorage[3]->play2DSound(true, false, false); */
 
-
-
 	/*objFactory.createFactoryObject(new Enemy(this, Vector3(Math::RandFloatMinMax(-50, 50), 0, Math::RandFloatMinMax(-50, 50))) );*/
 
 	//----------------Inventory--------------
@@ -449,7 +458,6 @@ void SceneBase::Init()
 	// adding items to inventory
 	ItemInfo* fist = new ItemInfo();
 	global_inventory->addItem(fist);
-
 
 	//delay between keypresses while in menu
 	startTime = 0.0f;
@@ -486,7 +494,6 @@ void SceneBase::Init()
 
 void SceneBase::Update(double dt)
 {
-
 	vec3df camPos = { camera.getPosition().x, camera.getPosition().y, camera.getPosition().z };
 	Vector3 view = camera.target - camera.position;
 	vec3df dir = { view.x, view.y, view.z };
@@ -504,13 +511,11 @@ void SceneBase::Update(double dt)
 
 	static float rotateLimit = 1;
 	rotateArm += (float)(50 * rotateLimit * dt);
-
     if (rotateArm > 10)
     {
         rotateArm = 10.f;
         rotateLimit = -1;
     }
-
     if (rotateArm < -10)
     {
         rotateArm = -10.f;
@@ -530,7 +535,7 @@ void SceneBase::Update(double dt)
 	}
 	if (light[0].power > 0)
 	{
-		float ys = 10.0f;
+		float ys = 10.f;
 		energy -= ys * _dt;
 	}
 	if (torchDead == true)
@@ -836,7 +841,15 @@ void SceneBase::renderEnemy()
 				soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
 			nextSplatter = _elapsedTime + coolDown;
 
-			health--;
+			camera.health--;
+
+			if ((*it)->enemytype == 1)
+			{
+				if (Math::RandIntMinMax(0, 100) < 10)
+				{
+					camera.poison = true;
+				}
+			}
 		}
 
 		switch ((*it)->enemytype)
@@ -850,8 +863,52 @@ void SceneBase::renderEnemy()
 				modelStack.PushMatrix();
 				modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
 				modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+				modelStack.PushMatrix();
 				modelStack.Scale(10, 10, 10);
-				RenderMesh(meshList[GEO_SPIDER], true);
+				RenderMesh(meshList[GEO_SPIDERBODY], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(-rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERL1], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERR1], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERL2], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(-rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERR2], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(-rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERL3], true);
+				modelStack.PopMatrix();
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 0, -1);
+				modelStack.Rotate(rotateArm, 0, 1, 0);
+				modelStack.Translate(0, 0, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_SPIDERR3], true);
+				modelStack.PopMatrix();
 				modelStack.PopMatrix();
 
 				//Health Bar
@@ -1093,11 +1150,11 @@ void SceneBase::renderHUD()
 
 		if (health > 0)
 		{
-			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * health / 100, 6.1, 105 * health / 100, 9);
+			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * camera.health / 1000, 6.1, 105 * camera.health / 1000, 9);
 		}
 		if (energy > 0)
 		{
-			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 100, 2.3, 105 * energy / 100, 9);
+			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 10000, 2.3, 105 * energy / 10000, 9);
 		}
 		if (energy == 0)
 		{
@@ -1380,6 +1437,11 @@ void SceneBase::renderGround()
 	modelStack.Translate(0.f, -30.f, 0.f);
 	modelStack.Scale(1000.f, 1000.f, 1000.f);
 	RenderMesh(meshList[GEO_GROUND], true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Scale(10.f, 10.f, 10.f);
+	RenderMesh(meshList[GEO_LAMP], true);
 	modelStack.PopMatrix();
 }
 

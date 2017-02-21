@@ -11,6 +11,7 @@ public:
 		patrolling,
 		chasing,
 		death,
+		shooting,
 	};
 
 
@@ -39,6 +40,8 @@ public:
 	virtual int getState();
 
 	void update();
+
+	bool shoot = false;
 
 	bool inRange = false;
 

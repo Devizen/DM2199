@@ -20,8 +20,10 @@ void Spider::update()
 		movetoWaypoint(_scene->_dt); //  move from one waypoint to another ,return to current waypoint
 		//  after character goes out of range
 
+		jump = false;
+		fall = false;
 
-		if ((_Position - _scene->camera.getPosition() ).Length() < getRange())
+		if ((_Position - _scene->camera.getPosition()).Length() < getRange())
 		{
 			_State = Spider::spiderState::chasing;
 		}
@@ -46,24 +48,72 @@ void Spider::update()
 		_Position.x -= moveX;
 		_Position.z -= moveZ;
 
-		
-
 		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
 		{
 			_State = Spider::spiderState::patrolling;
+		}
+
+		else if ((_Position - _scene->camera.getPosition()).Length() > (getRange() - 15))
+		{
+			_State = Spider::spiderState::attack;
 		}
 
 	}
 	break;
 	case death:
 	{
+		
+	}
+	break;
+	case attack:
+	{
+		//distance between character and  enemy
+		Vector3 distance = (_Position - _scene->camera.position);
+		Vector3 unitDistance = distance.Normalized();
 
+		float moveX = unitDistance.x * getMovementSpeed()*_scene->_dt;
+		float moveZ = unitDistance.z * getMovementSpeed()*_scene->_dt;
 
+		if ((_Position - _scene->camera.getPosition()).Length() > (getRange() - 15))
+			jump = true;
+
+		if (jump == true)
+		{
+			_Position.y += 1.f * (float)(getMovementSpeed()*_scene->_dt);
+		}
+
+		if (_Position.y > jumpHeight)
+		{
+			jump = false;
+			fall = true;
+		}
+
+		if (fall == true)
+		{
+			_Position.y -= 1.f * (float)(getMovementSpeed()*_scene->_dt);
+		}
+
+		if (_Position.y < 0)
+		{
+			_Position.y = 0;
+		}
+
+		// Rotate the enemy towards the player
+		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
+
+		// Move the Enemy
+		_Position.x -= moveX;
+		_Position.z -= moveZ;	
+
+		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
+		{
+			_State = Spider::spiderState::patrolling;
+		}
 	}
 	break;
 	}
-
 }
+
 
 
 

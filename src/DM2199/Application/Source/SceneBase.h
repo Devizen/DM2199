@@ -140,7 +140,15 @@ class SceneBase : public Scene
 		GEO_ANTIDOTE,
 
 		//Spider
-		GEO_SPIDER,
+		GEO_SPIDERBODY,
+		GEO_SPIDERL1,
+		GEO_SPIDERL2,
+		GEO_SPIDERL3,
+		GEO_SPIDERR1,
+		GEO_SPIDERR2,
+		GEO_SPIDERR3,
+
+		GEO_LAMP,
 
 		GEO_ENEMYHEALTHBAR,
 
@@ -282,7 +290,7 @@ public:
 	std::vector<Enemy *> enemyStorage;
 
 	int health = 100;
-	int energy = 100;
+	int energy = 10000;
 	int timeleft = 60000;
 
 private:

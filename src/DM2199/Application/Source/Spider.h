@@ -11,6 +11,7 @@ public:
 		patrolling,
 		chasing,
 		death,
+		attack,
 	};
 
 
@@ -31,6 +32,14 @@ public:
 	//Setter and Getters for hp
 	void setHp(float);
 	float  getHp();
+
+	//Jumping
+	bool jump = false;
+	bool fall = false;
+	float jumpHeight = 20;
+
+	//Poison
+	bool poisoned = false;
 
 	void setRange(float);
 	float getRange();

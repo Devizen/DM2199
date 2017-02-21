@@ -78,6 +78,9 @@ public:
 	Vector3 getPosition() { return position; };
 
 	void ResetCursorVariables();
+
+	int health = 1000;
+	bool poison = false;
 private:
 	//----------Mouse Variables -----------
 
@@ -110,6 +113,8 @@ private:
 
     //Check if Pause Menu was called
     static void pauseCheck(bool input);
+
+	
 };
 
 #endif

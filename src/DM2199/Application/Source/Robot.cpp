@@ -55,8 +55,36 @@ void Robot::update()
 	break;
 	case death:
 	{
+		
+	}
+	break;
+	case shooting:
+	{
+		//distance between character and  enemy
+		Vector3 distance = (_Position - _scene->camera.position);
+		Vector3 unitDistance = distance.Normalized();
 
+		float moveX = unitDistance.x * getMovementSpeed()*_scene->_dt;
+		float moveZ = unitDistance.z * getMovementSpeed()*_scene->_dt;
 
+		/*objFactory.createFactoryObject(new Bullet(this, camera.getPosition(), camera.getYaw(), camera.getPitch()));
+		nextBulletTime = _elapsedTime + coolDown;
+		soundStorage[0]->play3DSound(false, false, false, camPos);
+		bulletTouch = false;*/
+
+		
+
+		// Rotate the enemy towards the player
+		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
+
+		// Move the Enemy
+		_Position.x -= moveX;
+		_Position.z -= moveZ;
+
+		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
+		{
+			_State = Robot::robotState::patrolling;
+		}
 	}
 	break;
 	}

@@ -526,6 +526,9 @@ void Camera3::Update(double dt)
         }*/
 
   /*  }*/
+
+	if (poison)
+		health--;
 }
 
 void Camera3::pauseCheck(bool input)
