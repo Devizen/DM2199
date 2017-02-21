@@ -95,10 +95,6 @@ class SceneBase : public Scene
 		GEO_HP50,
 		GEO_HP25,
 
-		//Item & Inventory
-		GEO_SWORD,
-		GEO_TORCH,
-
 		//minimap
 		GEO_MINI_PLAYER,
 		GEO_MINI_GROUND,
@@ -129,20 +125,22 @@ class SceneBase : public Scene
 		GEO_HANDL2,
 		GEO_HANDR1,
 		GEO_HANDR2,
+		GEO_HANDI,
 		GEO_GUN1,
 		GEO_GUN2,
 		GEO_GUN3,
-		GEO_CANNON1,
-		GEO_CANNON2,
-		GEO_CANNON3,
+		GEO_GUNI,
 		GEO_SWORD1,
 		GEO_SWORD2,
 		GEO_SWORD3,
+		GEO_SWORDI,
+		GEO_TORCH,
+		GEO_TORCHI,
+		GEO_HEALTHPOTION,
+		GEO_ANTIDOTE,
 
 		//Spider
 		GEO_SPIDER,
-
-
 
 		GEO_ENEMYHEALTHBAR,
 
@@ -252,6 +250,8 @@ public:
 	//Sprites
 	void renderSprites();
 	bool swing = false;
+	int potionCount = 0;
+	int antidoteCount = 0;
 
     //Reset All Settings
     void resetAll();
@@ -314,6 +314,8 @@ private:
 
 	void renderRemainingTime();
 	void renderStats();
+	void renderPotionCount();
+	void renderAntidoteCount();
 
 	// Cool Down Time
 	const float coolDown = 0.3f;

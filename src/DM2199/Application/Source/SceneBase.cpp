@@ -205,32 +205,34 @@ void SceneBase::Init()
 	meshList[GEO_HANDL2]->textureID = LoadTGA("Image//Sprites//HandL2.tga");
 	meshList[GEO_HANDR2] = MeshBuilder::GenerateOBJ("handR2", "OBJ//quad.obj");
 	meshList[GEO_HANDR2]->textureID = LoadTGA("Image//Sprites//HandR2.tga");
+	meshList[GEO_HANDI] = MeshBuilder::GenerateOBJ("handI", "OBJ//quad.obj");
+	meshList[GEO_HANDI]->textureID = LoadTGA("Image//Sprites//HandI.tga");
 	meshList[GEO_GUN1] = MeshBuilder::GenerateOBJ("gun1", "OBJ//quad.obj");
 	meshList[GEO_GUN1]->textureID = LoadTGA("Image//Sprites//Gun1.tga");
 	meshList[GEO_GUN2] = MeshBuilder::GenerateOBJ("gun2", "OBJ//quad.obj");
 	meshList[GEO_GUN2]->textureID = LoadTGA("Image//Sprites//Gun2.tga");
 	meshList[GEO_GUN3] = MeshBuilder::GenerateOBJ("gun3", "OBJ//quad.obj");
 	meshList[GEO_GUN3]->textureID = LoadTGA("Image//Sprites//Gun3.tga");
-	meshList[GEO_CANNON1] = MeshBuilder::GenerateOBJ("cannon1", "OBJ//quad.obj");
-	meshList[GEO_CANNON1]->textureID = LoadTGA("Image//Sprites//Cannon1.tga");
-	meshList[GEO_CANNON2] = MeshBuilder::GenerateOBJ("cannon2", "OBJ//quad.obj");
-	meshList[GEO_CANNON2]->textureID = LoadTGA("Image//Sprites//Cannon2.tga");
-	meshList[GEO_CANNON3] = MeshBuilder::GenerateOBJ("cannon3", "OBJ//quad.obj");
-	meshList[GEO_CANNON3]->textureID = LoadTGA("Image//Sprites//Cannon3.tga");
+	meshList[GEO_GUNI] = MeshBuilder::GenerateOBJ("gunI", "OBJ//quad.obj");
+	meshList[GEO_GUNI]->textureID = LoadTGA("Image//Sprites//GunI.tga");
 	meshList[GEO_SWORD1] = MeshBuilder::GenerateOBJ("sword1", "OBJ//quad.obj");
 	meshList[GEO_SWORD1]->textureID = LoadTGA("Image//Sprites//Sword1.tga");
 	meshList[GEO_SWORD2] = MeshBuilder::GenerateOBJ("sword2", "OBJ//quad.obj");
 	meshList[GEO_SWORD2]->textureID = LoadTGA("Image//Sprites//Sword2.tga");
 	meshList[GEO_SWORD3] = MeshBuilder::GenerateOBJ("sword3", "OBJ//quad.obj");
 	meshList[GEO_SWORD3]->textureID = LoadTGA("Image//Sprites//Sword3.tga");
+	meshList[GEO_SWORDI] = MeshBuilder::GenerateOBJ("swordI", "OBJ//quad.obj");
+	meshList[GEO_SWORDI]->textureID = LoadTGA("Image//Sprites//SwordI.tga");
+	meshList[GEO_TORCH] = MeshBuilder::GenerateOBJ("torch", "OBJ//quad.obj");
+	meshList[GEO_TORCH]->textureID = LoadTGA("Image//Sprites//Torch.tga");
+	meshList[GEO_TORCHI] = MeshBuilder::GenerateOBJ("torchI", "OBJ//quad.obj");
+	meshList[GEO_TORCHI]->textureID = LoadTGA("Image//Sprites//TorchI.tga");
+	meshList[GEO_HEALTHPOTION] = MeshBuilder::GenerateOBJ("healthPotion", "OBJ//quad.obj");
+	meshList[GEO_HEALTHPOTION]->textureID = LoadTGA("Image//Sprites//HealthPotion.tga");
+	meshList[GEO_ANTIDOTE] = MeshBuilder::GenerateOBJ("antidote", "OBJ//quad.obj");
+	meshList[GEO_ANTIDOTE]->textureID = LoadTGA("Image//Sprites//Antidote.tga");
 
 	//Item
-	meshList[GEO_SWORD] = MeshBuilder::GenerateOBJ("Sword", "OBJ//Sword.obj");
-	meshList[GEO_SWORD]->textureID = LoadTGA("Image//Sword.tga");
-
-	meshList[GEO_TORCH] = MeshBuilder::GenerateOBJ("Torch", "OBJ//Torch.obj");
-	meshList[GEO_TORCH]->textureID = LoadTGA("Image//Torch.tga");
-
 	meshList[GEO_INVENTORY] = MeshBuilder::GenerateOBJ("Inventory", "OBJ//inventory.obj");
 	meshList[GEO_INVENTORY]->textureID = LoadTGA("Image//inventory.tga");
 
@@ -439,10 +441,10 @@ void SceneBase::Init()
 		global_inventory->setdefined(1);
 	}
 	//type , damage , range , reload speed , attack speed
-	ItemInfo* sword = new ItemInfo("sword", 20, 20, 10, 5);
-	global_inventory->addItem(sword);
+	ItemInfo* gun = new ItemInfo("gun", 20, 20, 10, 15);
+	global_inventory->addItem(gun);
 
-	ItemInfo* torch = new ItemInfo(("torch"), 0, 50, 0, 10);
+	ItemInfo* torch = new ItemInfo("torch", 0, 50, 0, 10);
 	global_inventory->addItem(torch);
 	// adding items to inventory
 	ItemInfo* fist = new ItemInfo();
@@ -820,8 +822,6 @@ void SceneBase::Render()
 	renderSprites();
 
 	renderHUD();
-
-	renderRemainingTime();
 }
 
 void SceneBase::renderEnemy()
@@ -1107,6 +1107,7 @@ void SceneBase::renderHUD()
 		{
 			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft / 60000, 14.5, 105 * timeleft / 60000, 11);
 		}
+		renderRemainingTime();
 		//minimap
 		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
 		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
@@ -1129,46 +1130,46 @@ void SceneBase::renderInventory()
 		RenderMeshOnScreen(meshList[GEO_ARROW], 20, 10, 27 , 30);
 	}
 
-		ItemInfo* activeItem = global_inventory->getActiveItem();
-		if (activeItem->gettype() == "sword")
-		{
-			RenderMeshOnScreen(meshList[GEO_SWORD], 15, 30, 4, 4);
-		}
-		else if (activeItem->gettype() == "fist")
-		{
-			RenderMeshOnScreen(meshList[GEO_HANDR1], 15, 34, 50, 50);
-		}
-		else if (activeItem->gettype() == "torch")
-		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 12, 35, 4, 4);
-		}
-		ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
-		if (secondaryItem->gettype() == "sword")
-		{
-			RenderMeshOnScreen(meshList[GEO_SWORD], 30, 30, 4, 4);
-		}
-		else if (secondaryItem->gettype() == "fist")
-		{
-			RenderMeshOnScreen(meshList[GEO_HANDR1], 33, 34, 50, 50);
-		}
-		else if (secondaryItem->gettype() == "torch")
-		{
-			RenderMeshOnScreen(meshList[GEO_TORCH], 32, 35, 4, 4);
-		}
-	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
-	if (ItemDisplay1->gettype() == "sword")
+	ItemInfo* activeItem = global_inventory->getActiveItem();
+	if (activeItem->gettype() == "gun")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD], 12, 21, 2, 2);
+		RenderMeshOnScreen(meshList[GEO_GUNI], 15, 35, 130, 130);
+	}
+	else if (activeItem->gettype() == "fist")
+	{
+		RenderMeshOnScreen(meshList[GEO_HANDI], 15, 34, 50, 50);
+	}
+	else if (activeItem->gettype() == "torch")
+	{
+		RenderMeshOnScreen(meshList[GEO_TORCHI], 15, 35, 150, 150);
+	}
+	ItemInfo* secondaryItem = global_inventory->getSecondaryItem();
+	if (secondaryItem->gettype() == "gun")
+	{
+		RenderMeshOnScreen(meshList[GEO_GUNI], 33, 35, 130, 130);
+	}
+	else if (secondaryItem->gettype() == "fist")
+	{
+		RenderMeshOnScreen(meshList[GEO_HANDI], 32.5, 35, 50, 50);
+	}
+	else if (secondaryItem->gettype() == "torch")
+	{
+		RenderMeshOnScreen(meshList[GEO_TORCHI], 33, 35, 150, 150);
+	}
+
+	ItemInfo* ItemDisplay1 = global_inventory->getDisplay1();
+	if (ItemDisplay1->gettype() == "gun")
+	{
+		RenderMeshOnScreen(meshList[GEO_GUNI], 12, 23, 60, 60);
 	}
 	else if (ItemDisplay1->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_HANDR1], 10, 40, 5, 5);
+		RenderMeshOnScreen(meshList[GEO_HANDI], 10, 40, 5, 5);
 	}
 	else if (ItemDisplay1->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 12, 23, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_TORCHI], 12, 23, 70, 70);
 	}
-
 	if (ItemDisplay1 == activeItem)
 	{
 		RenderMeshOnScreen(meshList[GEO_ACTIVE_SELECT], 12, 23.2, 6, 7.2);
@@ -1178,17 +1179,17 @@ void SceneBase::renderInventory()
 		RenderMeshOnScreen(meshList[GEO_SECONDARY_SELECT], 12, 23.2, 6, 7.2);
 	}
 	ItemInfo* ItemDisplay2 = global_inventory->getDisplay2();
-	if (ItemDisplay2->gettype() == "sword")
+	if (ItemDisplay2->gettype() == "gun")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD], 10, 10, 2, 2);
+		RenderMeshOnScreen(meshList[GEO_GUNI], 10, 10, 50, 50);
 	}
 	else if (ItemDisplay2->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_HANDR1], 12, 13, 25 , 25);
+		RenderMeshOnScreen(meshList[GEO_HANDI], 12, 13, 25 , 25);
 	}
 	else if (ItemDisplay2->gettype() == "torch")
 	{
-		RenderMeshOnScreen(meshList[GEO_TORCH], 12, 13, 3, 3);
+		RenderMeshOnScreen(meshList[GEO_TORCHI], 12, 13, 70, 70);
 	}
 	if (ItemDisplay2 == activeItem)
 	{
@@ -1198,7 +1199,14 @@ void SceneBase::renderInventory()
 	{
 		RenderMeshOnScreen(meshList[GEO_SECONDARY_SELECT], 12, 13.7, 6, 7.2);
 	}
+	
+	//Potions
+	RenderMeshOnScreen(meshList[GEO_HEALTHPOTION], 29, 23.5, 100, 100);
+	renderPotionCount();
+	RenderMeshOnScreen(meshList[GEO_ANTIDOTE], 29, 14, 100, 100);
+	renderAntidoteCount();
 }
+
 void SceneBase::renderMountains()
 {
 
@@ -1416,17 +1424,17 @@ void SceneBase::renderSprites()
 	//	swingTime = 0;
 	//}
 
-	if (global_inventory->getActiveItem()->gettype() == "fist")
+	if (global_inventory->getActiveItem()->gettype() == "fist" || global_inventory->getSecondaryItem()->gettype() == "fist")
 	{
 		if (swing == false)
 		{
-			RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+			//RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
 			RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
 		}
 		//Punching hands
 		if (swing == true)
 		{
-			RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
+			//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
 			RenderMeshOnScreen(meshList[GEO_HANDR2], 65, 10, 100, 100);
 			if (swingTime > 40)
 			{
@@ -1435,19 +1443,19 @@ void SceneBase::renderSprites()
 			}
 		}
 	}
-	else if (global_inventory->getActiveItem()->gettype() == "sword")
+	else if (global_inventory->getActiveItem()->gettype() == "gun" || global_inventory->getSecondaryItem()->gettype() == "gun")
 	{
 		if (swing == false)
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
+			RenderMeshOnScreen(meshList[GEO_GUN1], 55, 10, 100, 100);
 		}
 		if (swing == true && swingTime < 15)
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
+			RenderMeshOnScreen(meshList[GEO_GUN2], 55, 10, 100, 100);
 		}
 		if (swing == true && swingTime > 15 && swingTime < 30)
 		{
-			RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
+			RenderMeshOnScreen(meshList[GEO_GUN3], 55, 10, 100, 100);
 		}
 		if (swing == true && swingTime > 30)
 		{
@@ -1455,6 +1463,8 @@ void SceneBase::renderSprites()
 			swingTime = 0;
 		}
 	}
+	else if (global_inventory->getActiveItem()->gettype() == "torch" || global_inventory->getSecondaryItem()->gettype() == "torch")
+		RenderMeshOnScreen(meshList[GEO_TORCH], 25, 5, 150, 150);
 }
 
 
@@ -1509,12 +1519,27 @@ void SceneBase::renderRemainingTime()
 	RenderTextOnScreen(meshList[GEO_COUNTDOWN], rTime, Color(1, 0 ,0), 2, 30, 7);
 }
 
+void SceneBase::renderPotionCount()
+{
+	std::string count = "";
+	count = std::to_string(potionCount);
+	RenderTextOnScreen(meshList[GEO_COUNTDOWN], count, Color(1, 0, 0), 2, 15.5, 10);
+}
+
+void SceneBase::renderAntidoteCount()
+{
+	std::string count = "";
+	count = std::to_string(antidoteCount);
+	RenderTextOnScreen(meshList[GEO_COUNTDOWN], count, Color(1, 0, 0), 2, 15.5, 5);
+}
+
 void SceneBase::renderStats()
 {
 	/*ItemInfo* active = global_inventory->getActiveItem();
 	string itemName = active->gettype();
 	RenderTextOnScreen(meshList[GEO_FPS], itemName, Color(0,0,0), 2, 25, 20);*/
 }
+
 void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
