@@ -930,7 +930,6 @@ void SceneEditor::renderObjects()
 				}
 				else if (objectrItName->data() == tree)
 				{
-
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[generateObjects], true);

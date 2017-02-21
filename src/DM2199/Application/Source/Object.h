@@ -10,9 +10,7 @@ class Tutorial;
 class Object
 {
 public:
-
 	Object(Tutorial* scene, Vector3 pos) : _scene(scene), position_(pos){};
-
 	Object(Vector3 pos) : position_(pos){};
 	virtual ~Object(){};
 

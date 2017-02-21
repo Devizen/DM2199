@@ -1,4 +1,3 @@
-//<<<<<<< 576c922ee69f0a8a9c4ddf055341cff504003097
 #include "SceneBase.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
@@ -1777,6 +1776,8 @@ void SceneBase::Exit()
 	glDeleteProgram(m_programID);
 }
 =======
+=======
+>>>>>>> 7c45df9f7f91a66458bdf30f60acd05acb428a6a
 //#include "SceneBase.h"
 //#include "GL\glew.h"
 //#include "Mtx44.h"
@@ -3488,4 +3489,4 @@ void SceneBase::Exit()
 //
 //	glDeleteProgram(m_programID);
 //}
-//>>>>>>> 7c45df9f7f91a66458bdf30f60acd05acb428a6a
+
