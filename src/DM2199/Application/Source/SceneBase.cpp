@@ -526,11 +526,23 @@ void SceneBase::Update(double dt)
 		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
 		canPress = false;
 	}
+	if (light[0].power > 0)
+	{
+		float ys = 10.0f;
+		energy -= ys * _dt;
+	}
+	if (torchDead == true)
+	{
+		light[0].power = 0;
+		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	}
+	if (energy < 0)
+	{
+		energy = 0;
+	}
 	// Flashlight position and direction
 	light[0].position.Set(camera.position.x, camera.position.y, camera.position.z);
 	light[0].spotDirection = camera.position - camera.target;  // move direction of light along view vector
-
-
 
 	//Process  obj movement
 	objFactory.processInteraction();
@@ -550,7 +562,12 @@ void SceneBase::Update(double dt)
 			nextBulletTime = _elapsedTime + coolDown;
 			soundStorage[0]->play3DSound(false, false, false, camPos);
 			bulletTouch = false;
+			swing = true;
 		}
+	}
+	if (swing == true)
+	{
+		swingTime++;
 	}
 
 	if (Application::IsKeyPressed('I'))
@@ -600,9 +617,6 @@ void SceneBase::Update(double dt)
 		nextRun = _elapsedTime + coolDown;
 		soundStorage[2]->play3DSound(false, false, true, footPos);
 	}
-
-
-
 
 	//Skybox Rotation
 	rotateSkybox += (float)(1 * rotateWorld * dt);
@@ -703,11 +717,6 @@ void SceneBase::enemyUpdate(double dt)
 			}
 		}
 	}
-
-
-
-
-
 }
 void SceneBase::Render()
 {
@@ -804,76 +813,29 @@ void SceneBase::Render()
 
 	renderText();
 
-	renderSprites();
-
 	objFactory.renderFactoryObject();
 
-	if (inventoryOpen)
-	{
-		if (startTime >= cooldown)
-		{
-			if (Application::IsKeyPressed(VK_DOWN)) // scroll down item list
-			{
-				global_inventory->CycleDisplay(0);
-				startTime = 0;
-			}
-			else if (Application::IsKeyPressed(VK_UP)) // scroll up item list
-			{
-				global_inventory->CycleDisplay(1);
-				startTime = 0;
-			}
-			else if (Application::IsKeyPressed('J')) // equip primary
-			{
-				global_inventory->equipItem(1);
-				startTime = 0;
-			}
-			else if (Application::IsKeyPressed('K')) // equip secondary
-			{
-				global_inventory->equipItem(0);
-				startTime = 0;
-			}
-		}
-		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65);
-		renderInventory();
-		renderStats();
-	}
-	else
-	{
-		//in game hud
-		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65);
+	renderEnemy();
 
-		if (health > 0)
-		{
-			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * health / 100, 6.1, 105 * health / 100, 9);
-		}
-		if (energy > 0)
-		{
-			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 100, 2.3, 105 * energy / 100, 9);
-		}
-		if (timeleft > 0)
-		{
-			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft/60000, 14.5, 105 * timeleft/60000 , 11);
-		}
-		//minimap
-		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
-		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
-		for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
-		{
-			if ((*it)->getState() != Robot::robotState::death || (*it)->getState() != Spider::spiderState::death)
-				RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10);
-		}
-	}
+	renderSprites();
 
+	renderHUD();
+
+	renderRemainingTime();
+}
+
+void SceneBase::renderEnemy()
+{
 	for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
 		if (((*it)->_Position - camera.getPosition()).Length() < 10)
 		{
 			RenderMeshOnScreen(meshList[GEO_FLICKER], 40, 30, 80, 60);
-			vec3df bloodStartingLocation = { camera.getPosition().x, camera.getPosition().y , camera.getPosition().z };
+			vec3df bloodStartingLocation = { camera.getPosition().x, camera.getPosition().y, camera.getPosition().z };
 			if (_elapsedTime >= nextSplatter)
-			soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
+				soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
 			nextSplatter = _elapsedTime + coolDown;
-			
+
 			health--;
 		}
 
@@ -925,7 +887,6 @@ void SceneBase::Render()
 					modelStack.PushMatrix();
 					modelStack.Translate(0, 40, 0);
 					modelStack.Rotate(-rotateArm, 0, 0, 1);
-                    cout << "-rotateArm: " << -rotateArm << endl;
 					modelStack.Translate(0, -40, 0);
 					modelStack.Scale(10, 10, 10);
 					RenderMesh(meshList[GEO_ENEMYLEFTARM], true);
@@ -933,7 +894,6 @@ void SceneBase::Render()
 					modelStack.PushMatrix();
 					modelStack.Translate(0, 40, 0);
 					modelStack.Rotate(rotateArm, 0, 0, 1);
-                    cout << "rotateArm: " << rotateArm << endl;
 					modelStack.Translate(0, -40, 0);
 					modelStack.Scale(10, 10, 10);
 					RenderMesh(meshList[GEO_ENEMYRIGHTARM], true);
@@ -1093,8 +1053,71 @@ void SceneBase::Render()
 		break;
 		}
 	}
-	renderRemainingTime();
 }
+
+void SceneBase::renderHUD()
+{
+	if (inventoryOpen)
+	{
+		if (startTime >= cooldown)
+		{
+			if (Application::IsKeyPressed(VK_DOWN)) // scroll down item list
+			{
+				global_inventory->CycleDisplay(0);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed(VK_UP)) // scroll up item list
+			{
+				global_inventory->CycleDisplay(1);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed('J')) // equip primary
+			{
+				global_inventory->equipItem(1);
+				startTime = 0;
+			}
+			else if (Application::IsKeyPressed('K')) // equip secondary
+			{
+				global_inventory->equipItem(0);
+				startTime = 0;
+			}
+		}
+		RenderMeshOnScreen(meshList[GEO_INVENTORY], 40, 27, 80, 65);
+		renderInventory();
+		renderStats();
+	}
+	else
+	{
+		//in game hud
+		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65);
+
+		if (health > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * health / 100, 6.1, 105 * health / 100, 9);
+		}
+		if (energy > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 100, 2.3, 105 * energy / 100, 9);
+		}
+		if (energy == 0)
+		{
+			torchDead = true;
+		}
+		if (timeleft > 0)
+		{
+			RenderMeshOnScreen(meshList[GEO_TIME], 58.6 + 11.3* timeleft / 60000, 14.5, 105 * timeleft / 60000, 11);
+		}
+		//minimap
+		RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15);
+		RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6);
+		for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+		{
+			if ((*it)->getState() != Robot::robotState::death || (*it)->getState() != Spider::spiderState::death)
+				RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10);
+		}
+	}
+}
+
 void SceneBase::renderInventory()
 {
 	if (!global_inventory->pointer)
@@ -1354,38 +1377,83 @@ void SceneBase::renderGround()
 
 void SceneBase::renderSprites()
 {
-	//Default hands
-	//RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
-
-	//Punching hands
-	//RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_HANDR2], 65, 10, 100, 100);
-
 	//Gun
-	//RenderMeshOnScreen(meshList[GEO_GUN1], 65, 9, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_GUN2], 65, 12, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_GUN3], 65, 11, 100, 100);
+	//RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100, 0, 0, 0, 1);
+	//if (swing == false)
+	//{
+	//	RenderMeshOnScreen(meshList[GEO_GUN1], 65, 9, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime < 15)
+	//{
+	//	RenderMeshOnScreen(meshList[GEO_GUN2], 65, 12, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime > 15 && swingTime < 30)
+	//{
+	//	RenderMeshOnScreen(meshList[GEO_GUN3], 65, 11, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime > 30)
+	//{
+	//	swing = false;
+	//	swingTime = 0;
+	//}
 
 	//Cannon
-	//RenderMeshOnScreen(meshList[GEO_CANNON1], 40, 11, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_CANNON2], 40, 13, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_CANNON3], 40, 12, 100, 100);
+	//if (swing == false)
+	//{
+	//RenderMeshOnScreen(meshList[GEO_CANNON1], 50, 11, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime < 20)
+	//{
+	//RenderMeshOnScreen(meshList[GEO_CANNON2], 50, 13, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime > 20 && swingTime < 40)
+	//{
+	//RenderMeshOnScreen(meshList[GEO_CANNON3], 50, 12, 100, 100, 0, 0, 0, 1);
+	//}
+	//if (swing == true && swingTime > 40)
+	//{
+	//	swing = false;
+	//	swingTime = 0;
+	//}
 
-	//Sword
-	//RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
-	//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
 	if (global_inventory->getActiveItem()->gettype() == "fist")
 	{
-		RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
-		RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
+		if (swing == false)
+		{
+			RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100);
+			RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100);
+		}
+		//Punching hands
+		if (swing == true)
+		{
+			RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
+			RenderMeshOnScreen(meshList[GEO_HANDR2], 65, 10, 100, 100);
+			if (swingTime > 40)
+			{
+				swing = false;
+				swingTime = 0;
+			}
+		}
 	}
 	else if (global_inventory->getActiveItem()->gettype() == "sword")
 	{
-		RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
-		//RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
-		//RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
+		if (swing == false)
+		{
+			RenderMeshOnScreen(meshList[GEO_SWORD1], 40, 19, 100, 100);
+		}
+		if (swing == true && swingTime < 15)
+		{
+			RenderMeshOnScreen(meshList[GEO_SWORD2], 48, 6, 100, 100);
+		}
+		if (swing == true && swingTime > 15 && swingTime < 30)
+		{
+			RenderMeshOnScreen(meshList[GEO_SWORD3], 45, 7, 100, 100);
+		}
+		if (swing == true && swingTime > 30)
+		{
+			swing = false;
+			swingTime = 0;
+		}
 	}
 }
 

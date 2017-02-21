@@ -246,8 +246,12 @@ public:
     //Text
     void renderText();
 
+	//Torch
+	bool torchDead = false;
+
 	//Sprites
 	void renderSprites();
+	bool swing = false;
 
     //Reset All Settings
     void resetAll();
@@ -255,6 +259,7 @@ public:
 	FactoryObject objFactory;
 	float _dt;
 	float _elapsedTime = 0;
+	float swingTime = 0;
 
 	//Sound
 	std::vector<Sound *> soundStorage;
@@ -298,6 +303,9 @@ private:
     float rotateSkybox;
 
 	void renderInventory();
+	void renderHUD();
+	void renderEnemy();
+
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
