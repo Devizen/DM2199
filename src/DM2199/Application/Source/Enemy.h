@@ -9,7 +9,7 @@ using std::vector;
 class Enemy    // Abstract class
 {
 public:
-
+    // speed , damage ,hp , range , this , int(used to identify which type of robot)
 	Enemy(float, float, float, float);
 	virtual ~Enemy(){ enemyCount--; };
 

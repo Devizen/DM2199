@@ -572,18 +572,27 @@ void Camera3::collisionSwitch(bool collisionInput, string levelInput)
 
 void Camera3::collisionCheck()
 {
+    //Storing of object name
+    vector<string>objectName;
+    //Storing of object x coordinates
+    vector<string>objectPosX;
+    //Storing of object z coordinates
+    vector<string>objectPosZ;
+
+    //To check and enable collision according to objects.
+    const string mountain = "OBJ//mountain.obj";
+    const string lamp = "OBJ//lamp.obj";
+    const string lantern = "OBJ//lantern.obj";
+    const string tombstone = "OBJ//tombstone.obj";
+    const string tree = "OBJ//tree.obj";
+    const string statue1 = "OBJ//statue1.obj";
+    const string statue2 = "OBJ//statue2.obj";
+
+    //linePos will be capped at 3, when it is 3, it reverts back to 1. Saves 3 lines as a set to text file for an object.
+    static int linePos = 1;
+
     if (collision == true)
     {
-        //Storing of object name
-        vector<string>objectName;
-        //Storing of object x coordinates
-        vector<string>objectPosX;
-        //Storing of object z coordinates
-        vector<string>objectPosZ;
-        
-        //linePos will be capped at 3, when it is 3, it reverts back to 1. Saves 3 lines as a set to text file for an object.
-        static int linePos = 1;
-
         string line = "";
         ifstream myfile(level);
 
@@ -648,12 +657,15 @@ void Camera3::collisionCheck()
 
         //Float for storing coordinates to check for collision.
         float x, z;
+        //String to save Object Name
+        string name;
         //Variable to bind all three loops together.
         int generateObjects = 0;
         //For breaking loop when player collided with object.
         bool collided = false;
         //For skipping to the next for loop so that all 3 loops are binded together.
         bool preventReoccurence = false;
+
         //To check and enable collision according to objects.
 		const string mountain = "OBJ//mountain.obj";
 		const string lamp = "OBJ//lamp.obj";
@@ -665,8 +677,10 @@ void Camera3::collisionCheck()
 
         for (vector<string>::reverse_iterator objectrItName = objectName.rbegin(); objectrItName != objectName.rend() && collided == false; objectrItName++)
         {
+            //cout << "Object Name from First Loop: " << objectrItName->data() << endl;
             for (vector<string>::reverse_iterator objectrItX = objectPosX.rbegin() + generateObjects; objectrItX != objectPosX.rend() && preventReoccurence == false; objectrItX++)
             {
+                //cout << "Object Name from Second Loop: " << objectrItName->data() << endl;
                 //Proceed to next loop.
                 preventReoccurence = true;
                 for (vector<string>::reverse_iterator objectrItZ = objectPosZ.rbegin() + generateObjects; objectrItZ != objectPosZ.rend(); objectrItZ++)
@@ -674,6 +688,8 @@ void Camera3::collisionCheck()
                     //Covert x and z to float for checking.
                     x = stof(objectrItX->data());
                     z = stof(objectrItZ->data());
+                    //cout << "X and Z: " << x << " : " << z << endl;
+                    //cout << "Object Name from Third Loop: " << objectrItName->data() << endl;
                     if (objectrItName->data() == mountain)
                     {
                         if ((position.x >= x - 70 && position.x <= x + 70) &&
@@ -777,6 +793,7 @@ void Camera3::collisionCheck()
                     generateObjects++;
                     break;
                 }
+                break;
             }
         }
         //Set previous position to current position if there is no collision.
@@ -798,6 +815,6 @@ void Camera3::Reset()
 	position = defaultPosition;
 	target = defaultTarget;
 	up = defaultUp;
-    collision = false;
+    //collision = false;
     directionJump = false;
 }
