@@ -30,6 +30,45 @@ SceneEditor::~SceneEditor()
 {
 }
 
+void SceneEditor::save()
+{
+    ofstream outputFile;
+    outputFile.open(choosenLevel/*, ios::app*/);
+    unsigned bindVector = 0;
+    bool nextStep = false, nextNextStep = false;
+
+    for (vector<string>::iterator objIt = objectName.begin(); objIt != objectName.end(); objIt++)
+    {
+        for (vector<string>::iterator textIt = objectTexture.begin() + bindVector; textIt != objectTexture.end() && nextStep == false; textIt++)
+        {
+            nextStep = true;
+            for (vector<string>::iterator xIt = objectPosX.begin() + bindVector; xIt != objectPosX.end() && nextNextStep == false; xIt++)
+            {
+                nextNextStep = true;
+                for (vector<string>::iterator zIt = objectPosZ.begin() + bindVector; zIt != objectPosZ.end(); zIt++)
+                {
+                    outputFile << xIt->data() << "," << zIt->data() << endl;
+                    outputFile << textIt->data() << endl;
+                    outputFile << objIt->data() << endl;
+                    bindVector++;
+
+                    break;
+                }
+                break;
+            }
+            break;
+        }
+        nextStep = false;
+        nextNextStep = false;
+    }
+    outputFile.close();
+}
+
+void SceneEditor::load()
+{
+
+}
+
 void SceneEditor::Init()
 {
     static int linePos = 1;
@@ -40,8 +79,6 @@ void SceneEditor::Init()
     while (myfile.peek() != EOF)
     {
         getline(myfile, line);
-        cout << "Line is: ";
-        cout << line << endl;
 
         if (linePos == 1)
         {
@@ -67,8 +104,6 @@ void SceneEditor::Init()
                 }
             }
             objectPosZ.push_back(posZ);
-            //cout << "Position X: " << posX << endl;
-            //cout << "Position Z: " << posZ << endl;
             posX = "";
             posZ = "";
         }
@@ -95,6 +130,8 @@ void SceneEditor::Init()
 
     numOfObjects /= 3;
     numOfObjects--;
+
+    objectsInit();
 
     // Set background color to black 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -188,15 +225,14 @@ void SceneEditor::Init()
     }
 
     //int generateMesh = 0;
-    for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+    for (vector<string>::iterator objIt = initName.begin(); objIt != initName.end(); objIt++)
     {
-        for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateObjects/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
+        for (vector<string>::iterator texIt = initTexture.begin() + generateObjects/*generateMesh*/; texIt != initTexture.end(); texIt++)
         {
-			meshListPredefined[generateObjects/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-			meshListPredefined[generateObjects/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
+			meshListPredefined[generateObjects] = MeshBuilder::GenerateOBJ(objIt->data(), objIt->data());
+			meshListPredefined[generateObjects]->textureID = LoadTGA(texIt->data());
             break;
         }
-       /* generateMesh++;*/
 		generateObjects++;
     }
     //while (objectName.size() != 0)
@@ -363,33 +399,45 @@ void SceneEditor::Init()
     meshList[ARROW] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
     meshList[ARROW]->textureID = LoadTGA("Image//menu/arrow.tga");
 
-	meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("arrow", "OBJ//mountain.obj");
+	meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("mountain", "OBJ//mountain.obj");
 	meshList[GEO_MOUNTAIN]->textureID = LoadTGA("Image//objects.tga");
 
-	meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("arrow", "OBJ//lamp.obj");
+	meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("lamp", "OBJ//lamp.obj");
 	meshList[GEO_LAMP]->textureID = LoadTGA("Image//lamp.tga");
 
-	meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("arrow", "OBJ//lantern.obj");
+	meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("lantern", "OBJ//lantern.obj");
 	meshList[GEO_LANTERN]->textureID = LoadTGA("Image//lantern.tga");
 
-	meshList[GEO_TOMBSTONE] = MeshBuilder::GenerateOBJ("arrow", "OBJ//tombstone.obj");
+	meshList[GEO_TOMBSTONE] = MeshBuilder::GenerateOBJ("tombstone", "OBJ//tombstone.obj");
 	meshList[GEO_TOMBSTONE]->textureID = LoadTGA("Image//tombstone.tga");
 
-	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("arrow", "OBJ//tree.obj");
+	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
 	meshList[GEO_TREE]->textureID = LoadTGA("Image//tree.tga");
 
-	meshList[GEO_STATUE1] = MeshBuilder::GenerateOBJ("arrow", "OBJ//statue1.obj");
+	meshList[GEO_STATUE1] = MeshBuilder::GenerateOBJ("statue1", "OBJ//statue1.obj");
 	meshList[GEO_STATUE1]->textureID = LoadTGA("Image//statue1.tga");
 
-	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("arrow", "OBJ//statue2.obj");
+	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("statue2", "OBJ//statue2.obj");
 	meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
 
 
-    meshList[LEVELEDITOR] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
+    meshList[LEVELEDITOR] = MeshBuilder::GenerateOBJ("leveleditor", "OBJ//menu.obj");
     meshList[LEVELEDITOR]->textureID = LoadTGA("Image//menu/leveleditor.tga");
 
-    meshList[SELECTION] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
+    meshList[SELECTION] = MeshBuilder::GenerateOBJ("selection", "OBJ//menu.obj");
     meshList[SELECTION]->textureID = LoadTGA("Image//menu/selection.tga");
+
+    meshList[COLLISIONON] = MeshBuilder::GenerateOBJ("collisionon", "OBJ//menu.obj");
+    meshList[COLLISIONON]->textureID = LoadTGA("Image//menu/collisionon.tga");
+
+    meshList[COLLISIONOFF] = MeshBuilder::GenerateOBJ("collisionoff", "OBJ//menu.obj");
+    meshList[COLLISIONOFF]->textureID = LoadTGA("Image//menu/collisionoff.tga");
+
+    meshList[SAVEON] = MeshBuilder::GenerateOBJ("saveon", "OBJ//menu.obj");
+    meshList[SAVEON]->textureID = LoadTGA("Image//menu/saveon.tga");
+
+    meshList[SAVEOFF] = MeshBuilder::GenerateOBJ("saveoff", "OBJ//menu.obj");
+    meshList[SAVEOFF]->textureID = LoadTGA("Image//menu/saveoff.tga");
 
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -541,10 +589,26 @@ void SceneEditor::Update(double dt)
     float run = 1.f;
 
     pressDelay += (float)dt;
+    autoSave += (float)dt;
+
+    //Auto Saving every 10 seconds
+    if (autoSave > 10.f)
+    {
+        save();
+        autoSave = 0.f;
+        saved = true;
+    }
+    else if (autoSave > 1.f)
+    {
+        saved = false;
+    }
+
+
 
     if (pressDelay > 0.5f)
     {
         pressDelay = 0.5f;
+        saveEnter = 0;
     }
 
     if (pressDelay >= cooldownPressed)
@@ -573,13 +637,11 @@ void SceneEditor::Update(double dt)
         if (passCol == false)
         {
             passCol = true;
-            cout << passCol << endl;
             Camera3::collisionSwitch(passCol, choosenLevel);
         }
         else
         {
             passCol = false;
-            cout << passCol << endl;
             Camera3::collisionSwitch(passCol, choosenLevel);
         }
         pressDelay = 0.f;
@@ -597,6 +659,13 @@ void SceneEditor::Update(double dt)
             inventoryOpen = true;
             startTime = 0;
         }
+        pressDelay = 0.f;
+    }
+
+    if (Application::IsKeyPressed(VK_RETURN) && pressDelay >= 0.5f)
+    {
+        save();
+        saveEnter = 1;
         pressDelay = 0.f;
     }
 
@@ -793,6 +862,35 @@ void SceneEditor::Render()
     
 }
 
+void SceneEditor::objectsInit()
+{
+    string line = "";
+    ifstream myfile("objects.txt");
+    static int linePos = 1;
+
+    while (myfile.peek() != EOF)
+    {
+        getline(myfile, line);
+
+        if (linePos == 1)
+        {
+            initName.push_back(line);
+        }
+        if (linePos == 2)
+        {
+            initTexture.push_back(line);
+        }
+        if (linePos < 2)
+        {
+            linePos++;
+        }
+        else
+        {
+            linePos = 1;
+        }
+    }
+}
+
 void SceneEditor::selectLevel(string input)
 {
     choosenLevel = input;
@@ -864,18 +962,78 @@ void SceneEditor::renderObjects()
 
 		}
 
-		int generateMesh = 0;
-		for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
-		{
-			for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
-			{
-				meshListPredefined[generateMesh/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-				meshListPredefined[generateMesh/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
-				break;
-			}
-			/* generateMesh++;*/
-			generateMesh++;
-		}
+        ////To check and enable collision according to objects.
+        //const string mountain = "OBJ//mountain.obj";
+        //const string lamp = "OBJ//lamp.obj";
+        //const string lantern = "OBJ//lantern.obj";
+        //const string tombstone = "OBJ//tombstone.obj";
+        //const string tree = "OBJ//tree.obj";
+        //const string statue1 = "OBJ//statue1.obj";
+        //const string statue2 = "OBJ//statue2.obj";
+
+        //int generateMesh = 0;
+        //for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+        //{
+        //    for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
+        //    {
+        //        if (objrIt->data() == mountain)
+        //        {
+        //            meshListPredefined[MOUNTAIN] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[MOUNTAIN]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == lamp)
+        //        {
+        //            meshListPredefined[LAMP] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[LAMP]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == lantern)
+        //        {
+        //            meshListPredefined[LANTERN] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[LANTERN]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == tombstone)
+        //        {
+        //            meshListPredefined[TOMBSTONE] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[TOMBSTONE]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == tree)
+        //        {
+        //            meshListPredefined[TREE] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[TREE]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == statue1)
+        //        {
+        //            meshListPredefined[STATUE1] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[STATUE1]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //        if (objrIt->data() == statue2)
+        //        {
+        //            meshListPredefined[STATUE2] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //            meshListPredefined[STATUE2]->textureID = LoadTGA(texrIt->data());
+        //            break;
+        //        }
+        //    }
+        //    generateMesh++;
+        //}
+
+		//int generateMesh = 0;
+		//for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+		//{
+		//	for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
+		//	{
+		//		meshListPredefined[generateMesh/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+		//		meshListPredefined[generateMesh/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
+		//		break;
+		//	}
+		//	/* generateMesh++;*/
+		//	generateMesh++;
+		//}
 
 		removedObject = false;
 	}
@@ -908,60 +1066,74 @@ void SceneEditor::renderObjects()
 
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(100.f, 50.f, 100.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[MOUNTAIN], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == lamp)
+				if (objectrItName->data() == lamp)
 				{
 
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+                    RenderMesh(meshListPredefined[LAMP], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == lantern)
+				if (objectrItName->data() == lantern)
 				{
 
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[LANTERN], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == tombstone)
+				if (objectrItName->data() == tombstone)
 				{
 
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[TOMBSTONE], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == tree)
+				if (objectrItName->data() == tree)
 				{
 					modelStack.Translate(x, -30.f, z);
 					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[TREE], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == statue1)
+				if (objectrItName->data() == statue1)
 				{
 
 					modelStack.Translate(x, 0.f, z);
 					modelStack.Scale(20.f, 20.f, 20.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[STATUE1], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
-				else if (objectrItName->data() == statue2)
+				if (objectrItName->data() == statue2)
 				{
 
 					modelStack.Translate(x, 0.f, z);
 					modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
 					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[generateObjects], true);
+					RenderMesh(meshListPredefined[STATUE2], true);
+                    modelStack.PopMatrix();
+                    break;
 
 				}
 
-				modelStack.PopMatrix();
-				break;
+				//modelStack.PopMatrix();
+				//break;
 			}
 		}
 		nextStep = false;
@@ -1028,6 +1200,24 @@ void SceneEditor::renderSelectObject()
 
 
     RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+
+    if (passCol == true)
+    {
+        RenderMeshOnScreen(meshList[COLLISIONON], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else
+    {
+        RenderMeshOnScreen(meshList[COLLISIONOFF], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+    }
+
+    if (saveEnter == 1 || saved == true)
+    {
+        RenderMeshOnScreen(meshList[SAVEON], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else
+    {
+        RenderMeshOnScreen(meshList[SAVEOFF], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+    }
 
     switch (selectObject)
     {
@@ -1114,14 +1304,7 @@ void SceneEditor::addObject()
         objectPosX.push_back(to_string((int)camera.position.x));
         objectPosZ.push_back(to_string((int)camera.position.z));
 
-        ofstream outputFile;
-        outputFile.open(choosenLevel, ios::app);
-        outputFile << objectPosX.back() << "," << objectPosZ.back() << endl;
-        outputFile << objectTexture.back() << endl;
-        outputFile << objectName.back() << endl;
-        outputFile.close();
-
-        int generateMesh = 0;
+       /* int generateMesh = 0;
         for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
         {
             for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
@@ -1131,7 +1314,7 @@ void SceneEditor::addObject()
                 break;
             }
             generateMesh++;
-        }
+        }*/
         pressDelay = 0.f;
     }
 }

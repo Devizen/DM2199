@@ -132,6 +132,10 @@ class SceneEditor : public Scene
         //UI
         LEVELEDITOR,
         SELECTION,
+        COLLISIONON,
+        COLLISIONOFF,
+        SAVEON,
+        SAVEOFF,
 
 		NUM_GEOMETRY,
 	};
@@ -337,6 +341,20 @@ private:
 
     //Pause Menu
     MENU selectOptions = CONTINUE;
+
+    //Save Switch; 0 off, 1 save
+    unsigned saveEnter = 0;
+    float autoSave = 0.f;
+    bool saved = false;
+
+    //Save to Text File Function
+    void save();
+
+    //Load from Text File Function
+    void load();
+    //How many object in the text file.
+    unsigned objectCount = 0;
+
     //Render Pause Menu
     void pause();
     //Check if Pause Menu was called
@@ -344,6 +362,11 @@ private:
 
     //Cooldown for Button Pressed
     const float cooldownPressed = 0.5f;
+
+    //Init Object Meshes
+    void objectsInit();
+    vector <string> initName;
+    vector <string> initTexture;
 };
 
 

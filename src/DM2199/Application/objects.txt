@@ -1,0 +1,14 @@
+OBJ//mountain.obj
+Image//objects.tga
+OBJ//lamp.obj
+Image//lamp.tga
+OBJ//lantern.obj
+Image//lantern.tga
+OBJ//tombstone.obj
+Image//tombstone.tga
+OBJ//tree.obj
+Image//tree.tga
+OBJ//statue1.obj
+Image//statue1.tga
+OBJ//statue2.obj
+Image//statue2.tga
