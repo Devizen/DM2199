@@ -420,7 +420,6 @@ void SceneEditor::Init()
 	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("statue2", "OBJ//statue2.obj");
 	meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
 
-
     meshList[LEVELEDITOR] = MeshBuilder::GenerateOBJ("leveleditor", "OBJ//menu.obj");
     meshList[LEVELEDITOR]->textureID = LoadTGA("Image//menu/leveleditor.tga");
 
@@ -439,6 +438,23 @@ void SceneEditor::Init()
     meshList[SAVEOFF] = MeshBuilder::GenerateOBJ("saveoff", "OBJ//menu.obj");
     meshList[SAVEOFF]->textureID = LoadTGA("Image//menu/saveoff.tga");
 
+    meshList[ROTATEON] = MeshBuilder::GenerateOBJ("rotateon", "OBJ//menu.obj");
+    meshList[ROTATEON]->textureID = LoadTGA("Image//menu/rotateon.tga");
+
+    meshList[ROTATEOFF] = MeshBuilder::GenerateOBJ("rotateoff", "OBJ//menu.obj");
+    meshList[ROTATEOFF]->textureID = LoadTGA("Image//menu/rotateoff.tga");
+
+    meshList[ROTATE0] = MeshBuilder::GenerateOBJ("rotate0", "OBJ//menu.obj");
+    meshList[ROTATE0]->textureID = LoadTGA("Image//menu/rotate0.tga");
+
+    meshList[ROTATE90] = MeshBuilder::GenerateOBJ("rotate90", "OBJ//menu.obj");
+    meshList[ROTATE90]->textureID = LoadTGA("Image//menu/rotate90.tga");
+
+    meshList[ROTATE180] = MeshBuilder::GenerateOBJ("rotate180", "OBJ//menu.obj");
+    meshList[ROTATE180]->textureID = LoadTGA("Image//menu/rotate180.tga");
+
+    meshList[ROTATE270] = MeshBuilder::GenerateOBJ("rotate270", "OBJ//menu.obj");
+    meshList[ROTATE270]->textureID = LoadTGA("Image//menu/rotate270.tga");
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -603,18 +619,25 @@ void SceneEditor::Update(double dt)
         saved = false;
     }
 
-
+    cout << pressDelay << endl;
 
     if (pressDelay > 0.5f)
     {
         pressDelay = 0.5f;
         saveEnter = 0;
+        rotated = false;
     }
 
-    if (pressDelay >= cooldownPressed)
+    if (Application::IsKeyPressed('E') && pressDelay >= cooldownPressed)
     {
         addObject();
+        pressDelay = 0.f;
+    }
+
+    if (Application::IsKeyPressed('Q') && pressDelay >= cooldownPressed)
+    {
         removeObject();
+        pressDelay = 0.f;
     }
 
     if (Application::IsKeyPressed('P') && pressDelay >= cooldownPressed)
@@ -636,6 +659,9 @@ void SceneEditor::Update(double dt)
     {
         if (passCol == false)
         {
+            autoSave = 10.f;
+
+
             passCol = true;
             Camera3::collisionSwitch(passCol, choosenLevel);
         }
@@ -669,6 +695,27 @@ void SceneEditor::Update(double dt)
         pressDelay = 0.f;
     }
 
+    if (Application::IsKeyPressed('R') && pressDelay >= 0.5f)
+    {
+        rotated = true;
+        switch (selectRotations)
+        {
+        case ZERO:
+            selectRotations = NINETY;
+            break;
+        case NINETY:
+            selectRotations = HUNDREDEIGHTY;
+            break;
+        case HUNDREDEIGHTY:
+            selectRotations = TWOHUNDREDSEVENTY;
+            break;
+        case TWOHUNDREDSEVENTY:
+            selectRotations = ZERO;
+            break;
+        }
+        pressDelay = 0.f;
+    }
+
     vec3df footPos = { camera.getPosition().x, camera.getPosition().y - 5, camera.getPosition().z };
     //FootStep Sound
     if (Application::IsKeyPressed('W') && (_elapsedTime >= nextWalkTime))
@@ -693,10 +740,10 @@ void SceneEditor::Update(double dt)
     }
 
     //Reset
-    if (Application::IsKeyPressed('R'))
-    {
-        resetAll();
-    }
+    //if (Application::IsKeyPressed('R'))
+    //{
+    //    resetAll();
+    //}
 
     if (Application::IsKeyPressed('1'))
     {
@@ -745,6 +792,22 @@ void SceneEditor::Update(double dt)
     //{
     //    Exit();
     //}
+    if (selectRotations == ZERO)
+    {
+        rotateSelections = 0.f;
+    }
+    else if (selectRotations == NINETY)
+    {
+        rotateSelections = 90.f;
+    }
+    else if (selectRotations == HUNDREDEIGHTY)
+    {
+        rotateSelections = 180.f;
+    }
+    else
+    {
+        rotateSelections = 270.f;
+    }
 
 }
 
@@ -1043,12 +1106,39 @@ void SceneEditor::renderObjects()
 	bool nextStep = false;
 	//To check and enable collision according to objects.
 	const string mountain = "OBJ//mountain.obj";
+    const string mountain90 = "OBJ//mountain90.obj";
+    const string mountain180 = "OBJ//mountain180.obj";
+    const string mountain270 = "OBJ//mountain270.obj";
+
 	const string lamp = "OBJ//lamp.obj";
+    const string lamp90 = "OBJ//lamp90.obj";
+    const string lamp180 = "OBJ//lamp180.obj";
+    const string lamp270 = "OBJ//lamp270.obj";
+
 	const string lantern = "OBJ//lantern.obj";
+    const string lantern90 = "OBJ//lantern90.obj";
+    const string lantern180 = "OBJ//lantern180.obj";
+    const string lantern270 = "OBJ//lantern270.obj";
+
 	const string tombstone = "OBJ//tombstone.obj";
+    const string tombstone90 = "OBJ//tombstone90.obj";
+    const string tombstone180 = "OBJ//tombstone180.obj";
+    const string tombstone270 = "OBJ//tombstone270.obj";
+
 	const string tree = "OBJ//tree.obj";
+    const string tree90 = "OBJ//tree90.obj";
+    const string tree180 = "OBJ//tree180.obj";
+    const string tree270 = "OBJ//tree270.obj";
+
 	const string statue1 = "OBJ//statue1.obj";
+    const string statue190 = "OBJ//statue190.obj";
+    const string statue1180 = "OBJ//statue1180.obj";
+    const string statue1270 = "OBJ//statue1270.obj";
+
 	const string statue2 = "OBJ//statue2.obj";
+    const string statue290 = "OBJ//statue290.obj";
+    const string statue2180 = "OBJ//statue2180.obj";
+    const string statue2270 = "OBJ//statue2270.obj";
 
 	for (vector<string>::reverse_iterator objectrItName = objectName.rbegin(); objectrItName != objectName.rend(); objectrItName++)
 	{
@@ -1061,69 +1151,179 @@ void SceneEditor::renderObjects()
 				z = stof(objectrItZ->data());
 				modelStack.PushMatrix();
 
-				if (objectrItName->data() == mountain)
+				if (objectrItName->data() == mountain ||
+                    objectrItName->data() == mountain90 || 
+                    objectrItName->data() == mountain180 || 
+                    objectrItName->data() == mountain270)
 				{
 
 					modelStack.Translate(x, -30.f, z);
+                    if (objectrItName->data() == mountain90)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == mountain180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == mountain270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(100.f, 50.f, 100.f);
 					RenderMesh(meshListPredefined[MOUNTAIN], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == lamp)
+
+                if (objectrItName->data() == lamp ||
+                    objectrItName->data() == lamp90 ||
+                    objectrItName->data() == lamp180 ||
+                    objectrItName->data() == lamp270)
 				{
 
 					modelStack.Translate(x, -30.f, z);
+                    if (objectrItName->data() == lamp90)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == lamp180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == lamp270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(10.f, 10.f, 10.f);
                     RenderMesh(meshListPredefined[LAMP], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == lantern)
+
+                if (objectrItName->data() == lantern ||
+                    objectrItName->data() == lantern90 ||
+                    objectrItName->data() == lantern180 ||
+                    objectrItName->data() == lantern270)
 				{
 
 					modelStack.Translate(x, -30.f, z);
+                    if (objectrItName->data() == lantern90)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == lantern180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == lantern270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[LANTERN], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == tombstone)
+
+                if (objectrItName->data() == tombstone ||
+                    objectrItName->data() == tombstone90 ||
+                    objectrItName->data() == tombstone180 ||
+                    objectrItName->data() == tombstone270)
 				{
 
 					modelStack.Translate(x, -30.f, z);
+                    if (objectrItName->data() == tombstone90)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == tombstone180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == tombstone270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[TOMBSTONE], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == tree)
+
+                if (objectrItName->data() == tree ||
+                    objectrItName->data() == tree90 ||
+                    objectrItName->data() == tree180 ||
+                    objectrItName->data() == tree270)
 				{
 					modelStack.Translate(x, -30.f, z);
+                    if (objectrItName->data() == tree90)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == tree180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == tree270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[TREE], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == statue1)
-				{
 
+                if (objectrItName->data() == statue1 ||
+                    objectrItName->data() == statue190 ||
+                    objectrItName->data() == statue1180 ||
+                    objectrItName->data() == statue1270)
+				{
 					modelStack.Translate(x, 0.f, z);
+                    if (objectrItName->data() == statue190)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == statue1180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == statue1270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Scale(20.f, 20.f, 20.f);
 					RenderMesh(meshListPredefined[STATUE1], true);
                     modelStack.PopMatrix();
                     break;
 
 				}
-				if (objectrItName->data() == statue2)
+
+                if (objectrItName->data() == statue2 ||
+                    objectrItName->data() == statue290 ||
+                    objectrItName->data() == statue2180 ||
+                    objectrItName->data() == statue2270)
 				{
 
 					modelStack.Translate(x, 0.f, z);
+                    if (objectrItName->data() == statue290)
+                    {
+                        modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == statue2180)
+                    {
+                        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    }
+                    else if (objectrItName->data() == statue2270)
+                    {
+                        modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+                    }
 					modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
 					modelStack.Scale(10.f, 10.f, 10.f);
 					RenderMesh(meshListPredefined[STATUE2], true);
@@ -1168,22 +1368,21 @@ void SceneEditor::pause()
             selectOptions = CONTINUE;
         }
     }
-    RenderMeshOnScreen(meshList[PAUSE], 40, 30, 50, 50, 0, 0, 0, 1);
+    RenderMeshOnScreen(meshList[PAUSE], 40, 30, 50, 50, 1.f, 0, 0, 0, 1);
 
     switch (selectOptions)
     {
     case CONTINUE:
-        RenderMeshOnScreen(meshList[ARROW], 38, 23, 50, 50, 0, 0, 0, 1);
+        RenderMeshOnScreen(meshList[ARROW], 38, 23, 50, 50, 1.f, 0, 0, 0, 1);
         break;
     case BACKTOMAINMENU:
-        RenderMeshOnScreen(meshList[ARROW], 5, 16, 50, 50, 0, 0, 0, 1);
+        RenderMeshOnScreen(meshList[ARROW], 5, 16, 50, 50, 1.f, 0, 0, 0, 1);
         break;
     }
 }
 
 void SceneEditor::renderSelectObject()
 {
-
         RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 5, 5, 10, 5, 0, 0, 0, 1);
 
 		RenderMeshOnScreen(meshList[GEO_LAMP], 15, 5, 5, 5, 0, 0, 0, 1);
@@ -1199,214 +1398,330 @@ void SceneEditor::renderSelectObject()
 		RenderMeshOnScreen(meshList[GEO_STATUE2], 45, 10, 2, 2, 0, 0, 0, 1);
 
 
-    RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+
+    RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+
 
     if (passCol == true)
     {
-        RenderMeshOnScreen(meshList[COLLISIONON], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[COLLISIONON], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
     }
     else
     {
-        RenderMeshOnScreen(meshList[COLLISIONOFF], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[COLLISIONOFF], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
     }
 
     if (saveEnter == 1 || saved == true)
     {
-        RenderMeshOnScreen(meshList[SAVEON], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SAVEON], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
     }
     else
     {
-        RenderMeshOnScreen(meshList[SAVEOFF], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SAVEOFF], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
     }
 
+    if (rotated == true)
+    {
+        RenderMeshOnScreen(meshList[ROTATEON], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else
+    {
+        RenderMeshOnScreen(meshList[ROTATEOFF], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
+
+    if (selectRotations == ZERO)
+    {
+        RenderMeshOnScreen(meshList[ROTATE0], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else if (selectRotations == NINETY)
+    {
+        RenderMeshOnScreen(meshList[ROTATE90], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else if (selectRotations == HUNDREDEIGHTY)
+    {
+        RenderMeshOnScreen(meshList[ROTATE180], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
+    else if (selectRotations == TWOHUNDREDSEVENTY)
+    {
+        RenderMeshOnScreen(meshList[ROTATE270], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    }
     switch (selectObject)
     {
     case MOUNTAIN:
-        RenderMeshOnScreen(meshList[SELECTION], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case LAMP:
-        RenderMeshOnScreen(meshList[SELECTION], 48.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 48.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case LANTERN:
-        RenderMeshOnScreen(meshList[SELECTION], 56.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 56.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case TOMBSTONE:
-        RenderMeshOnScreen(meshList[SELECTION], 64.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 64.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case TREE:
-        RenderMeshOnScreen(meshList[SELECTION], 72.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 72.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case STATUE1:
-        RenderMeshOnScreen(meshList[SELECTION], 80.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 80.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     case STATUE2:
-        RenderMeshOnScreen(meshList[SELECTION], 88.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[SELECTION], 88.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     }
     
     //1
-    RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 4.f, 1.5f, 5.f, 5.f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 4.f, 1.5f, 5.f, 5.f, 6.f, rotateSelections, 0.f, 1.f, 0.f);
     //2
-    RenderMeshOnScreen(meshList[GEO_LAMP], 12.f, 1.f, 5.f, 3.f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_LAMP], 12.f, 1.f, 5.f, 3.f, 4.f, rotateSelections, 0.f, 1.f, 0.f);
     //3
-    RenderMeshOnScreen(meshList[GEO_LANTERN], 20.f, 1.f, 5.f, 2.8f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_LANTERN], 20.f, 1.f, 5.f, 2.8f, 4.f, rotateSelections, 0.f, 1.f, 0.f);
     //4
-    RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 28.f, 1.5f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 28.f, 1.5f, 1.f, 1.f, 2.f, rotateSelections, 0.f, 1.f, 0.f);
     //5
-    RenderMeshOnScreen(meshList[GEO_TREE], 36.f, 1.4f, 0.3f, 0.25f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_TREE], 36.f, 1.4f, 0.3f, 0.25f, 0.3f, rotateSelections, 0.f, 1.f, 0.f);
     //6
-    RenderMeshOnScreen(meshList[GEO_STATUE1], 44.f, 4.f, 2.5f, 2.5f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_STATUE1], 44.f, 4.f, 2.5f, 2.5f, 4.f, rotateSelections, 0.f, 1.f, 0.f);
     //7
-    RenderMeshOnScreen(meshList[GEO_STATUE2], 51.5f, 4.f, 1.f, 1.2f, 0.f, 0.f, 0.f, 1.f);
+    RenderMeshOnScreen(meshList[GEO_STATUE2], 51.5f, 4.f, 1.f, 1.2f, 1.f, rotateSelections, 0.f, 1.f, 0.f);
 
 
 }
 
 void SceneEditor::addObject()
 {
-    if (Application::IsKeyPressed('E') && pressDelay >= cooldownPressed)
+    if (selectObject == MOUNTAIN)
     {
-		if (selectObject == MOUNTAIN)
-		{
-			objectName.push_back("OBJ//mountain.obj");
-			objectTexture.push_back("Image//objects.tga");
-		}
-		if (selectObject == LAMP)
-		{
-			objectName.push_back("OBJ//lamp.obj");
-			objectTexture.push_back("Image//lamp.tga");
-		}
-		if (selectObject == LANTERN)
-		{
-			objectName.push_back("OBJ//lantern.obj");
-			objectTexture.push_back("Image//lantern.tga");
-		}
-		if (selectObject == TOMBSTONE)
-		{
-			objectName.push_back("OBJ//tombstone.obj");
-			objectTexture.push_back("Image//tombstone.tga");
-		}
-		if (selectObject == TREE)
-		{
-			objectName.push_back("OBJ//tree.obj");
-			objectTexture.push_back("Image//tree.tga");
-		}
-		if (selectObject == STATUE1)
-		{
-			objectName.push_back("OBJ//statue1.obj");
-			objectTexture.push_back("Image//statue1.tga");
-		}
-		if (selectObject == STATUE2)
-		{
-			objectName.push_back("OBJ//statue2.obj");
-			objectTexture.push_back("Image//statue2.tga");
-		}
-        objectPosX.push_back(to_string((int)camera.position.x));
-        objectPosZ.push_back(to_string((int)camera.position.z));
-
-       /* int generateMesh = 0;
-        for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+        if (selectRotations == ZERO)
+        { 
+            objectName.push_back("OBJ//mountain.obj"); 
+        }
+        else if (selectRotations == NINETY)
         {
-            for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
-            {
-                meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-                meshListPredefined[generateMesh]->textureID = LoadTGA(texrIt->data());
-                break;
-            }
-            generateMesh++;
-        }*/
-        pressDelay = 0.f;
+            objectName.push_back("OBJ//mountain90.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//mountain180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//mountain270.obj");
+        }
+            
+        objectTexture.push_back("Image//objects.tga");
     }
+    if (selectObject == LAMP)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//lamp.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//lamp90.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//lamp180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//lamp270.obj");
+        }
+        objectTexture.push_back("Image//lamp.tga");
+    }
+    if (selectObject == LANTERN)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//lantern.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//lantern90.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//lantern180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//lantern270.obj");
+        }
+        objectTexture.push_back("Image//lantern.tga");
+    }
+    if (selectObject == TOMBSTONE)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//tombstone.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//tombstone90.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//tombstone180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//tombstone270.obj");
+        }
+        objectTexture.push_back("Image//tombstone.tga");
+    }
+    if (selectObject == TREE)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//tree.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//tree90.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//tree180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//tree270.obj");
+        }
+        objectTexture.push_back("Image//tree.tga");
+    }
+    if (selectObject == STATUE1)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//statue1.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//statue190.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//statue1180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//statue1270.obj");
+        }
+        objectTexture.push_back("Image//statue1.tga");
+    }
+    if (selectObject == STATUE2)
+    {
+        if (selectRotations == ZERO)
+        {
+            objectName.push_back("OBJ//statue2.obj");
+        }
+        else if (selectRotations == NINETY)
+        {
+            objectName.push_back("OBJ//statue290.obj");
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            objectName.push_back("OBJ//statue2180.obj");
+        }
+        else
+        {
+            objectName.push_back("OBJ//statue2270.obj");
+        }
+        objectTexture.push_back("Image//statue2.tga");
+    }
+    objectPosX.push_back(to_string((int)camera.position.x));
+    objectPosZ.push_back(to_string((int)camera.position.z));
+
 }
 
 void SceneEditor::removeObject()
 {
-    if (Application::IsKeyPressed('Q') && pressDelay >= cooldownPressed)
+
+    if (objectName.size() != 0)
     {
-        if (objectName.size() != 0)
+        ofstream outputFile;
+        outputFile.open("tempLevel.txt");
+        outputFile.close();
+
+        objectName.pop_back();
+        objectTexture.pop_back();
+        objectPosX.pop_back();
+        objectPosZ.pop_back();
+
+        int generateMesh = 0;
+        bool toTexture = false, toPosition = false;
+        for (vector<string>::iterator objIt = objectName.begin(); objIt < objectName.end(); objIt++)
         {
-            ofstream outputFile;
-            outputFile.open("tempLevel.txt");
-            outputFile.close();
-
-            objectName.pop_back();
-            objectTexture.pop_back();
-            objectPosX.pop_back();
-            objectPosZ.pop_back();
-
-            int generateMesh = 0;
-            bool toTexture = false, toPosition = false;
-            for (vector<string>::iterator objIt = objectName.begin(); objIt < objectName.end(); objIt++)
-            {
      
-                for (vector<string>::iterator texIt = objectTexture.begin() + generateMesh; 
-					toTexture == false;)
-                {
-					toTexture = true;
+            for (vector<string>::iterator texIt = objectTexture.begin() + generateMesh; 
+				toTexture == false;)
+            {
+				toTexture = true;
 					
-                    for (vector<string>::iterator posXIt = objectPosX.begin() + generateMesh; 
-						toPosition == false;)
+                for (vector<string>::iterator posXIt = objectPosX.begin() + generateMesh; 
+					toPosition == false;)
+                {
+					toPosition = true;
+                    for (vector<string>::iterator posZIt = objectPosZ.begin() + generateMesh; 
+                        posZIt != objectPosZ.end();)
                     {
-						toPosition = true;
-                        for (vector<string>::iterator posZIt = objectPosZ.begin() + generateMesh; 
-                            posZIt != objectPosZ.end();)
-                        {
-                            ofstream outputFile;
-                            outputFile.open("tempLevel.txt", ios::app);
-                            outputFile << posXIt->data() << "," << posZIt->data() << endl;
-                            outputFile << texIt->data() << endl;
-                            outputFile << objIt->data() << endl;
-                            outputFile.close();
-                            break;
-                        }
-
+                        ofstream outputFile;
+                        outputFile.open("tempLevel.txt", ios::app);
+                        outputFile << posXIt->data() << "," << posZIt->data() << endl;
+                        outputFile << texIt->data() << endl;
+                        outputFile << objIt->data() << endl;
+                        outputFile.close();
+                        break;
                     }
- 
+
                 }
-                generateMesh++;
-                toTexture = false;
-                toPosition = false;
+ 
             }
-            if (choosenLevel == "tutorial.txt")
-            {
-                remove("tutorial.txt");
-                rename("tempLevel.txt", "tutorial.txt");
-            }
-            else if (choosenLevel == "level1.txt")
-            {
-                remove("level1.txt");
-                rename("tempLevel.txt", "level1.txt");
-            }
-            else if (choosenLevel == "level2.txt")
-            {
-                remove("level2.txt");
-                rename("tempLevel.txt", "level2.txt");
-            }
-            else if (choosenLevel == "level3.txt")
-            {
-                remove("level3.txt");
-                rename("tempLevel.txt", "level3.txt");
-            }
-            else if (choosenLevel == "level4.txt")
-            {
-                remove("level4.txt");
-                rename("tempLevel.txt", "level4.txt");
-            }
-            else if (choosenLevel == "boss.txt")
-            {
-                remove("boss.txt");
-                rename("tempLevel.txt", "boss.txt");
-            }
+            generateMesh++;
+            toTexture = false;
+            toPosition = false;
         }
-        else
+        if (choosenLevel == "tutorial.txt")
         {
-            ofstream outputFile;
-            outputFile.open(choosenLevel);
-            outputFile.close();
+            remove("tutorial.txt");
+            rename("tempLevel.txt", "tutorial.txt");
         }
-		removedObject = true;
-        pressDelay = 0.f;
+        else if (choosenLevel == "level1.txt")
+        {
+            remove("level1.txt");
+            rename("tempLevel.txt", "level1.txt");
+        }
+        else if (choosenLevel == "level2.txt")
+        {
+            remove("level2.txt");
+            rename("tempLevel.txt", "level2.txt");
+        }
+        else if (choosenLevel == "level3.txt")
+        {
+            remove("level3.txt");
+            rename("tempLevel.txt", "level3.txt");
+        }
+        else if (choosenLevel == "level4.txt")
+        {
+            remove("level4.txt");
+            rename("tempLevel.txt", "level4.txt");
+        }
+        else if (choosenLevel == "boss.txt")
+        {
+            remove("boss.txt");
+            rename("tempLevel.txt", "boss.txt");
+        }
     }
+    else
+    {
+        ofstream outputFile;
+        outputFile.open(choosenLevel);
+        outputFile.close();
+    }
+	removedObject = true;
+
 }
 
 void SceneEditor::RenderSkybox()
@@ -1556,8 +1871,8 @@ void SceneEditor::renderGround()
 void SceneEditor::renderSprites()
 {
     //Default hands
-    RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100, 0, 0, 0, 1);
-    RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100, 0, 0, 0, 1);
+    RenderMeshOnScreen(meshList[GEO_HANDL1], 15, 5, 100, 100, 0, 0, 0, 0, 1);
+    RenderMeshOnScreen(meshList[GEO_HANDR1], 65, 5, 100, 100, 0, 0, 0, 0, 1);
 
     ////Punching hands
     //RenderMeshOnScreen(meshList[GEO_HANDL2], 15, 10, 100, 100);
@@ -1725,7 +2040,7 @@ void SceneEditor::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, 
     glEnable(GL_DEPTH_TEST);
 }
 
-void SceneEditor::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
+void SceneEditor::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float sizez, float rotateAngle, float xAxis, float yAxis, float zAxis)
 {
     glDisable(GL_DEPTH_TEST);
     Mtx44 ortho;
@@ -1739,7 +2054,7 @@ void SceneEditor::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, 
     modelStack.LoadIdentity();
     modelStack.Translate(x, y, 0);
     modelStack.Rotate(rotateAngle, xAxis, yAxis, zAxis);
-    modelStack.Scale(sizex, sizey, 1);
+    modelStack.Scale(sizex, sizey, sizez);
     //to do: scale and translate accordingly
     RenderMesh(mesh, false); //UI should not have light
     projectionStack.PopMatrix();

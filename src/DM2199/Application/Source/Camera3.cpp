@@ -454,7 +454,7 @@ void Camera3::Update(double dt)
             }
         }
 
-        if (Application::IsKeyPressed('R'))
+        if (Application::IsKeyPressed('G'))
         {
             Reset();
         }
@@ -581,12 +581,39 @@ void Camera3::collisionCheck()
 
     //To check and enable collision according to objects.
     const string mountain = "OBJ//mountain.obj";
+    const string mountain90 = "OBJ//mountain90.obj";
+    const string mountain180 = "OBJ//mountain180.obj";
+    const string mountain270 = "OBJ//mountain270.obj";
+
     const string lamp = "OBJ//lamp.obj";
+    const string lamp90 = "OBJ//lamp90.obj";
+    const string lamp180 = "OBJ//lamp180.obj";
+    const string lamp270 = "OBJ//lamp270.obj";
+
     const string lantern = "OBJ//lantern.obj";
+    const string lantern90 = "OBJ//lantern90.obj";
+    const string lantern180 = "OBJ//lantern180.obj";
+    const string lantern270 = "OBJ//lantern270.obj";
+
     const string tombstone = "OBJ//tombstone.obj";
+    const string tombstone90 = "OBJ//tombstone90.obj";
+    const string tombstone180 = "OBJ//tombstone180.obj";
+    const string tombstone270 = "OBJ//tombstone270.obj";
+
     const string tree = "OBJ//tree.obj";
+    const string tree90 = "OBJ//tree90.obj";
+    const string tree180 = "OBJ//tree180.obj";
+    const string tree270 = "OBJ//tree270.obj";
+
     const string statue1 = "OBJ//statue1.obj";
+    const string statue190 = "OBJ//statue190.obj";
+    const string statue1180 = "OBJ//statue1180.obj";
+    const string statue1270 = "OBJ//statue1270.obj";
+
     const string statue2 = "OBJ//statue2.obj";
+    const string statue290 = "OBJ//statue290.obj";
+    const string statue2180 = "OBJ//statue2180.obj";
+    const string statue2270 = "OBJ//statue2270.obj";
 
     //linePos will be capped at 3, when it is 3, it reverts back to 1. Saves 3 lines as a set to text file for an object.
     static int linePos = 1;
@@ -690,7 +717,10 @@ void Camera3::collisionCheck()
                     z = stof(objectrItZ->data());
                     //cout << "X and Z: " << x << " : " << z << endl;
                     //cout << "Object Name from Third Loop: " << objectrItName->data() << endl;
-                    if (objectrItName->data() == mountain)
+                    if (objectrItName->data() == mountain || 
+                        objectrItName->data() == mountain90 || 
+                        objectrItName->data() == mountain180 || 
+                        objectrItName->data() == mountain270)
                     {
                         if ((position.x >= x - 70 && position.x <= x + 70) &&
                             (position.z >= z - 70 && position.z <= z + 70))
@@ -704,7 +734,10 @@ void Camera3::collisionCheck()
                         }
                     }
 
-					else if (objectrItName->data() == lamp)
+					else if (objectrItName->data() == lamp ||
+                        objectrItName->data() == lamp90 ||
+                        objectrItName->data() == lamp180 ||
+                        objectrItName->data() == lamp270)
 					{
 						if ((position.x >= x - 10 && position.x <= x + 10) &&
 							(position.z >= z - 10 && position.z <= z + 10))
@@ -718,7 +751,10 @@ void Camera3::collisionCheck()
 						}
 					}
 
-					else if (objectrItName->data() == lantern)
+                    else if (objectrItName->data() == lantern ||
+                        objectrItName->data() == lantern90 ||
+                        objectrItName->data() == lantern180 ||
+                        objectrItName->data() == lantern270)
 					{
 						if ((position.x >= x - 10 && position.x <= x + 10) &&
 							(position.z >= z - 10 && position.z <= z + 10))
@@ -732,7 +768,8 @@ void Camera3::collisionCheck()
 						}
 					}
 
-					else if (objectrItName->data() == tombstone)
+					else if (objectrItName->data() == tombstone ||
+                        objectrItName->data() == tombstone180)
 					{
 						if ((position.x >= x - 30 && position.x <= x + 30) &&
 							(position.z >= z - 20 && position.z <= z + 20))
@@ -745,8 +782,25 @@ void Camera3::collisionCheck()
 							break;
 						}
 					}
+                    else if (objectrItName->data() == tombstone90 ||
+                        objectrItName->data() == tombstone270)
+                    {
+                        if ((position.x >= x - 20 && position.x <= x + 20) &&
+                            (position.z >= z - 30 && position.z <= z + 30))
+                        {
+                            //Set position to previous position if camera touches the object boundary.
+                            position = prevPosCol;
+                            jumpStucked = true;
+                            //Enable collided to break out of the entire loop.
+                            collided = true;
+                            break;
+                        }
+                    }
 
-					else if (objectrItName->data() == tree)
+					else if (objectrItName->data() == tree ||
+                        objectrItName->data() == tree90 ||
+                        objectrItName->data() == tree180 ||
+                        objectrItName->data() == tree270)
 					{
 						if ((position.x >= x - 15 && position.x <= x + 15) &&
 							(position.z >= z - 15 && position.z <= z + 15))
@@ -760,7 +814,8 @@ void Camera3::collisionCheck()
 						}
 					}
 
-					else if (objectrItName->data() == statue1)
+                    else if (objectrItName->data() == statue1 ||
+                        objectrItName->data() == statue1180)
 					{
 						if ((position.x >= x - 25 && position.x <= x + 25) &&
 							(position.z >= z - 10 && position.z <= z + 10))
@@ -774,7 +829,23 @@ void Camera3::collisionCheck()
 						}
 					}
 
-					else if (objectrItName->data() == statue2)
+                    else if (objectrItName->data() == statue190 ||
+                        objectrItName->data() == statue1270)
+                    {
+                        if ((position.x >= x - 10 && position.x <= x + 10) &&
+                            (position.z >= z - 25 && position.z <= z + 25))
+                        {
+                            //Set position to previous position if camera touches the object boundary.
+                            position = prevPosCol;
+                            jumpStucked = true;
+                            //Enable collided to break out of the entire loop.
+                            collided = true;
+                            break;
+                        }
+                    }
+
+                    else if (objectrItName->data() == statue2 ||
+                        objectrItName->data() == statue2180)
 					{
 						if ((position.x >= x - 40 && position.x <= x + 40) &&
 							(position.z >= z - 25 && position.z <= z + 25))
@@ -787,6 +858,23 @@ void Camera3::collisionCheck()
 							break;
 						}
 					}
+
+
+                    else if (objectrItName->data() == statue290 ||
+                        objectrItName->data() == statue2270)
+                    {
+                        if ((position.x >= x - 25 && position.x <= x + 25) &&
+                            (position.z >= z - 40 && position.z <= z + 40))
+                        {
+                            //Set position to previous position if camera touches the object boundary.
+                            position = prevPosCol;
+                            jumpStucked = true;
+                            //Enable collided to break out of the entire loop.
+                            collided = true;
+                            break;
+                        }
+                    }
+
                     //Reset boolean so that the next iteration of for loop can be accessed.
                     preventReoccurence = false;
                     //Increase variable by 1 so that the loops will stay binded.

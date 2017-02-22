@@ -136,6 +136,12 @@ class SceneEditor : public Scene
         COLLISIONOFF,
         SAVEON,
         SAVEOFF,
+        ROTATEON,
+        ROTATEOFF,
+        ROTATE0,
+        ROTATE90,
+        ROTATE180,
+        ROTATE270,
 
 		NUM_GEOMETRY,
 	};
@@ -217,6 +223,14 @@ class SceneEditor : public Scene
 		STATUE1,
 		STATUE2,
 	};
+
+    enum ROTATION
+    {
+        ZERO = 0,
+        NINETY,
+        HUNDREDEIGHTY,
+        TWOHUNDREDSEVENTY,
+    };
 
     unsigned m_parameters[U_TOTAL];
 
@@ -304,7 +318,7 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
+	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float sizez, float rotateAngle, float xAxis, float yAxis, float zAxis);
     void renderPosition();
 
     void renderSelectObject();
@@ -324,6 +338,10 @@ private:
     static void selectLevel(string input);
     //Delay for placing objects
     float pressDelay = 0.f;
+    //Rotate Objects
+    ROTATION selectRotations = ZERO;
+    float rotateSelections = 0.f;
+    bool rotated = false;
 
     //Choosing Object, 0 is mountain.
     OBJECTS selectObject = MOUNTAIN;
