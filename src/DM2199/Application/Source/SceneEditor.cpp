@@ -224,16 +224,16 @@ void SceneEditor::Init()
         meshList[i] = NULL;
     }
 
-    //int generateMesh = 0;
+    int generateMesh = 0;
     for (vector<string>::iterator objIt = initName.begin(); objIt != initName.end(); objIt++)
     {
-        for (vector<string>::iterator texIt = initTexture.begin() + generateObjects/*generateMesh*/; texIt != initTexture.end(); texIt++)
+        for (vector<string>::iterator texIt = initTexture.begin() + generateMesh; texIt != initTexture.end(); texIt++)
         {
-			meshListPredefined[generateObjects] = MeshBuilder::GenerateOBJ(objIt->data(), objIt->data());
-			meshListPredefined[generateObjects]->textureID = LoadTGA(texIt->data());
+            meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objIt->data(), objIt->data());
+            meshListPredefined[generateMesh]->textureID = LoadTGA(texIt->data());
             break;
         }
-		generateObjects++;
+        generateMesh++;
     }
     //while (objectName.size() != 0)
     //{ 

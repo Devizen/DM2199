@@ -748,8 +748,8 @@ void Camera3::collisionCheck()
 
 					else if (objectrItName->data() == tree)
 					{
-						if ((position.x >= x - 70 && position.x <= x + 70) &&
-							(position.z >= z - 70 && position.z <= z + 70))
+						if ((position.x >= x - 15 && position.x <= x + 15) &&
+							(position.z >= z - 15 && position.z <= z + 15))
 						{
 							//Set position to previous position if camera touches the object boundary.
 							position = prevPosCol;
