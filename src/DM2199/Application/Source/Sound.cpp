@@ -1,9 +1,11 @@
 #include "Sound.h"
 
+ ISoundEngine* Sound::soundEngine = createIrrKlangDevice();
+
 Sound::Sound(string soundFile, ik_f32 volume)
 {
 	//Starting up the Sound Engine
-	soundEngine = createIrrKlangDevice();
+	
 	currentSound2D = NULL;
 
 
@@ -50,6 +52,8 @@ Sound::~Sound()
 	currentSound2D->drop();
 	currentSound3D->drop();
 }
+
+
 
 void Sound::play2DSound(bool loop, bool pause, bool startTrack)
 {

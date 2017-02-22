@@ -34,9 +34,11 @@ public:
 
 	string fileName; // Error checking for valid sound file
 	vec3df position; // variable for updating position
-  
+
+	static ISoundEngine* soundEngine; // instance of class ISoundEngine to start the sound
+
 private:
-	ISoundEngine* soundEngine; // instance of class ISoundEngine to start the sound
+	
 
 	// 2D
 	ISound * currentSound2D;  // instance of class ISound to Choose which sound you want to play

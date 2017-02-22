@@ -28,6 +28,8 @@ public:
 	virtual void setState(int) =0;
 	virtual int getState() =0;
 
+	virtual void setRange(float) = 0;
+	virtual float getRange() = 0;
 
 
 	///-----------Variables--------- (will be passed down to derived class)

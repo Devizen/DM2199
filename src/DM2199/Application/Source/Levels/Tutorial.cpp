@@ -1281,7 +1281,7 @@ void Tutorial::Init()
 	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("lightball_3", Color(1.f, 1.f, 0.f), 20, 20, 1);
 
 	meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("grass", Color(1, 1, 1), 1.f, 1.f);
-	meshList[GEO_GROUND]->textureID = LoadTGA("Image//grass.tga");
+	meshList[GEO_GROUND]->textureID = LoadTGA("Image//MetalFloor.tga");
 
 	//Skybox Day
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
@@ -1386,8 +1386,9 @@ void Tutorial::Init()
 	meshList[GEO_ANTIDOTE] = MeshBuilder::GenerateOBJ("antidote", "OBJ//quad.obj");
 	meshList[GEO_ANTIDOTE]->textureID = LoadTGA("Image//Sprites//Antidote.tga");
 
-	meshList[GEO_GUN_ICON] = MeshBuilder::GenerateOBJ("antidote", "OBJ//Wall.obj");
-	meshList[GEO_GUN_ICON]->textureID = LoadTGA("Image//Sprites//GunIcon.tga");
+	//Electric Field
+	meshList[GEO_ELECTRIC_FIELD] = MeshBuilder::GenerateOBJ("electricField", "OBJ//Wall.obj");
+	meshList[GEO_ELECTRIC_FIELD]->textureID = LoadTGA("Image//ElectricField.tga");
 
 	//Item
 	meshList[GEO_INVENTORY] = MeshBuilder::GenerateOBJ("Inventory", "OBJ//inventory.obj");
@@ -1569,7 +1570,7 @@ void Tutorial::Init()
 
 
 	// Param 1 - name of sound ---- Param 2 -distance sound able to travel --- Param 3 - volume of sound (0 to 1)
-	soundStorage.push_back(new Sound("gunshot.mp3", 1000, 1));
+	soundStorage.push_back(new Sound("gunshot.mp3", 1000,1 ));
 	soundStorage.push_back(new Sound("splatter.mp3", 1000, 1));
 	soundStorage.push_back(new Sound("run.mp3", 1000, 0.5));
 	soundStorage.push_back(new Sound("backgroundmusic.mp3"));
@@ -1650,6 +1651,16 @@ void Tutorial::Update(double dt)
 		soundStorage[i]->getSoundEngine()->update();
 	}
 
+	//soundStorage[3]->play2DSound(false,false,false);
+	
+	ik_f32 returnVol = SceneMainMenu::soundFromMenue();
+		Sound::soundEngine->setSoundVolume(returnVol);
+	
+	
+		
+	
+
+
 	Robot::dtFromScene(dt);
 	Robot::positionFromCamera(camera);
 
@@ -1663,7 +1674,55 @@ void Tutorial::Update(double dt)
 	_elapsedTime += _dt;
 
 	static float rotateLimit = 1;
+	static float rotateLeftLimit = 1;
+	static float rotateLimitIndividual = 1;
+
 	rotateArm += (float)(50 * rotateLimit * dt);
+
+	if (shootArmDown == true && rotateLeftArm == 0.f)
+	{
+		rotateIndividualArm += (float)(50 * rotateLimitIndividual * dt);
+	}
+
+	if (robotShoot == true)
+	{
+		rotateIndividualArm = 0.f;
+		if (rotateLeftArm < 90)
+		{
+			rotateLeftLimit = 1;
+			rotateLeftArm += (float)(150 * rotateLeftLimit * dt);
+		}
+		if (rotateLeftArm >= 90.f)
+		{
+			rotateLeftArm = 90.f;
+			robotShoot = false;
+			shootArmDown = false;
+		}
+	}
+	else if (shootArmDown == false && rotateLeftArm > 0.f)
+	{
+		rotateLeftLimit = -1;
+		rotateLeftArm += (float)(150 * rotateLeftLimit * dt);
+
+		if (rotateLeftArm <= 0.f)
+		{
+			rotateLeftArm = 0.f;
+			shootArmDown = true;
+			broughtDown = true;
+		}
+	}
+
+	if (rotateIndividualArm > 10.f)
+	{
+		rotateIndividualArm = 10.f;
+		rotateLimitIndividual = -1.f;
+	}
+	if (rotateIndividualArm < -10.f)
+	{
+		rotateIndividualArm = -10.f;
+		rotateLimitIndividual = 1.f;
+	}
+
 	if (rotateArm > 10)
 	{
 		rotateArm = 10.f;
@@ -1699,6 +1758,10 @@ void Tutorial::Update(double dt)
 	if (energy < 0)
 	{
 		energy = 0;
+	}
+	if (energy > 10000)
+	{
+		energy = 10000;
 	}
 	// Flashlight position and direction
 	light[0].position.Set(camera.position.x, camera.position.y, camera.position.z);
@@ -1742,6 +1805,69 @@ void Tutorial::Update(double dt)
 			inventoryOpen = true;
 			startTime = 0;
 		}
+	}
+
+	//Poison, using antidote
+	if (Application::IsKeyPressed('C') && camera.poison == false && usedAntidoteOnce == false)
+		notPoisoned = true;
+
+	if (Application::IsKeyPressed('C') && antidoteCount > 0 && camera.poison == true)
+	{
+		camera.poison = false;
+		antidoteUsed = true;
+		usedAntidoteOnce = true;
+		antidoteCount--;
+	}
+	if (Application::IsKeyPressed('C') && antidoteCount == 0 && usedAntidoteOnce == false && camera.poison == true)
+	{
+		noAntidote = true;
+	}
+	if (antidoteUsed == true || noAntidote == true || notPoisoned == true)
+		usedAntidoteTime++;
+	if (usedAntidoteTime > 0 && usedAntidoteTime < 150)
+		usedAntidoteText = true;
+	else
+		usedAntidoteText = false;
+	if (usedAntidoteText == false && (antidoteUsed == true || noAntidote == true || notPoisoned == true))
+	{
+		antidoteUsed = false;
+		noAntidote = false;
+		usedAntidoteOnce = false;
+		notPoisoned = false;
+		usedAntidoteTime = 0;
+	}
+
+	//Health, using health potion
+	if (Application::IsKeyPressed('Z') && camera.health == 1000 && usedPotionOnce == false)
+		notHurt = true;
+	if (Application::IsKeyPressed('Z') && potionCount > 0 && camera.health < 1000)
+	{
+		if (_elapsedTime >= nextPotion)
+		{
+			camera.health += 30;
+			potionUsed = true;
+			usedPotionOnce = true;
+			potionCount--;
+			nextPotion = _elapsedTime + coolDown+5.0f;
+		}
+	}
+	if (Application::IsKeyPressed('Z') && potionCount == 0 && usedPotionOnce == false && camera.health < 1000)
+	{
+		noPotion = true;
+	}
+	if (potionUsed == true || noPotion == true || notHurt == true)
+		usedPotionTime++;
+	if (usedPotionTime > 0 && usedPotionTime < 150)
+		usedPotionText = true;
+	else
+		usedPotionText = false;
+	if (usedPotionText == false && (potionUsed == true || noPotion == true || notHurt == true))
+	{
+		potionUsed = false;
+		noPotion = false;
+		usedPotionOnce = false;
+		notHurt = false;
+		usedPotionTime = 0;
 	}
 
 	vec3df footPos = { camera.getPosition().x, camera.getPosition().y - 20, camera.getPosition().z };
@@ -1842,6 +1968,30 @@ void Tutorial::enemyUpdate(double dt)
 	for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
 	{
 		(*it)->update();
+
+		if ((*it)->enemytype == 2)
+		{
+			if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+			{
+				robotShoot = true;
+				broughtDown = false;
+				
+			}
+			else
+			{
+			
+			}
+
+			if (shootArmDown == false)
+			{
+				if (_elapsedTime >= nextRobotShoot)
+				{
+					objFactory.createFactoryObject(new Bullet(this, { (*it)->_Position.x , (*it)->_Position.y , (*it)->_Position.z  }));
+					nextRobotShoot = _elapsedTime + coolDown;
+				}
+			}
+		}
+
 
 		for (vector<Object*>::iterator factoryIt = factoryIt = objFactory.Container.begin(); factoryIt != objFactory.Container.end(); factoryIt++)
 		{
@@ -1968,8 +2118,10 @@ void Tutorial::Render()
 
 	//Environment
 	renderGround();
+	renderElectricField();
 	renderObjects();
 	renderPosition();
+
 
 	renderText();
 
@@ -2087,7 +2239,15 @@ void Tutorial::renderEnemy()
 				soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
 			nextSplatter = _elapsedTime + coolDown;
 
-			health--;
+			camera.health--;
+
+			if ((*it)->enemytype == 1)
+			{
+				if (Math::RandIntMinMax(0, 100) < 10)
+				{
+					camera.poison = true;
+				}
+			}
 		}
 
 		switch ((*it)->enemytype)
@@ -2128,7 +2288,7 @@ void Tutorial::renderEnemy()
 				{
 					//Robot
 					modelStack.PushMatrix();
-					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y - 30.f, (*it)->_Position.z);
 					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
 					modelStack.PushMatrix();
 					modelStack.Scale(10, 10, 10);
@@ -2137,7 +2297,14 @@ void Tutorial::renderEnemy()
 					modelStack.PopMatrix();
 					modelStack.PushMatrix();
 					modelStack.Translate(0, 40, 0);
-					modelStack.Rotate(-rotateArm, 0, 0, 1);
+					if (broughtDown == false)
+					{
+						modelStack.Rotate(-rotateLeftArm, 0, 0, 1);
+					}
+					else if (rotateLeftArm == 0.f && broughtDown == true)
+					{
+						modelStack.Rotate(-rotateIndividualArm, 0, 0, 1);
+					}
 					modelStack.Translate(0, -40, 0);
 					modelStack.Scale(10, 10, 10);
 					RenderMesh(meshList[GEO_ENEMYLEFTARM], true);
@@ -2167,7 +2334,7 @@ void Tutorial::renderEnemy()
 
 					//Health Bar
 					modelStack.PushMatrix();
-					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + 1.3f, (*it)->_Position.z);
+					modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + +30.f, (*it)->_Position.z);
 					modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
 					modelStack.Rotate(90, 0, 0, 1);
 					if ((*it)->healthBarRobot1>0)
@@ -2342,10 +2509,33 @@ void Tutorial::renderHUD()
 		//in game hud
 		RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 0.f, 0.f, 0.f, 1.f);
 
-		if (health > 0)
+		//Health bar
+		if (camera.health > 0)
 		{
-			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * health / 100, 6.1, 105 * health / 100, 9, 0.f, 0.f, 0.f, 1.f);
+			RenderMeshOnScreen(meshList[GEO_HP], 5 + 11.3 * camera.health / 1000, 6.1, 105 * camera.health / 1000, 9, 0.f, 0.f, 0.f, 1.f);
 		}
+
+		//Antidote 
+		if (camera.poisonText == true && camera.poison == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "You have been poisoned", Color(1, 0, 1), 4, 5, 8);
+		if (usedAntidoteText == true && notPoisoned == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "You are not poisoned", Color(1, 0, 1), 4, 5, 8);
+		if (usedAntidoteText == true && antidoteUsed == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Antidote used", Color(1, 0, 1), 4, 7, 8);
+		if (usedAntidoteText == true && noAntidote == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "No antidotes in inventory", Color(1, 0, 1), 4, 5, 7);
+
+		//Health Potion
+		/*if (camera.potionText == true && camera.potion == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "You have been poisoned", Color(1, 0, 1), 4, 5, 8);*/
+		if (usedPotionText == true && notHurt == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "You are not hurt", Color(1, 0, 1), 4, 5, 10);
+		if (usedPotionText == true && potionUsed == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Potion used", Color(1, 0, 1), 4, 7, 10);
+		if (usedPotionText == true && noPotion == true)
+			RenderTextOnScreen(meshList[GEO_TEXT], "No potions in inventory", Color(1, 0, 1), 4, 5, 9);
+
+		//Energy level of torch
 		if (energy > 0)
 		{
 			RenderMeshOnScreen(meshList[GEO_EN], 5 + 11.3* energy / 10000, 2.3, 105 * energy / 10000, 9, 0.f, 0.f, 0.f, 1.f);
@@ -2458,7 +2648,19 @@ void Tutorial::renderInventory()
 	renderAntidoteCount();
 }
 
-
+void Tutorial::renderElectricField()
+{
+	if (camera.position.x > -130 && camera.position.x < -70 && camera.position.z > 300 && camera.position.z < 360)
+	{
+		energy += 3;
+	}
+	modelStack.PushMatrix();
+	modelStack.Translate(-100, -30, 300);
+	modelStack.Rotate(90.f, 1, 0, 0);
+	modelStack.Scale(10.f, 10.f, 10.f);
+	RenderMesh(meshList[GEO_ELECTRIC_FIELD], true);
+	modelStack.PopMatrix();
+}
 
 void Tutorial::RenderSkybox()
 {
@@ -2601,10 +2803,6 @@ void Tutorial::renderGround()
 	modelStack.Translate(0.f, -30.f, 0.f);
 	modelStack.Scale(1000.f, 1000.f, 1000.f);
 	RenderMesh(meshList[GEO_GROUND], true);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	RenderMesh(meshList[GEO_GUN_ICON], true);
 	modelStack.PopMatrix();
 }
 
@@ -2887,7 +3085,7 @@ void Tutorial::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, flo
 	glEnable(GL_DEPTH_TEST);
 }
 
-void Tutorial::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
+void Tutorial::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;

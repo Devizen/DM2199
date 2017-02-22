@@ -142,7 +142,8 @@ class Tutorial : public Scene
 		GEO_HEALTHPOTION,
 		GEO_ANTIDOTE,
 
-		GEO_GUN_ICON,
+		//Electric Field
+		GEO_ELECTRIC_FIELD,
 
 		//Portal Lightball
 		GEO_LIGHTBALL3,
@@ -229,7 +230,6 @@ class Tutorial : public Scene
 	unsigned m_parameters[U_TOTAL];
 
 
-	Enemy *enemy;
 
 public:
 	Tutorial();
@@ -266,8 +266,27 @@ public:
 	//Sprites
 	void renderSprites();
 	bool swing = false;
-	int potionCount = 0;
+
+	//Potion
+	int potionCount = 3;
+	int usedPotionTime = 0;
+	bool potionUsed = false;
+	bool noPotion = false;
+	bool notHurt = false;
+	bool usedPotionOnce = false;
+	bool usedPotionText = false;
+
+	//Antidote
 	int antidoteCount = 0;
+	int usedAntidoteTime = 0;
+	bool antidoteUsed = false;
+	bool noAntidote = false;
+	bool notPoisoned = false;
+	bool usedAntidoteOnce = false;
+	bool usedAntidoteText = false;
+
+	//Electric field
+	void renderElectricField();
 
 	//Reset All Settings
 	void resetAll();
@@ -296,8 +315,13 @@ public:
 	//Enemy
 	void enemyUpdate(double dt);
 
-
 	float rotateArm = 0.f;
+
+	float rotateIndividualArm = 0.f;
+	float rotateLeftArm = 0.f;
+	bool robotShoot = false;
+	bool shootArmDown = true;
+	bool broughtDown = true;
 	float scaleDamage = 0.2f;
 
 	bool bulletTouch = false;
@@ -305,7 +329,6 @@ public:
 
 	std::vector<Enemy *> enemyStorage;
 
-	int health = 100;
 	int energy = 10000;
 	int timeleft = 60000;
 
@@ -334,7 +357,7 @@ private:
 	//Text
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
+	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
 	void renderPosition();
 
 	// Cool Down Time
@@ -369,6 +392,10 @@ private:
 
 	float nextRun = 0.f;
 
+	float nextPotion = 0.f;
+
+	float nextRobotShoot = 0.f;
+
 	void renderRemainingTime();
 	void renderStats();
 	void renderPotionCount();
@@ -380,8 +407,5 @@ private:
 
 	void renderObjects();
 };
-
-
-
 
 #endif

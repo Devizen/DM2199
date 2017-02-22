@@ -62,11 +62,11 @@ void Robot::update()
 	case shooting:
 	{
 		//distance between character and  enemy
-		Vector3 distance = (_Position - _scene->camera.position);
+		Vector3 distance = (_Position - copyPos.getPosition());
 		Vector3 unitDistance = distance.Normalized();
 
-		float moveX = unitDistance.x * getMovementSpeed()*_scene->_dt;
-		float moveZ = unitDistance.z * getMovementSpeed()*_scene->_dt;
+		float moveX = unitDistance.x * getMovementSpeed()*copyDT;
+		float moveZ = unitDistance.z * getMovementSpeed()*copyDT;
 
 		/*objFactory.createFactoryObject(new Bullet(this, camera.getPosition(), camera.getYaw(), camera.getPitch()));
 		nextBulletTime = _elapsedTime + coolDown;
@@ -82,7 +82,7 @@ void Robot::update()
 		_Position.x -= moveX;
 		_Position.z -= moveZ;
 
-		if ((_Position - _scene->camera.getPosition()).Length() > getRange())
+		if ((_Position - copyPos.getPosition()).Length() > getRange())
 		{
 			_State = Robot::robotState::patrolling;
 		}

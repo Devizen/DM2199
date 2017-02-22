@@ -18,6 +18,7 @@
 
 using std::cout;
 using std::cin;
+static ik_f32 vol = 1;
 
 SceneMainMenu::SceneMainMenu()
 {
@@ -26,6 +27,11 @@ SceneMainMenu::SceneMainMenu()
 SceneMainMenu::~SceneMainMenu()
 {
 }
+ik_f32 SceneMainMenu::soundFromMenue()
+{
+	return vol;
+}
+
 
 void SceneMainMenu::Init()
 {
@@ -211,6 +217,19 @@ void SceneMainMenu::Init()
 
 void SceneMainMenu::Update(double dt)
 {
+	if (Application::IsKeyPressed('V'))
+	{
+		if (vol >= 0)
+			vol -= 0.2;
+		Sound::soundEngine->setSoundVolume(vol);
+	}
+	if (Application::IsKeyPressed('B'))
+	{
+		if (vol <= 1)
+			vol += 0.2;
+		Sound::soundEngine->setSoundVolume(vol);
+	}
+
     srand((unsigned)time(NULL));
     _dt = (float)dt;
     _elapsedTime += _dt;

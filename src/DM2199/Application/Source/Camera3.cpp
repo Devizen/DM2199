@@ -527,8 +527,16 @@ void Camera3::Update(double dt)
 
   /*  }*/
 
+	//Poison
 	if (poison)
+	{
 		health--;
+		poisonTime++;
+	}
+	if (poisonTime > 0 && poisonTime < 150)
+		poisonText = true;
+	else
+		poisonText = false;
 }
 
 void Camera3::pauseCheck(bool input)

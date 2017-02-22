@@ -11,6 +11,7 @@ class Bullet : public Object
 {
 public:
 	Bullet(Tutorial* scene, Vector3 pos, float rotateYaw, float rotatePitch);
+	Bullet(Tutorial* scene, Vector3 pos);
 	~Bullet();
 
 	virtual void interact();
@@ -23,6 +24,7 @@ private:
 	const float _maxDistance = 1000.f;
 	const float bulletSpeed = 600.0f;
 
+	bool mingxiue26rox = false;
 	
 
 

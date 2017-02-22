@@ -120,7 +120,7 @@ public:
     virtual void Exit();
 
     //Sound
-    std::vector<Sound *> soundStorage;
+	static ik_f32 soundFromMenue();
 
     float _dt;
     float _elapsedTime = 0;

@@ -33,8 +33,8 @@ public:
 	void setHp(float);
 	float  getHp();
 
-	void setRange(float);
-	float getRange();
+	virtual void setRange(float);
+	virtual float getRange();
 
 	virtual void setState(int);
 	virtual int getState();
@@ -44,10 +44,6 @@ public:
 	bool shoot = false;
 
 	bool inRange = false;
-
-	//Get DT
-	static void dtFromScene(double dt);
-	static void positionFromCamera(Camera3 pos);
 
 	//Get DT
 	static void dtFromScene(double dt);
