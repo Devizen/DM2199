@@ -45,7 +45,7 @@ void Bullet::interact(){
 		Vector3 unitDistance = distance.Normalized();
 		float moveX = unitDistance.x * bulletSpeed* _scene->_dt;
 		float moveZ = unitDistance.z * bulletSpeed* _scene->_dt;
-
+		
 		// Rotate the enemy towards the player
 		rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x));
 
@@ -53,6 +53,7 @@ void Bullet::interact(){
 		position_.x -= moveX;
 		position_.z -= moveZ;
 	}
+
 	//Delete bullet once it reachs max distance
 	//if ((_defaultPosition - position_).Length() >= _maxDistance) {
 	//	_scene->objFactory.destroyFactoryObject(this);

@@ -12,6 +12,7 @@ class Bullet : public Object
 public:
 	Bullet(Tutorial* scene, Vector3 pos, float rotateYaw, float rotatePitch);
 	Bullet(Tutorial* scene, Vector3 pos);
+
 	~Bullet();
 
 	virtual void interact();
@@ -25,6 +26,7 @@ private:
 	const float bulletSpeed = 600.0f;
 
 	bool mingxiue26rox = false;
+
 	
 
 
