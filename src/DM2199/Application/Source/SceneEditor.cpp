@@ -384,6 +384,13 @@ void SceneEditor::Init()
 	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("arrow", "OBJ//statue2.obj");
 	meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
 
+
+    meshList[LEVELEDITOR] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
+    meshList[LEVELEDITOR]->textureID = LoadTGA("Image//menu/leveleditor.tga");
+
+    meshList[SELECTION] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
+    meshList[SELECTION]->textureID = LoadTGA("Image//menu/selection.tga");
+
     //Prevent Jerk
     camera.Init(Vector3(0, 0, 484), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -1019,6 +1026,48 @@ void SceneEditor::renderSelectObject()
 
 		RenderMeshOnScreen(meshList[GEO_STATUE2], 45, 10, 2, 2, 0, 0, 0, 1);
 
+
+    RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+
+    switch (selectObject)
+    {
+    case MOUNTAIN:
+        RenderMeshOnScreen(meshList[SELECTION], 40.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case LAMP:
+        RenderMeshOnScreen(meshList[SELECTION], 48.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case LANTERN:
+        RenderMeshOnScreen(meshList[SELECTION], 56.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case TOMBSTONE:
+        RenderMeshOnScreen(meshList[SELECTION], 64.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case TREE:
+        RenderMeshOnScreen(meshList[SELECTION], 72.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case STATUE1:
+        RenderMeshOnScreen(meshList[SELECTION], 80.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case STATUE2:
+        RenderMeshOnScreen(meshList[SELECTION], 88.f, 30.f, 80.f, 60.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    }
+    
+    //1
+    RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 4.f, 1.5f, 5.f, 5.f, 0.f, 0.f, 0.f, 1.f);
+    //2
+    RenderMeshOnScreen(meshList[GEO_LAMP], 12.f, 1.f, 5.f, 3.f, 0.f, 0.f, 0.f, 1.f);
+    //3
+    RenderMeshOnScreen(meshList[GEO_LANTERN], 20.f, 1.f, 5.f, 2.8f, 0.f, 0.f, 0.f, 1.f);
+    //4
+    RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 28.f, 1.5f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+    //5
+    RenderMeshOnScreen(meshList[GEO_TREE], 36.f, 1.4f, 0.3f, 0.25f, 0.f, 0.f, 0.f, 1.f);
+    //6
+    RenderMeshOnScreen(meshList[GEO_STATUE1], 44.f, 4.f, 2.5f, 2.5f, 0.f, 0.f, 0.f, 1.f);
+    //7
+    RenderMeshOnScreen(meshList[GEO_STATUE2], 51.5f, 4.f, 1.f, 1.2f, 0.f, 0.f, 0.f, 1.f);
 
 
 }

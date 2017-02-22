@@ -28,6 +28,10 @@ class SceneEditor : public Scene
 	friend class Camera3;
 	friend class SceneMainMenu;
 
+    friend class SceneSplash;
+    friend class SceneLoading;
+
+
 	enum GEOMETRY_TYPE
 	{
 		GEO_FLOOR = 0,
@@ -123,6 +127,11 @@ class SceneEditor : public Scene
 		GEO_TREE,
 		GEO_STATUE1,
 		GEO_STATUE2,
+
+
+        //UI
+        LEVELEDITOR,
+        SELECTION,
 
 		NUM_GEOMETRY,
 	};

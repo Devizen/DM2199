@@ -1,4 +1,6 @@
 #include "SceneSplash.h"
+#include "SceneEditor.h"
+#include "SceneLoading.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "Application.h"
@@ -220,7 +222,10 @@ void SceneSplash::Update(double dt)
 
 	if (Application::IsKeyPressed('1'))
 	{
-		Application::ChangeScene(4);
+
+        SceneEditor::selectLevel("tutorial.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(4);
 	}
 
     timeOut += (float)dt;

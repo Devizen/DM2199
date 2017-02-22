@@ -143,9 +143,11 @@ class Tutorial : public Scene
 		GEO_HEALTHPOTION,
 		GEO_ANTIDOTE,
 
+
 		//Electric Field
 		GEO_ELECTRIC_FIELD,
 
+		GEO_GUN_ICON,
 		//Portal Lightball
 		GEO_LIGHTBALL3,
 
@@ -231,6 +233,7 @@ class Tutorial : public Scene
 	unsigned m_parameters[U_TOTAL];
 
 
+<<<<<<< d95db3cc462632af52380e490b61074d8668ff3e
 =======
     friend class Object;
     friend class Bullet;
@@ -418,39 +421,37 @@ class Tutorial : public Scene
 
 
     unsigned m_parameters[U_TOTAL];
->>>>>>> cd36b4f7b3fdd3d54a961307a042fffb32eb3d8f
+	Enemy *enemy;
+
 
 public:
-    Tutorial();
-    ~Tutorial();
+	Tutorial();
+	~Tutorial();
 
-    void RenderMesh(Mesh *mesh, bool enableLight);
-    void renderGround();
-    void renderMountains();
-
-
-    virtual void Init();
-    virtual void Update(double dt);
-    virtual void Render();
-    virtual void Exit();
-
-    float rotateAngle;
-
-    float FPS;
+	void RenderMesh(Mesh *mesh, bool enableLight);
+	void renderGround();
 
 
-    //Day/Night Cycle
-    bool cycle = false;
-    bool night = false;
-    unsigned cycleState = 0;
-    void cycleCheck();
-    void renderLightSwitch();
 
-    //Text
-    void renderText();
+	virtual void Init();
+	virtual void Update(double dt);
+	virtual void Render();
+	virtual void Exit();
 
-    //Sprites
-    void renderSprites();
+	float rotateAngle;
+
+	float FPS;
+
+
+	//Day/Night Cycle
+	bool cycle = false;
+	bool night = false;
+	unsigned cycleState = 0;
+	void cycleCheck();
+	void renderLightSwitch();
+
+	//Text
+	void renderText();
 
 	//Torch
 	bool torchDead = false;
@@ -490,14 +491,19 @@ public:
 	float _elapsedTime = 0;
 	float swingTime = 0;
 
-    //Sound
+	//Item count
+	int potionCount = 0;
+	int antidoteCount = 0;
+	//Reset All Settings
+	void resetAll();
+
+	//Sound
     std::vector<Sound *> soundStorage;
 
-
     bool inventoryOpen;
-
     float startTime;
     float cooldown;
+
 
 
 	//Enemy
@@ -573,13 +579,39 @@ private:
 
 	//Cooldown for Button Pressed
 	const float cooldownPressed = 0.5f;
-=======
+
     bool bulletTouch = false;
     bool damaged = false; // character to enemy
 
-    std::vector<Enemy *> enemyStorage;
+	bool inventoryOpen;
+
+	float startTime;
+	float cooldown;
+
+	//Loaded check
+	static int Loaded();
+
+	//Number of Objects
+	int numOfObjects = 0;
+	//Defining the meshList
+	static const int totalObjects = 100;
+
+
+	//Enemy
+	void enemyUpdate(double dt);
+
+
+	float rotateArm = 0.f;
+	float scaleDamage = 0.2f;
+
+	std::vector<Enemy *> enemyStorage;
+
+	int health = 100;
+	int energy = 10000;
+	int timeleft = 60000;
 
 private:
+
     unsigned m_vertexArrayID;
     Mesh* meshList[NUM_GEOMETRY];
     unsigned m_programID;
@@ -610,11 +642,67 @@ private:
     //Cool Down between each walk sound
     float nextWalkTime = 0.f;
 
+
+	vector<string>objectName;
+	vector<string>objectTexture;
+	vector<string>objectPosX;
+	vector<string>objectPosZ;
+	unsigned m_vertexArrayID;
+	Mesh* meshListPredefined[totalObjects];
+	Mesh* meshList[NUM_GEOMETRY];
+	unsigned m_programID;
+
+	Camera3 camera;
+
+	MS modelStack, viewStack, projectionStack;
+
+	//Normal
+	Light light[3];
+
+	//Skybox
+	void RenderSkybox();
+	void renderEndBox();
+	float rotateSkybox;
+
+	//Text
+	void RenderText(Mesh* mesh, std::string text, Color color);
+	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
+	void renderPosition();
+
+	// Cool Down Time
+	const float coolDown = 0.25f;
+	//Cool down between shooting each bullet
+	float nextBulletTime = 0;
+	//Cool Down between each walk sound
+	float nextWalkTime = 0;
+
+	//Delay for placing objects
+	float pressDelay = 0.f;
+
+	//Choosing Object, 0 is mountain.
+	int selectObject = 0;
+
+	//Enabling and Disabling Collison.
+	bool passCol;
+
+	//Pause Menu
+	MENU selectOptions = CONTINUE;
+	//Render Pause Menu
+	void pause();
+	//Check if Pause Menu was called
+	bool pauseActivate;
+
+	//Cooldown for Button Pressed
+	const float cooldownPressed = 0.5f;
+
+
 	float nextJump = 0.f;
 
 	float nextSplatter = 0.f;
 
 	float nextRun = 0.f;
+
 
 	float nextPotion = 0.f;
 
@@ -631,5 +719,6 @@ private:
 
 	void renderObjects();
 };
+
 
 #endif

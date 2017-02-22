@@ -17,6 +17,7 @@
 
 class SceneLoading : public Scene
 {
+    friend class SceneSplash;
     friend class SceneMainMenu;
     enum GEOMETRY_TYPE
     {

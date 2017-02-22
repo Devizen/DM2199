@@ -126,7 +126,7 @@ void Application::Run()
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
-    Scene *sceneTutorial = new SceneBase();
+    Scene *sceneTutorial = new Tutorial();
     Scene *sceneEditor = new SceneEditor();
 	//Scene *sceneBase = new SceneBase();
     Scene *scene = sceneSplash;
