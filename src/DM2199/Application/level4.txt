@@ -1,0 +1,15 @@
+-435,-439
+Image//objects.tga
+OBJ//mountain.obj
+-295,-144
+Image//objects.tga
+OBJ//mountain.obj
+-215,129
+Image//objects.tga
+OBJ//mountain.obj
+-89,277
+Image//statue2.tga
+OBJ//statue2.obj
+-24,362
+Image//statue2.tga
+OBJ//statue2.obj

@@ -219,6 +219,9 @@ class SceneEditor : public Scene
         TREE,
         STATUE1,
         STATUE2,
+        EMPTY1,
+        EMPTY2,
+        EMPTY3,
     };
 
     enum ROTATION
@@ -289,6 +292,8 @@ public:
     //Defining the meshList
     static const int totalObjects = 100;
 
+    //Copy View from Camera3
+    static void copyPositionTargetView(Vector3 position, Vector3 target, Vector3 view);
 
 private:
     vector<string>objectName;
@@ -341,7 +346,7 @@ private:
     bool rotated = false;
 
     //Choosing Object, 0 is mountain.
-    OBJECTS selectObject = MOUNTAIN;
+    OBJECTS selectObject = EMPTY3;
 
     //Add object to scene
     void addObject();

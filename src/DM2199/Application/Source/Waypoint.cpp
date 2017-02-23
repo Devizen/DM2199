@@ -1,7 +1,7 @@
 #include "Waypoint.h"
 
 Waypoint::Waypoint()
-	:_position(0,0,0)
+	:_position(0,0,0) //vector3
 	, nextWaypoint(NULL)
 {}
 

@@ -110,7 +110,6 @@ void Camera3::Update(double dt)
 {
     if (pauseInput == false)
     {
-
         // Cursor is shown, stop rotating the camera
         if (isMouseEnabled && glfwGetInputMode(glfwGetCurrentContext(), GLFW_CURSOR) == GLFW_CURSOR_DISABLED && !Application::IsKeyPressed(MK_RBUTTON))
         {
@@ -483,6 +482,11 @@ void Camera3::Update(double dt)
         target.x = cos(Math::DegreeToRadian(pitch)) * cos(Math::DegreeToRadian(yaw)) + position.x;
         target.y = sin(Math::DegreeToRadian(pitch)) + position.y;
         target.z = cos(Math::DegreeToRadian(pitch)) * sin(Math::DegreeToRadian(yaw)) + position.z;
+
+        //Copy View Vector to SceneEditor
+        SceneEditor::copyPositionTargetView(position, target, view);
+        //Update View Vector from Camera3
+        //cout << "Target from Camera: " << target.x << endl;
 
     }
   /*  else

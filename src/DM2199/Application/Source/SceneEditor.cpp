@@ -21,6 +21,10 @@ using std::cout;
 using std::cin;
 
 static string choosenLevel = "";
+static Vector3 targetFromCamera = { 0, 0, 0 };
+static Vector3 positionFromCamera = { 0, 0, 0 };
+static Vector3 viewFromCamera = { 0, 0, 0 };
+
 
 SceneEditor::SceneEditor()
 {
@@ -628,7 +632,7 @@ void SceneEditor::Update(double dt)
         rotated = false;
     }
 
-    if (Application::IsKeyPressed('E') && pressDelay >= cooldownPressed)
+    if (Application::IsKeyPressed('E') || Application::IsKeyPressed(VK_LBUTTON) && pressDelay >= cooldownPressed)
     {
         addObject();
         pressDelay = 0.f;
@@ -636,6 +640,7 @@ void SceneEditor::Update(double dt)
 
     if (Application::IsKeyPressed('Q') && pressDelay >= cooldownPressed)
     {
+        autoSave = 10.f;
         removeObject();
         pressDelay = 0.f;
     }
@@ -740,10 +745,10 @@ void SceneEditor::Update(double dt)
     }
 
     //Reset
-    //if (Application::IsKeyPressed('R'))
-    //{
-    //    resetAll();
-    //}
+    if (Application::IsKeyPressed('G'))
+    {
+        resetAll();
+    }
 
     if (Application::IsKeyPressed('1'))
     {
@@ -780,6 +785,21 @@ void SceneEditor::Update(double dt)
         selectObject = STATUE2;
     }
 
+    if (Application::IsKeyPressed('8'))
+    {
+        selectObject = EMPTY1;
+    }
+
+    if (Application::IsKeyPressed('9'))
+    {
+        selectObject = EMPTY2;
+    }
+
+    if (Application::IsKeyPressed('0'))
+    {
+        selectObject = EMPTY3;
+    }
+
     camera.Update(dt);
 
     //FPS Counter
@@ -808,7 +828,20 @@ void SceneEditor::Update(double dt)
     {
         rotateSelections = 270.f;
     }
+}
 
+void SceneEditor::copyPositionTargetView(Vector3 position, Vector3 target, Vector3 view)
+{
+    positionFromCamera = position;
+    targetFromCamera = target;
+    viewFromCamera = view;
+
+    positionFromCamera += viewFromCamera * 200.f;
+    positionFromCamera.y = 0.f;
+    targetFromCamera = positionFromCamera + viewFromCamera;
+
+    //cout << "X: " << targetFromCamera.x << endl;
+    //cout << "Z: " << targetFromCamera.z << endl;
 }
 
 void SceneEditor::Render()
@@ -1383,6 +1416,154 @@ void SceneEditor::pause()
 
 void SceneEditor::renderSelectObject()
 {
+    switch (selectObject)
+    {
+    case MOUNTAIN:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, -30.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(100.f, 50.f, 100.f);
+        RenderMesh(meshListPredefined[MOUNTAIN], true);
+        modelStack.PopMatrix();
+        break;
+
+    case LAMP:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, -30.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(10.f, 10.f, 10.f);
+        RenderMesh(meshListPredefined[LAMP], true);
+        modelStack.PopMatrix();
+        break;
+
+
+    case LANTERN:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, -30.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(10.f, 10.f, 10.f);
+        RenderMesh(meshListPredefined[LANTERN], true);
+        modelStack.PopMatrix();
+        break;
+
+
+    case TOMBSTONE:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, -30.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(10.f, 10.f, 10.f);
+        RenderMesh(meshListPredefined[TOMBSTONE], true);
+        modelStack.PopMatrix();
+        break;
+
+
+    case TREE:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, -30.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(10.f, 10.f, 10.f);
+        RenderMesh(meshListPredefined[TREE], true);
+        modelStack.PopMatrix();
+        break;
+
+
+    case STATUE1:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, 0.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Scale(20.f, 20.f, 20.f);
+        RenderMesh(meshListPredefined[STATUE1], true);
+        modelStack.PopMatrix();
+        break;
+
+
+    case STATUE2:
+        modelStack.PushMatrix();
+        modelStack.Translate(targetFromCamera.x, 0.f, targetFromCamera.z);
+        if (selectRotations == NINETY)
+        {
+            modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == HUNDREDEIGHTY)
+        {
+            modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        }
+        else if (selectRotations == TWOHUNDREDSEVENTY)
+        {
+            modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
+        }
+        modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+        modelStack.Scale(10.f, 10.f, 10.f);
+        RenderMesh(meshListPredefined[STATUE2], true);
+        modelStack.PopMatrix();
+        break;
+    }
 
     RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
 
@@ -1429,6 +1610,7 @@ void SceneEditor::renderSelectObject()
     {
         RenderMeshOnScreen(meshList[ROTATE270], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
     }
+
     switch (selectObject)
     {
     case MOUNTAIN:
@@ -1451,6 +1633,15 @@ void SceneEditor::renderSelectObject()
         break;
     case STATUE2:
         RenderMeshOnScreen(meshList[SELECTION], 88.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case EMPTY1:
+        RenderMeshOnScreen(meshList[SELECTION], 96.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case EMPTY2:
+        RenderMeshOnScreen(meshList[SELECTION], 104.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
+        break;
+    case EMPTY3:
+        RenderMeshOnScreen(meshList[SELECTION], 112.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     }
 
@@ -1614,8 +1805,13 @@ void SceneEditor::addObject()
         }
         objectTexture.push_back("Image//statue2.tga");
     }
-    objectPosX.push_back(to_string((int)camera.position.x));
-    objectPosZ.push_back(to_string((int)camera.position.z));
+    //objectPosX.push_back(to_string((int)camera.position.x));
+    //objectPosZ.push_back(to_string((int)camera.position.z));
+
+
+
+    objectPosX.push_back(to_string((int)targetFromCamera.x));
+    objectPosZ.push_back(to_string((int)targetFromCamera.z));
 
 }
 
