@@ -413,6 +413,7 @@ private:
 
     void renderObjective();
 
+
     void objectsInit();
     vector <string> initName;
     vector <string> initTexture;

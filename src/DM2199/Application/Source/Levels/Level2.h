@@ -324,6 +324,7 @@ public:
 
     bool bulletTouch = false;
     bool damaged = false; // character to enemy
+	bool isDeath = false;
 
     std::vector<Enemy *> enemyStorage;
 

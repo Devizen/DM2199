@@ -36,6 +36,7 @@ public:
 
     Bullet(SceneEditor* sceneBoss, Vector3 pos, float rotateYaw, float rotatePitch);
     Bullet(SceneEditor* sceneBoss, Vector3 pos);
+
 	~Bullet();
 
 	virtual void interact();

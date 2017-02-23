@@ -873,6 +873,17 @@ void SceneEditor::Update(double dt)
     {
         rotateSelections = 270.f;
     }
+}
+
+void SceneEditor::copyPositionTargetView(Vector3 position, Vector3 target, Vector3 view)
+{
+    positionFromCamera = position;
+    targetFromCamera = target;
+    viewFromCamera = view;
+
+    positionFromCamera += viewFromCamera * 200.f;
+    positionFromCamera.y = 0.f;
+    targetFromCamera = positionFromCamera + viewFromCamera;
 
     //Enemy Arm Rotation
     static float rotateLimit = 1;

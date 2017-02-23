@@ -168,11 +168,13 @@ Bullet::Bullet(SceneEditor* scene, Vector3 pos) :Object(scene, pos)
     mingxiue26rox = true;
 }
 
+
 Bullet::~Bullet()
 {
 }
 
 void Bullet::interact(){
+
 
     if (scene == 0)
     {
@@ -199,15 +201,31 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
 
-        for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                _scene->objFactory.destroyFactoryObject(this);
-                return;
-            }
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					_scene->objFactory.destroyFactoryObject(this);
+					return;
+				}
 
-        }
+			}
+		}
+
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = _scene->enemyStorage.begin(); itEnemy != _scene->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					_scene->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
     if (scene == 1)
@@ -235,15 +253,31 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
 
-        for (vector<Enemy*>::iterator itEnemy = level1->enemyStorage.begin(); itEnemy != level1->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                level1->objFactory.destroyFactoryObject(this);
-                return;
-            }
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level1->enemyStorage.begin(); itEnemy != level1->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					level1->objFactory.destroyFactoryObject(this);
+					return;
+				}
 
-        }
+			}
+		}
+
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level1->enemyStorage.begin(); itEnemy !=  level1->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					level1->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
     if (scene == 2)
@@ -271,15 +305,33 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
 
-        for (vector<Enemy*>::iterator itEnemy = level2->enemyStorage.begin(); itEnemy != level2->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                level2->objFactory.destroyFactoryObject(this);
-                return;
-            }
 
-        }
+
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level2->enemyStorage.begin(); itEnemy != level2->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					level2->objFactory.destroyFactoryObject(this);
+					return;
+				}
+
+			}
+		}
+
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level2->enemyStorage.begin(); itEnemy != level2->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					level2->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
     if (scene == 3)
@@ -307,15 +359,32 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
 
-        for (vector<Enemy*>::iterator itEnemy = level3->enemyStorage.begin(); itEnemy != level3->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                level3->objFactory.destroyFactoryObject(this);
-                return;
-            }
 
-        }
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level3->enemyStorage.begin(); itEnemy != level3->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					level3->objFactory.destroyFactoryObject(this);
+					return;
+				}
+
+			}
+		}
+
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level3->enemyStorage.begin(); itEnemy != level3->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					level3->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
     if (scene == 4)
@@ -343,15 +412,32 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
 
-        for (vector<Enemy*>::iterator itEnemy = level4->enemyStorage.begin(); itEnemy != level4->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                level4->objFactory.destroyFactoryObject(this);
-                return;
-            }
 
-        }
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level4->enemyStorage.begin(); itEnemy != level4->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					level4->objFactory.destroyFactoryObject(this);
+					return;
+				}
+
+			}
+		}
+
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = level4->enemyStorage.begin(); itEnemy != level4->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					level4->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
     if (scene == 5)
@@ -379,51 +465,32 @@ void Bullet::interact(){
             position_.z -= moveZ;
         }
     
-        for (vector<Enemy*>::iterator itEnemy = boss->enemyStorage.begin(); itEnemy != boss->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                boss->objFactory.destroyFactoryObject(this);
-                return;
-            }
 
-        }
-    }
+		if (mingxiue26rox == false)
+		{
+			for (vector<Enemy*>::iterator itEnemy = boss->enemyStorage.begin(); itEnemy != boss->enemyStorage.end(); itEnemy++)
+			{
+				if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
+				{
+					boss->objFactory.destroyFactoryObject(this);
+					return;
+				}
 
-    if (scene == 6)
-    {
-        if (mingxiue26rox == false)
-        {
-            position_.x += (float)(bulletSpeed * cos(Math::DegreeToRadian(_defaultYaw))* levelEditor->_dt);
-            position_.y += (float)(bulletSpeed * tan(Math::DegreeToRadian(_defaultPitch)) * levelEditor->_dt);
-            position_.z += (float)(bulletSpeed* sin(Math::DegreeToRadian(_defaultYaw))* levelEditor->_dt);
+			}
+		}
 
-        }
-
-        if (mingxiue26rox == true)
-        {
-            Vector3 distance = (_defaultPosition - levelEditor->camera.getPosition());
-            Vector3 unitDistance = distance.Normalized();
-            float moveX = unitDistance.x * bulletSpeed* levelEditor->_dt;
-            float moveZ = unitDistance.z * bulletSpeed* levelEditor->_dt;
-
-            // Rotate the enemy towards the player
-            rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x));
-
-            // Move the Enemy
-            position_.x -= moveX;
-            position_.z -= moveZ;
-        }
-
-        for (vector<Enemy*>::iterator itEnemy = levelEditor->enemyStorage.begin(); itEnemy != levelEditor->enemyStorage.end(); itEnemy++)
-        {
-            if ((position_ - (*itEnemy)->_Position).Length() < 10 || (_defaultPosition - position_).Length() >= _maxDistance)
-            {
-                levelEditor->objFactory.destroyFactoryObject(this);
-                return;
-            }
-
-        }
+		//Delete bullet when enemy's bullet travels too far
+		if (mingxiue26rox == true)
+		{
+			for (vector<Enemy*>::iterator itEnemy = boss->enemyStorage.begin(); itEnemy != boss->enemyStorage.end(); itEnemy++)
+			{
+				if ((_defaultPosition - position_).Length() >= 50)
+				{
+					boss->objFactory.destroyFactoryObject(this);
+					return;
+				}
+			}
+		}
     }
 
 

@@ -1,0 +1,12 @@
+339,-125
+Image//lantern.tga
+OBJ//lantern.obj
+210,-360
+Image//lantern.tga
+OBJ//lantern.obj
+243,9
+Image//objects.tga
+OBJ//mountain.obj
+196,-38
+Image//objects.tga
+OBJ//mountain.obj

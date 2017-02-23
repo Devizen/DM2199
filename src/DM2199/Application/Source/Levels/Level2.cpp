@@ -219,7 +219,7 @@ void Level2::Init()
     meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("lightball_3", Color(1.f, 1.f, 0.f), 20, 20, 1);
 
     meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("grass", Color(1, 1, 1), 1.f, 1.f);
-    meshList[GEO_GROUND]->textureID = LoadTGA("Image//MetalFloor.tga");
+    meshList[GEO_GROUND]->textureID = LoadTGA("Image//MetalFloor3.tga");
 
     //Skybox Day
     meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f, 1.f);
@@ -336,7 +336,7 @@ void Level2::Init()
     meshList[GEO_MINI_PLAYER]->textureID = LoadTGA("Image//mini_player.tga");
 
     meshList[GEO_MINI_GROUND] = MeshBuilder::GenerateOBJ("mini_ground", "OBJ//inventory.obj");
-    meshList[GEO_MINI_GROUND]->textureID = LoadTGA("Image//grass.tga");
+    meshList[GEO_MINI_GROUND]->textureID = LoadTGA("Image//MetalFloor3.tga");
 
     meshList[GEO_MINI_ENEMY] = MeshBuilder::GenerateOBJ("mini_enemy", "OBJ//inventory.obj");
     meshList[GEO_MINI_ENEMY]->textureID = LoadTGA("Image//mini_enemy.tga");
@@ -573,6 +573,36 @@ void Level2::Init()
     {
         (*it)->_Position = (*it)->currWaypoint->getPosition();
     }
+	soundStorage[3]->play2DSound(false, false, false);
+}
+
+void Level2::objectsInit()
+{
+    string line = "";
+    ifstream myfile("objects.txt");
+    static int linePos = 1;
+
+    while (myfile.peek() != EOF)
+    {
+        getline(myfile, line);
+
+        if (linePos == 1)
+        {
+            initName.push_back(line);
+        }
+        if (linePos == 2)
+        {
+            initTexture.push_back(line);
+        }
+        if (linePos < 2)
+        {
+            linePos++;
+        }
+        else
+        {
+            linePos = 1;
+        }
+    }
 }
 
 void Level2::objectsInit()
@@ -622,8 +652,6 @@ void Level2::Update(double dt)
 
     ik_f32 returnVol = SceneMainMenu::soundFromMenue();
     Sound::soundEngine->setSoundVolume(returnVol);
-
-
 
 
 
@@ -937,27 +965,30 @@ void Level2::enemyUpdate(double dt)
         (*it)->update();
 
         if ((*it)->enemytype == 2)
-        {
-            if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
-            {
-                robotShoot = true;
-                broughtDown = false;
+		{
+			if ((*it)->getState() != Robot::robotState::death)
+			{
+				if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+				{
+					robotShoot = true;
+					broughtDown = false;
 
-            }
-            else
-            {
+				}
+				else
+				{
 
-            }
+				}
 
-            if (shootArmDown == false)
-            {
-                if (_elapsedTime >= nextRobotShoot)
-                {
-                    objFactory.createFactoryObject(new Bullet(this, { (*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z }));
-                    camera.health -= 10;
-                    nextRobotShoot = _elapsedTime + coolDown;
-                }
-            }
+				if (shootArmDown == false)
+				{
+					if (_elapsedTime >= nextRobotShoot)
+					{
+						objFactory.createFactoryObject(new Bullet(this, { (*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z }));
+						camera.health -= 10;
+						nextRobotShoot = _elapsedTime + coolDown;
+					}
+				}
+			}
         }
 
 
@@ -974,7 +1005,7 @@ void Level2::enemyUpdate(double dt)
                         damaged = true;
                         bulletTouch = true;
 
-                        if ((*it)->_Hp == 0)
+                        if ((*it)->_Hp <= 0)
                         {
                             (*it)->setState(2);  //  death is at enum 2
                         }
@@ -986,7 +1017,7 @@ void Level2::enemyUpdate(double dt)
                         damaged = true;
                         bulletTouch = true;
 
-                        if ((*it)->_Hp == 0)
+                        if ((*it)->_Hp <= 0)
                         {
                             (*it)->setState(2);  //  death is at enum 2
                         }
@@ -1519,11 +1550,11 @@ void Level2::renderHUD()
         renderRemainingTime();
         //minimap
         RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 0.f, 0.f, 0.f, 1.f);
-        RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 0.f, 0.f, 0.f, 1.f);
+        RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 10000) * 14), 50 + ((camera.getPosition().z / 10000)* 14.4), 6, 6, 0.f, 0.f, 0.f, 1.f);
         for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
         {
             if ((*it)->getState() != Robot::robotState::death || (*it)->getState() != Spider::spiderState::death)
-                RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 1000) * 14), 50 + (((*it)->_Position.z / 1000) * 14.4), 10, 10, 0.f, 0.f, 0.f, 1.f);
+                RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->_Position.x / 10000) * 14), 50 + (((*it)->_Position.z / 10000) * 14.4), 10, 10, 0.f, 0.f, 0.f, 1.f);
         }
     }
 }
@@ -1769,7 +1800,7 @@ void Level2::renderGround()
 {
     modelStack.PushMatrix();
     modelStack.Translate(0.f, -30.f, 0.f);
-    modelStack.Scale(1000.f, 1000.f, 1000.f);
+    modelStack.Scale(10000.f, 10000.f, 10000.f);
     RenderMesh(meshList[GEO_GROUND], true);
     modelStack.PopMatrix();
 }

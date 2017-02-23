@@ -217,18 +217,22 @@ void SceneMainMenu::Init()
 
 void SceneMainMenu::Update(double dt)
 {
+	ik_f32 min = 0;
+	ik_f32 max = 1;
 	if (Application::IsKeyPressed('V'))
 	{
 		if (vol >= 0)
-			vol -= 0.2;
+			vol -= 0.05;
 		Sound::soundEngine->setSoundVolume(vol);
 	}
 	if (Application::IsKeyPressed('B'))
 	{
 		if (vol <= 1)
-			vol += 0.2;
+			vol += 0.05;
 		Sound::soundEngine->setSoundVolume(vol);
 	}
+
+	vol = Math::Clamp(vol, min, max);
 
     srand((unsigned)time(NULL));
     _dt = (float)dt;

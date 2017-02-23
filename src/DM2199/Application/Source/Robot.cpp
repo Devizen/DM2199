@@ -19,6 +19,11 @@ Robot::Robot(float speed, float damage, float hp, float range, int typeRobot)
 
 void Robot::update()
 {
+	if (_Hp <= 0)
+	{
+		_State = death;
+	}
+
 	switch (_State)
 	{
 	case patrolling:
@@ -61,7 +66,10 @@ void Robot::update()
 		{
 			_State = Robot::robotState::patrolling;
 		}
-
+		else if (_Hp <= 25)
+		{
+			_State = Robot::robotState::escaping;
+		}
 	}
 	break;
 	case death:
@@ -69,7 +77,7 @@ void Robot::update()
 		
 	}
 	break;
-	case shooting:
+	case escaping:
 	{
 		//distance between character and  enemy
 		Vector3 distance = (_Position - copyPos.getPosition());
@@ -78,24 +86,21 @@ void Robot::update()
 		float moveX = unitDistance.x * getMovementSpeed()*copyDT;
 		float moveZ = unitDistance.z * getMovementSpeed()*copyDT;
 
-		/*objFactory.createFactoryObject(new Bullet(this, camera.getPosition(), camera.getYaw(), camera.getPitch()));
-		nextBulletTime = _elapsedTime + coolDown;
-		soundStorage[0]->play3DSound(false, false, false, camPos);
-		bulletTouch = false;*/
-
-		
-
 		// Rotate the enemy towards the player
-		_Rotation = -Math::RadianToDegree(atan2(distance.z, distance.x));
-
+		/*_Rotation = Math::RadianToDegree(atan2(distance.z, distance.x));
+*/
 		// Move the Enemy
-		_Position.x -= moveX;
-		_Position.z -= moveZ;
-
-		if ((_Position - copyPos.getPosition()).Length() > getRange())
+		if ((_Position - copyPos.getPosition()).Length() < getRange())
+		{
+			_Position.x += moveX;
+			_Position.z += moveZ;
+		}
+		else
 		{
 			_State = Robot::robotState::patrolling;
 		}
+
+	
 	}
 	break;
 	}

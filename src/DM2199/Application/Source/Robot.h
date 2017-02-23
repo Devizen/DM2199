@@ -11,7 +11,7 @@ public:
 		patrolling,
 		chasing,
 		death,
-		shooting,
+		escaping,
 	};
 
 

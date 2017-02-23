@@ -42,7 +42,7 @@ public:
     bool thirdPerson = false;
 	
 	float armRotate = 0.f;
-    float mapSize = 485.f;
+    float mapSize = 4850.f;
     float jumpHeight = 25.f;
 
 

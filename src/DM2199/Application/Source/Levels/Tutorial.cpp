@@ -42,6 +42,7 @@ void Tutorial::Init()
 {
     Object::sceneObject(0);
     Bullet::sceneBullet(0);
+
     static int linePos = 1;
 
     string line = "";
@@ -186,6 +187,7 @@ void Tutorial::Init()
 
     // Use our shader
     glUseProgram(m_programID);
+
 
 
     for (int i = 0; i < totalObjects; i++)
@@ -573,6 +575,35 @@ void Tutorial::Init()
     for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
     {
         (*it)->_Position = (*it)->currWaypoint->getPosition();
+    }
+}
+
+void Tutorial::objectsInit()
+{
+    string line = "";
+    ifstream myfile("objects.txt");
+    static int linePos = 1;
+
+    while (myfile.peek() != EOF)
+    {
+        getline(myfile, line);
+
+        if (linePos == 1)
+        {
+            initName.push_back(line);
+        }
+        if (linePos == 2)
+        {
+            initTexture.push_back(line);
+        }
+        if (linePos < 2)
+        {
+            linePos++;
+        }
+        else
+        {
+            linePos = 1;
+        }
     }
 }
 
