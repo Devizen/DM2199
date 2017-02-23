@@ -1,5 +1,10 @@
 #include "Bullet.h"
 #include "Levels\Tutorial.h"
+#include "Levels/Level1.h"
+#include "Levels/Level2.h"
+#include "Levels/Level3.h"
+#include "Levels/Level4.h"
+#include "Levels/Boss.h"
 
 
 Bullet::Bullet(Tutorial* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
@@ -24,6 +29,116 @@ Bullet::Bullet(Tutorial* scene ,Vector3 pos) :Object(scene, pos)
 	mingxiue26rox = true;
 }
 
+Bullet::Bullet(Level1* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+{
+
+    type = Level1::GEO_LIGHTBALL3;
+    _defaultYaw = _scene->camera.getYaw();
+    _defaultPitch = _scene->camera.getPitch();
+    _defaultPosition = pos;
+    scale = 5;
+    rotateY = -rotateYaw;
+    rotateZ = rotatePitch;
+
+    mingxiue26rox = false;
+}
+Bullet::Bullet(Level1* scene, Vector3 pos) :Object(scene, pos)
+{
+    _defaultPosition = pos;
+    type = Level1::GEO_LIGHTBALL2;
+    scale = 5;
+
+    mingxiue26rox = true;
+}
+
+Bullet::Bullet(Level2* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+{
+
+    type = Level2::GEO_LIGHTBALL3;
+    _defaultYaw = _scene->camera.getYaw();
+    _defaultPitch = _scene->camera.getPitch();
+    _defaultPosition = pos;
+    scale = 5;
+    rotateY = -rotateYaw;
+    rotateZ = rotatePitch;
+
+    mingxiue26rox = false;
+}
+Bullet::Bullet(Level2* scene, Vector3 pos) :Object(scene, pos)
+{
+    _defaultPosition = pos;
+    type = Level2::GEO_LIGHTBALL2;
+    scale = 5;
+
+    mingxiue26rox = true;
+}
+
+Bullet::Bullet(Level3* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+{
+
+    type = Level3::GEO_LIGHTBALL3;
+    _defaultYaw = _scene->camera.getYaw();
+    _defaultPitch = _scene->camera.getPitch();
+    _defaultPosition = pos;
+    scale = 5;
+    rotateY = -rotateYaw;
+    rotateZ = rotatePitch;
+
+    mingxiue26rox = false;
+}
+Bullet::Bullet(Level3* scene, Vector3 pos) :Object(scene, pos)
+{
+    _defaultPosition = pos;
+    type = Level3::GEO_LIGHTBALL2;
+    scale = 5;
+
+    mingxiue26rox = true;
+}
+
+Bullet::Bullet(Level4* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+{
+
+    type = Level4::GEO_LIGHTBALL3;
+    _defaultYaw = _scene->camera.getYaw();
+    _defaultPitch = _scene->camera.getPitch();
+    _defaultPosition = pos;
+    scale = 5;
+    rotateY = -rotateYaw;
+    rotateZ = rotatePitch;
+
+    mingxiue26rox = false;
+}
+Bullet::Bullet(Level4* scene, Vector3 pos) :Object(scene, pos)
+{
+    _defaultPosition = pos;
+    type = Level4::GEO_LIGHTBALL2;
+    scale = 5;
+
+    mingxiue26rox = true;
+}
+
+Bullet::Bullet(Boss* scene, Vector3 pos, float rotateYaw, float rotatePitch) : Object(scene, pos)
+{
+
+    type = Boss::GEO_LIGHTBALL3;
+    _defaultYaw = _scene->camera.getYaw();
+    _defaultPitch = _scene->camera.getPitch();
+    _defaultPosition = pos;
+    scale = 5;
+    rotateY = -rotateYaw;
+    rotateZ = rotatePitch;
+
+    mingxiue26rox = false;
+}
+Bullet::Bullet(Boss* scene, Vector3 pos) :Object(scene, pos)
+{
+    _defaultPosition = pos;
+    type = Boss::GEO_LIGHTBALL2;
+    scale = 5;
+
+    mingxiue26rox = true;
+}
+
 Bullet::~Bullet()
 {
 }
@@ -45,7 +160,7 @@ void Bullet::interact(){
 		Vector3 unitDistance = distance.Normalized();
 		float moveX = unitDistance.x * bulletSpeed* _scene->_dt;
 		float moveZ = unitDistance.z * bulletSpeed* _scene->_dt;
-		
+
 		// Rotate the enemy towards the player
 		rotateY = -Math::RadianToDegree(atan2(distance.z, distance.x));
 
@@ -53,7 +168,6 @@ void Bullet::interact(){
 		position_.x -= moveX;
 		position_.z -= moveZ;
 	}
-
 	//Delete bullet once it reachs max distance
 	//if ((_defaultPosition - position_).Length() >= _maxDistance) {
 	//	_scene->objFactory.destroyFactoryObject(this);

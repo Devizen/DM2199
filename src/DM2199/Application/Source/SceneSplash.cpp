@@ -219,14 +219,53 @@ void SceneSplash::Update(double dt)
 
 	static bool checkAlphabet[8] = { false, false, false, false, false, false, false, false};
 
-
-	if (Application::IsKeyPressed('1'))
-	{
-
-        SceneEditor::selectLevel("tutorial.txt");
+    //Tutorial Scene
+    if (Application::IsKeyPressed('1'))
+    {
+        //SceneEditor::selectLevel("tutorial.txt");
         Application::ChangeScene(2);
-        SceneLoading::ChangeScene(4);
-	}
+        SceneLoading::ChangeScene(3);
+    }
+
+    //Level 1 Scene
+    if (Application::IsKeyPressed('2'))
+    {
+        //SceneEditor::selectLevel("level1.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(5);
+    }
+
+    //Level 2 Scene
+    if (Application::IsKeyPressed('3'))
+    {
+        //SceneEditor::selectLevel("level2.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(6);
+    }
+
+    //Level 3 Scene
+    if (Application::IsKeyPressed('4'))
+    {
+        //SceneEditor::selectLevel("level3.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(7);
+    }
+
+    //Level 4 Scene
+    if (Application::IsKeyPressed('5'))
+    {
+        //SceneEditor::selectLevel("level4.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(8);
+    }
+
+    //Boss Scene
+    if (Application::IsKeyPressed('6'))
+    {
+        //SceneEditor::selectLevel("boss.txt");
+        Application::ChangeScene(2);
+        SceneLoading::ChangeScene(9);
+    }
 
     timeOut += (float)dt;
 

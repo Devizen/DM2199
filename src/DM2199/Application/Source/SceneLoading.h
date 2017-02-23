@@ -17,8 +17,9 @@
 
 class SceneLoading : public Scene
 {
-    friend class SceneSplash;
     friend class SceneMainMenu;
+    friend class SceneSplash;
+
     enum GEOMETRY_TYPE
     {
         //Splash Screen

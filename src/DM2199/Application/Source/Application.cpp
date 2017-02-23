@@ -19,6 +19,11 @@
 #include "SceneLoading.h"
 #include "SceneEditor.h"
 #include "Levels/Tutorial.h"
+#include "Levels/Level1.h"
+#include "Levels/Level2.h"
+#include "Levels/Level3.h"
+#include "Levels/Level4.h"
+#include "Levels/Boss.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -127,6 +132,11 @@ void Application::Run()
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
     Scene *sceneTutorial = new Tutorial();
+    Scene *sceneLevel1 = new Level1();
+    Scene *sceneLevel2 = new Level2();
+    Scene *sceneLevel3 = new Level3();
+    Scene *sceneLevel4 = new Level4();
+    Scene *sceneBoss = new Boss();
     Scene *sceneEditor = new SceneEditor();
 	//Scene *sceneBase = new SceneBase();
     Scene *scene = sceneSplash;
@@ -153,9 +163,50 @@ void Application::Run()
 
         if (scene == sceneLoading)
         {
+            //Levels
             if (sceneNumber == 3 && scene != sceneTutorial)
             {
                 sceneLoadingAtBack = sceneTutorial;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
+
+            if (sceneNumber == 5 && scene != sceneLevel1)
+            {
+                sceneLoadingAtBack = sceneLevel1;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
+
+            if (sceneNumber == 6 && scene != sceneLevel2)
+            {
+                sceneLoadingAtBack = sceneLevel2;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
+
+            if (sceneNumber == 7 && scene != sceneLevel3)
+            {
+                sceneLoadingAtBack = sceneLevel3;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
+
+            if (sceneNumber == 8 && scene != sceneLevel4)
+            {
+                sceneLoadingAtBack = sceneLevel4;
+                sceneLoadingAtBack->Init();
+                scene->Exit();
+                scene = sceneLoadingAtBack;
+            }
+
+            if (sceneNumber == 9 && scene != sceneBoss)
+            {
+                sceneLoadingAtBack = sceneBoss;
                 sceneLoadingAtBack->Init();
                 scene->Exit();
                 scene = sceneLoadingAtBack;

@@ -242,6 +242,31 @@ void SceneLoading::Update(double dt)
         {
             Application::ChangeScene(4);
         }
+
+        if (sceneToChange == 5)
+        {
+            Application::ChangeScene(5);
+        }
+
+        if (sceneToChange == 6)
+        {
+            Application::ChangeScene(6);
+        }
+        if (sceneToChange == 7)
+        {
+            Application::ChangeScene(7);
+        }
+
+        if (sceneToChange == 8)
+        {
+            Application::ChangeScene(8);
+        }
+
+        if (sceneToChange == 9)
+        {
+            Application::ChangeScene(9);
+        }
+
     }
 
     for (unsigned i = 0; i < 7; i++)

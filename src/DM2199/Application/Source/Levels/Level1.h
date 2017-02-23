@@ -1,16 +1,16 @@
-#ifndef SCENEEDITOR_H
-#define SCENEEDITOR_H
+#ifndef LEVEL1_H
+#define LEVEL1_H
 
-#include "Scene.h"
-#include "SceneMainMenu.h"
-#include "Camera.h"
-#include "Camera3.h"
-#include "Mesh.h"
+#include "../Scene.h"
+#include "../SceneMainMenu.h"
+#include "../Camera.h"
+#include "../Camera3.h"
+#include "../Mesh.h"
 #include "MatrixStack.h"
-#include "Light.h"
-#include "FactoryObject.h"
-#include "Enemy.h"
-#include "Sound.h"
+#include "../Light.h"
+#include "../FactoryObject.h"
+#include "../Enemy.h"
+#include "../Sound.h"
 
 //Randomize
 #include <stdlib.h>
@@ -19,7 +19,7 @@
 
 using std::vector;
 
-class SceneEditor : public Scene
+class Level1 : public Scene
 {
     friend class Object;
     friend class Bullet;
@@ -27,8 +27,6 @@ class SceneEditor : public Scene
     friend class Sound;
     friend class Camera3;
     friend class SceneMainMenu;
-    friend class SceneSplash;
-    friend class SceneLoading;
 
     enum GEOMETRY_TYPE
     {
@@ -59,15 +57,38 @@ class SceneEditor : public Scene
         GEO_BACKn,
 
         //Environment
+        GEO_MOUNTAIN,
+        GEO_MOUNTAIN_2,
         GEO_GROUND,
 
-        //Enemy 
+        //Enemy 1
         GEO_ENEMYHEAD,
         GEO_ENEMYLEFTARM,
         GEO_ENEMYRIGHTARM,
         GEO_ENEMYLEFTLEG,
         GEO_ENEMYRIGHTLEG,
         GEO_ENEMYTORSO,
+
+        //Enemy 2
+        GEO_ENEMYLEFTARM2,
+        GEO_ENEMYRIGHTARM2,
+        GEO_ENEMYLEFTLEG2,
+        GEO_ENEMYRIGHTLEG2,
+        GEO_ENEMYTORSO2,
+
+        //Enemy 3
+        GEO_ENEMYLEFTARM3,
+        GEO_ENEMYRIGHTARM3,
+        GEO_ENEMYLEFTLEG3,
+        GEO_ENEMYRIGHTLEG3,
+        GEO_ENEMYTORSO3,
+
+        //Enemy 4
+        GEO_ENEMYLEFTARM4,
+        GEO_ENEMYRIGHTARM4,
+        GEO_ENEMYLEFTLEG4,
+        GEO_ENEMYRIGHTLEG4,
+        GEO_ENEMYTORSO4,
 
         GEO_FLICKER,
         GEO_HP75,
@@ -76,7 +97,6 @@ class SceneEditor : public Scene
 
         //Item & Inventory
         GEO_SWORD,
-        GEO_TORCH,
 
         //minimap
         GEO_MINI_PLAYER,
@@ -86,6 +106,14 @@ class SceneEditor : public Scene
         GEO_INVENTORY,
         GEO_GAME_HUD,
         GEO_HP,
+
+        GEO_EN,
+        GEO_ARROW,
+        GEO_ACTIVE_SELECT,
+        GEO_SECONDARY_SELECT,
+        GEO_TIME,
+
+        GEO_COUNTDOWN,
 
         //Text
         GEO_TEXT,
@@ -100,15 +128,22 @@ class SceneEditor : public Scene
         GEO_HANDL2,
         GEO_HANDR1,
         GEO_HANDR2,
+        GEO_HANDI,
         GEO_GUN1,
         GEO_GUN2,
         GEO_GUN3,
-        GEO_CANNON1,
-        GEO_CANNON2,
-        GEO_CANNON3,
+        GEO_GUNI,
         GEO_SWORD1,
         GEO_SWORD2,
         GEO_SWORD3,
+        GEO_SWORDI,
+        GEO_TORCH,
+        GEO_TORCHI,
+        GEO_HEALTHPOTION,
+        GEO_ANTIDOTE,
+
+        //Electric Field
+        GEO_ELECTRIC_FIELD,
 
         //Portal Lightball
         GEO_LIGHTBALL3,
@@ -117,28 +152,10 @@ class SceneEditor : public Scene
         PAUSE,
         ARROW,
 
-        //Objects
-        GEO_MOUNTAIN,
-        GEO_LAMP,
-        GEO_LANTERN,
-        GEO_TOMBSTONE,
-        GEO_TREE,
-        GEO_STATUE1,
-        GEO_STATUE2,
+        //Spider
+        GEO_SPIDER,
 
-        //UI
-        LEVELEDITOR,
-        SELECTION,
-        COLLISIONON,
-        COLLISIONOFF,
-        SAVEON,
-        SAVEOFF,
-        ROTATEON,
-        ROTATEOFF,
-        ROTATE0,
-        ROTATE90,
-        ROTATE180,
-        ROTATE270,
+        GEO_ENEMYHEALTHBAR,
 
         NUM_GEOMETRY,
     };
@@ -210,33 +227,13 @@ class SceneEditor : public Scene
         BACKTOMAINMENU,
     };
 
-    enum OBJECTS
-    {
-        MOUNTAIN = 0,
-        LAMP,
-        LANTERN,
-        TOMBSTONE,
-        TREE,
-        STATUE1,
-        STATUE2,
-    };
-
-    enum ROTATION
-    {
-        ZERO = 0,
-        NINETY,
-        HUNDREDEIGHTY,
-        TWOHUNDREDSEVENTY,
-    };
-
     unsigned m_parameters[U_TOTAL];
 
 
-    Enemy *enemy;
 
 public:
-    SceneEditor();
-    ~SceneEditor();
+    Level1();
+    ~Level1();
 
     void RenderMesh(Mesh *mesh, bool enableLight);
     void renderGround();
@@ -263,8 +260,33 @@ public:
     //Text
     void renderText();
 
+    //Torch
+    bool torchDead = false;
+
     //Sprites
     void renderSprites();
+    bool swing = false;
+
+    //Potion
+    int potionCount = 3;
+    int usedPotionTime = 0;
+    bool potionUsed = false;
+    bool noPotion = false;
+    bool notHurt = false;
+    bool usedPotionOnce = false;
+    bool usedPotionText = false;
+
+    //Antidote
+    int antidoteCount = 0;
+    int usedAntidoteTime = 0;
+    bool antidoteUsed = false;
+    bool noAntidote = false;
+    bool notPoisoned = false;
+    bool usedAntidoteOnce = false;
+    bool usedAntidoteText = false;
+
+    //Electric field
+    void renderElectricField();
 
     //Reset All Settings
     void resetAll();
@@ -272,6 +294,7 @@ public:
     FactoryObject objFactory;
     float _dt;
     float _elapsedTime = 0;
+    float swingTime = 0;
 
     //Sound
     std::vector<Sound *> soundStorage;
@@ -289,6 +312,25 @@ public:
     //Defining the meshList
     static const int totalObjects = 100;
 
+    //Enemy
+    void enemyUpdate(double dt);
+
+    float rotateArm = 0.f;
+
+    float rotateIndividualArm = 0.f;
+    float rotateLeftArm = 0.f;
+    bool robotShoot = false;
+    bool shootArmDown = true;
+    bool broughtDown = true;
+    float scaleDamage = 0.2f;
+
+    bool bulletTouch = false;
+    bool damaged = false; // character to enemy
+
+    std::vector<Enemy *> enemyStorage;
+
+    int energy = 10000;
+    int timeleft = 60000;
 
 private:
     vector<string>objectName;
@@ -315,13 +357,8 @@ private:
     //Text
     void RenderText(Mesh* mesh, std::string text, Color color);
     void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-    void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float sizez, float rotateAngle, float xAxis, float yAxis, float zAxis);
+    void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotateAngle, float xAxis, float yAxis, float zAxis);
     void renderPosition();
-
-    void renderSelectObject();
-
-    //Render objects from text file
-    void renderObjects();
 
     // Cool Down Time
     const float coolDown = 0.25f;
@@ -330,46 +367,17 @@ private:
     //Cool Down between each walk sound
     float nextWalkTime = 0;
 
-    //Level Editor
-    //Level Select for Edit
-    static void selectLevel(string input);
     //Delay for placing objects
     float pressDelay = 0.f;
-    //Rotate Objects
-    ROTATION selectRotations = ZERO;
-    float rotateSelections = 0.f;
-    bool rotated = false;
 
     //Choosing Object, 0 is mountain.
-    OBJECTS selectObject = MOUNTAIN;
-
-    //Add object to scene
-    void addObject();
-
-    //Remove previous object from scene
-    void removeObject();
-    int generateObjects = 0;
-    bool removedObject = false;
+    int selectObject = 0;
 
     //Enabling and Disabling Collison.
     bool passCol;
 
     //Pause Menu
     MENU selectOptions = CONTINUE;
-
-    //Save Switch; 0 off, 1 save
-    unsigned saveEnter = 0;
-    float autoSave = 0.f;
-    bool saved = false;
-
-    //Save to Text File Function
-    void save();
-
-    //Load from Text File Function
-    void load();
-    //How many object in the text file.
-    unsigned objectCount = 0;
-
     //Render Pause Menu
     void pause();
     //Check if Pause Menu was called
@@ -378,12 +386,26 @@ private:
     //Cooldown for Button Pressed
     const float cooldownPressed = 0.5f;
 
-    //Init Object Meshes
-    void objectsInit();
-    vector <string> initName;
-    vector <string> initTexture;
+    float nextJump = 0.f;
+
+    float nextSplatter = 0.f;
+
+    float nextRun = 0.f;
+
+    float nextPotion = 0.f;
+
+    float nextRobotShoot = 0.f;
+
+    void renderRemainingTime();
+    void renderStats();
+    void renderPotionCount();
+    void renderAntidoteCount();
+
+    void renderInventory();
+    void renderHUD();
+    void renderEnemy();
+
+    void renderObjects();
 };
-
-
 
 #endif

@@ -138,6 +138,21 @@
     <ClCompile Include="Source\Levels\Tutorial.cpp">
       <Filter>Source Files\Scenes\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Levels\Level1.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\Level2.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\Boss.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\Level3.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\Level4.cpp">
+      <Filter>Source Files\Scenes\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -231,6 +246,21 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Levels\Tutorial.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Level1.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Level2.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Level3.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Level4.h">
+      <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Levels\Boss.h">
       <Filter>Header Files\Scenes\Levels</Filter>
     </ClInclude>
   </ItemGroup>

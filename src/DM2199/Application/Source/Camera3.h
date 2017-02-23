@@ -79,12 +79,10 @@ public:
 
 	void ResetCursorVariables();
 
-	int health = 1000;
-
+	int health = 500;
 	int poisonTime = 0;
 	bool poison = false;
 	bool poisonText = false;
-	
 private:
 	//----------Mouse Variables -----------
 

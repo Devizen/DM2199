@@ -293,11 +293,11 @@ void SceneEditor::Init()
 
     meshList[GEO_RIGHTn] = MeshBuilder::GenerateQuad("rightn", Color(1, 1, 1), 1.f, 1.f);
     meshList[GEO_RIGHTn]->textureID = LoadTGA("Image//rightn.tga");
-//
-//
-//    ////Text
-//    //meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-//    //meshList[GEO_TEXT]->textureID = LoadTGA("Image//comic.tga");
+    //
+    //
+    //    ////Text
+    //    //meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
+    //    //meshList[GEO_TEXT]->textureID = LoadTGA("Image//comic.tga");
 
     meshList[GEO_X] = MeshBuilder::GenerateText("x", 16, 16);
     meshList[GEO_X]->textureID = LoadTGA("Image//comic.tga");
@@ -312,9 +312,9 @@ void SceneEditor::Init()
     meshList[GEO_FPS]->textureID = LoadTGA("Image//comic.tga");
 
 
-//    //meshList[GEO_MESSAGES] = MeshBuilder::GenerateText("messages", 16, 16);
-//    //meshList[GEO_MESSAGES]->textureID = LoadTGA("Image//comic.tga");
-//
+    //    //meshList[GEO_MESSAGES] = MeshBuilder::GenerateText("messages", 16, 16);
+    //    //meshList[GEO_MESSAGES]->textureID = LoadTGA("Image//comic.tga");
+    //
     //Enemy 
     meshList[GEO_ENEMYHEAD] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyHead.obj");
     meshList[GEO_ENEMYHEAD]->textureID = LoadTGA("Image//Enemy//EnemyHead.tga");
@@ -399,26 +399,26 @@ void SceneEditor::Init()
     meshList[ARROW] = MeshBuilder::GenerateOBJ("arrow", "OBJ//menu.obj");
     meshList[ARROW]->textureID = LoadTGA("Image//menu/arrow.tga");
 
-	meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("mountain", "OBJ//mountain.obj");
-	meshList[GEO_MOUNTAIN]->textureID = LoadTGA("Image//objects.tga");
+    meshList[GEO_MOUNTAIN] = MeshBuilder::GenerateOBJ("mountain", "OBJ//mountain.obj");
+    meshList[GEO_MOUNTAIN]->textureID = LoadTGA("Image//objects.tga");
 
-	meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("lamp", "OBJ//lamp.obj");
-	meshList[GEO_LAMP]->textureID = LoadTGA("Image//lamp.tga");
+    meshList[GEO_LAMP] = MeshBuilder::GenerateOBJ("lamp", "OBJ//lamp.obj");
+    meshList[GEO_LAMP]->textureID = LoadTGA("Image//lamp.tga");
 
-	meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("lantern", "OBJ//lantern.obj");
-	meshList[GEO_LANTERN]->textureID = LoadTGA("Image//lantern.tga");
+    meshList[GEO_LANTERN] = MeshBuilder::GenerateOBJ("lantern", "OBJ//lantern.obj");
+    meshList[GEO_LANTERN]->textureID = LoadTGA("Image//lantern.tga");
 
-	meshList[GEO_TOMBSTONE] = MeshBuilder::GenerateOBJ("tombstone", "OBJ//tombstone.obj");
-	meshList[GEO_TOMBSTONE]->textureID = LoadTGA("Image//tombstone.tga");
+    meshList[GEO_TOMBSTONE] = MeshBuilder::GenerateOBJ("tombstone", "OBJ//tombstone.obj");
+    meshList[GEO_TOMBSTONE]->textureID = LoadTGA("Image//tombstone.tga");
 
-	meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
-	meshList[GEO_TREE]->textureID = LoadTGA("Image//tree.tga");
+    meshList[GEO_TREE] = MeshBuilder::GenerateOBJ("tree", "OBJ//tree.obj");
+    meshList[GEO_TREE]->textureID = LoadTGA("Image//tree.tga");
 
-	meshList[GEO_STATUE1] = MeshBuilder::GenerateOBJ("statue1", "OBJ//statue1.obj");
-	meshList[GEO_STATUE1]->textureID = LoadTGA("Image//statue1.tga");
+    meshList[GEO_STATUE1] = MeshBuilder::GenerateOBJ("statue1", "OBJ//statue1.obj");
+    meshList[GEO_STATUE1]->textureID = LoadTGA("Image//statue1.tga");
 
-	meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("statue2", "OBJ//statue2.obj");
-	meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
+    meshList[GEO_STATUE2] = MeshBuilder::GenerateOBJ("statue2", "OBJ//statue2.obj");
+    meshList[GEO_STATUE2]->textureID = LoadTGA("Image//statue2.tga");
 
     meshList[LEVELEDITOR] = MeshBuilder::GenerateOBJ("leveleditor", "OBJ//menu.obj");
     meshList[LEVELEDITOR]->textureID = LoadTGA("Image//menu/leveleditor.tga");
@@ -564,11 +564,11 @@ void SceneEditor::Init()
 
     //Set Pause Menu to off as default
     pauseActivate = false;
-//
-//
-//    ////Player *hero = new Player();
-//    ////Enemy *enemy = new Enemy();
-//    checkLoad = 1;
+    //
+    //
+    //    ////Player *hero = new Player();
+    //    ////Enemy *enemy = new Enemy();
+    //    checkLoad = 1;
 }
 
 //int SceneEditor::Loaded()
@@ -578,7 +578,7 @@ void SceneEditor::Init()
 //
 void SceneEditor::Update(double dt)
 {
-//
+    //
     vec3df camPos = { camera.getPosition().x, camera.getPosition().y, camera.getPosition().z };
     Vector3 view = camera.target - camera.position;
     vec3df dir = { view.x, view.y, view.z };
@@ -619,7 +619,7 @@ void SceneEditor::Update(double dt)
         saved = false;
     }
 
-    cout << pressDelay << endl;
+   /* cout << pressDelay << endl;*/
 
     if (pressDelay > 0.5f)
     {
@@ -762,23 +762,23 @@ void SceneEditor::Update(double dt)
 
     if (Application::IsKeyPressed('4'))
     {
-		selectObject = TOMBSTONE;
+        selectObject = TOMBSTONE;
     }
 
-	if (Application::IsKeyPressed('5'))
-	{
-		selectObject = TREE;
-	}
+    if (Application::IsKeyPressed('5'))
+    {
+        selectObject = TREE;
+    }
 
-	if (Application::IsKeyPressed('6'))
-	{
-		selectObject = STATUE1;
-	}
+    if (Application::IsKeyPressed('6'))
+    {
+        selectObject = STATUE1;
+    }
 
-	if (Application::IsKeyPressed('7'))
-	{
-		selectObject = STATUE2;
-	}
+    if (Application::IsKeyPressed('7'))
+    {
+        selectObject = STATUE2;
+    }
 
     camera.Update(dt);
 
@@ -900,7 +900,7 @@ void SceneEditor::Render()
 
 
     renderGround();
-	renderObjects();
+    renderObjects();
     renderPosition();
     renderSprites();
     renderSelectObject();
@@ -911,18 +911,18 @@ void SceneEditor::Render()
     {
         pause();
     }
-   
-        ////in game hud
-        //RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 1, 0, 0, 1);
 
-        ////minimap
-        //RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 1, 0, 0, 1);
- /*       RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 1, 0, 0, 1);
-        for (vector<Object*>::iterator it = objFactory.Container.begin(); it != objFactory.Container.end(); it++)
-        {
-            RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0, 0, 1);
-        }*/
-    
+    ////in game hud
+    //RenderMeshOnScreen(meshList[GEO_GAME_HUD], 40, 32, 80, 65, 1, 0, 0, 1);
+
+    ////minimap
+    //RenderMeshOnScreen(meshList[GEO_MINI_GROUND], 10, 50, 15, 15, 1, 0, 0, 1);
+    /*       RenderMeshOnScreen(meshList[GEO_MINI_PLAYER], 10.5 + ((camera.getPosition().x / 1000) * 14), 50 + ((camera.getPosition().z / 1000)* 14.4), 6, 6, 1, 0, 0, 1);
+    for (vector<Object*>::iterator it = objFactory.Container.begin(); it != objFactory.Container.end(); it++)
+    {
+    RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0, 0, 1);
+    }*/
+
 }
 
 void SceneEditor::objectsInit()
@@ -961,69 +961,69 @@ void SceneEditor::selectLevel(string input)
 
 void SceneEditor::renderObjects()
 {
-	if (removedObject == true)
-	{
-		objectName.clear();
-		objectTexture.clear();
-		objectPosX.clear();
-		objectPosZ.clear();
+    if (removedObject == true)
+    {
+        objectName.clear();
+        objectTexture.clear();
+        objectPosX.clear();
+        objectPosZ.clear();
 
-		static int linePos = 1;
+        static int linePos = 1;
 
-		string line = "";
-		ifstream myfile(choosenLevel);
+        string line = "";
+        ifstream myfile(choosenLevel);
 
-		while (myfile.peek() != EOF)
-		{
-			getline(myfile, line);
+        while (myfile.peek() != EOF)
+        {
+            getline(myfile, line);
 
-			if (linePos == 1)
-			{
-				string pos, posX, posZ;
-				bool x = false;
-				pos = line;
+            if (linePos == 1)
+            {
+                string pos, posX, posZ;
+                bool x = false;
+                pos = line;
 
-				for (unsigned i = 0; i < pos.size(); i++)
-				{
-					if (pos[i] != ',' && x == false)
-					{
-						posX += pos[i];
-					}
-					if (pos[i] == ',')
-					{
-						x = true;
-						objectPosX.push_back(posX);
-						continue;
-					}
-					if (x == true)
-					{
-						posZ += pos[i];
-					}
-				}
-				objectPosZ.push_back(posZ);
-				posX = "";
-				posZ = "";
-			}
-			if (linePos == 2)
-			{
-				objectTexture.push_back(line);
-			}
-			if (linePos == 3)
-			{
-				objectName.push_back(line);
-			}
-			++numOfObjects;
+                for (unsigned i = 0; i < pos.size(); i++)
+                {
+                    if (pos[i] != ',' && x == false)
+                    {
+                        posX += pos[i];
+                    }
+                    if (pos[i] == ',')
+                    {
+                        x = true;
+                        objectPosX.push_back(posX);
+                        continue;
+                    }
+                    if (x == true)
+                    {
+                        posZ += pos[i];
+                    }
+                }
+                objectPosZ.push_back(posZ);
+                posX = "";
+                posZ = "";
+            }
+            if (linePos == 2)
+            {
+                objectTexture.push_back(line);
+            }
+            if (linePos == 3)
+            {
+                objectName.push_back(line);
+            }
+            ++numOfObjects;
 
-			if (linePos < 3)
-			{
-				linePos++;
-			}
-			else
-			{
-				linePos = 1;
-			}
+            if (linePos < 3)
+            {
+                linePos++;
+            }
+            else
+            {
+                linePos = 1;
+            }
 
-		}
+        }
 
         ////To check and enable collision according to objects.
         //const string mountain = "OBJ//mountain.obj";
@@ -1085,79 +1085,79 @@ void SceneEditor::renderObjects()
         //    generateMesh++;
         //}
 
-		//int generateMesh = 0;
-		//for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
-		//{
-		//	for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
-		//	{
-		//		meshListPredefined[generateMesh/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-		//		meshListPredefined[generateMesh/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
-		//		break;
-		//	}
-		//	/* generateMesh++;*/
-		//	generateMesh++;
-		//}
+        //int generateMesh = 0;
+        //for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+        //{
+        //	for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh/*generateMesh*/; texrIt != objectTexture.rend(); texrIt++)
+        //	{
+        //		meshListPredefined[generateMesh/*generateMesh*/] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
+        //		meshListPredefined[generateMesh/*generateMesh*/]->textureID = LoadTGA(texrIt->data());
+        //		break;
+        //	}
+        //	/* generateMesh++;*/
+        //	generateMesh++;
+        //}
 
-		removedObject = false;
-	}
-	////////////////////////////////////////////////////////////////////////////////
-	float x, z;
-	int generateObjects = 0;
-	bool nextStep = false;
-	//To check and enable collision according to objects.
-	const string mountain = "OBJ//mountain.obj";
+        removedObject = false;
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+    float x, z;
+    int generateObjects = 0;
+    bool nextStep = false;
+    //To check and enable collision according to objects.
+    const string mountain = "OBJ//mountain.obj";
     const string mountain90 = "OBJ//mountain90.obj";
     const string mountain180 = "OBJ//mountain180.obj";
     const string mountain270 = "OBJ//mountain270.obj";
 
-	const string lamp = "OBJ//lamp.obj";
+    const string lamp = "OBJ//lamp.obj";
     const string lamp90 = "OBJ//lamp90.obj";
     const string lamp180 = "OBJ//lamp180.obj";
     const string lamp270 = "OBJ//lamp270.obj";
 
-	const string lantern = "OBJ//lantern.obj";
+    const string lantern = "OBJ//lantern.obj";
     const string lantern90 = "OBJ//lantern90.obj";
     const string lantern180 = "OBJ//lantern180.obj";
     const string lantern270 = "OBJ//lantern270.obj";
 
-	const string tombstone = "OBJ//tombstone.obj";
+    const string tombstone = "OBJ//tombstone.obj";
     const string tombstone90 = "OBJ//tombstone90.obj";
     const string tombstone180 = "OBJ//tombstone180.obj";
     const string tombstone270 = "OBJ//tombstone270.obj";
 
-	const string tree = "OBJ//tree.obj";
+    const string tree = "OBJ//tree.obj";
     const string tree90 = "OBJ//tree90.obj";
     const string tree180 = "OBJ//tree180.obj";
     const string tree270 = "OBJ//tree270.obj";
 
-	const string statue1 = "OBJ//statue1.obj";
+    const string statue1 = "OBJ//statue1.obj";
     const string statue190 = "OBJ//statue190.obj";
     const string statue1180 = "OBJ//statue1180.obj";
     const string statue1270 = "OBJ//statue1270.obj";
 
-	const string statue2 = "OBJ//statue2.obj";
+    const string statue2 = "OBJ//statue2.obj";
     const string statue290 = "OBJ//statue290.obj";
     const string statue2180 = "OBJ//statue2180.obj";
     const string statue2270 = "OBJ//statue2270.obj";
 
-	for (vector<string>::reverse_iterator objectrItName = objectName.rbegin(); objectrItName != objectName.rend(); objectrItName++)
-	{
-		for (vector<string>::reverse_iterator objectrItX = objectPosX.rbegin() + generateObjects; objectrItX != objectPosX.rend() && nextStep == false; objectrItX++)
-		{
-			nextStep = true;
-			for (vector<string>::reverse_iterator objectrItZ = objectPosZ.rbegin() + generateObjects; objectrItZ != objectPosZ.rend(); objectrItZ++)
-			{
-				x = stof(objectrItX->data());
-				z = stof(objectrItZ->data());
-				modelStack.PushMatrix();
+    for (vector<string>::reverse_iterator objectrItName = objectName.rbegin(); objectrItName != objectName.rend(); objectrItName++)
+    {
+        for (vector<string>::reverse_iterator objectrItX = objectPosX.rbegin() + generateObjects; objectrItX != objectPosX.rend() && nextStep == false; objectrItX++)
+        {
+            nextStep = true;
+            for (vector<string>::reverse_iterator objectrItZ = objectPosZ.rbegin() + generateObjects; objectrItZ != objectPosZ.rend(); objectrItZ++)
+            {
+                x = stof(objectrItX->data());
+                z = stof(objectrItZ->data());
+                modelStack.PushMatrix();
 
-				if (objectrItName->data() == mountain ||
-                    objectrItName->data() == mountain90 || 
-                    objectrItName->data() == mountain180 || 
+                if (objectrItName->data() == mountain ||
+                    objectrItName->data() == mountain90 ||
+                    objectrItName->data() == mountain180 ||
                     objectrItName->data() == mountain270)
-				{
+                {
 
-					modelStack.Translate(x, -30.f, z);
+                    modelStack.Translate(x, -30.f, z);
                     if (objectrItName->data() == mountain90)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1170,20 +1170,20 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(100.f, 50.f, 100.f);
-					RenderMesh(meshListPredefined[MOUNTAIN], true);
+                    modelStack.Scale(100.f, 50.f, 100.f);
+                    RenderMesh(meshListPredefined[MOUNTAIN], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == lamp ||
                     objectrItName->data() == lamp90 ||
                     objectrItName->data() == lamp180 ||
                     objectrItName->data() == lamp270)
-				{
+                {
 
-					modelStack.Translate(x, -30.f, z);
+                    modelStack.Translate(x, -30.f, z);
                     if (objectrItName->data() == lamp90)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1196,20 +1196,20 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(10.f, 10.f, 10.f);
+                    modelStack.Scale(10.f, 10.f, 10.f);
                     RenderMesh(meshListPredefined[LAMP], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == lantern ||
                     objectrItName->data() == lantern90 ||
                     objectrItName->data() == lantern180 ||
                     objectrItName->data() == lantern270)
-				{
+                {
 
-					modelStack.Translate(x, -30.f, z);
+                    modelStack.Translate(x, -30.f, z);
                     if (objectrItName->data() == lantern90)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1222,20 +1222,20 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[LANTERN], true);
+                    modelStack.Scale(10.f, 10.f, 10.f);
+                    RenderMesh(meshListPredefined[LANTERN], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == tombstone ||
                     objectrItName->data() == tombstone90 ||
                     objectrItName->data() == tombstone180 ||
                     objectrItName->data() == tombstone270)
-				{
+                {
 
-					modelStack.Translate(x, -30.f, z);
+                    modelStack.Translate(x, -30.f, z);
                     if (objectrItName->data() == tombstone90)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1248,19 +1248,19 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[TOMBSTONE], true);
+                    modelStack.Scale(10.f, 10.f, 10.f);
+                    RenderMesh(meshListPredefined[TOMBSTONE], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == tree ||
                     objectrItName->data() == tree90 ||
                     objectrItName->data() == tree180 ||
                     objectrItName->data() == tree270)
-				{
-					modelStack.Translate(x, -30.f, z);
+                {
+                    modelStack.Translate(x, -30.f, z);
                     if (objectrItName->data() == tree90)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1273,19 +1273,19 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[TREE], true);
+                    modelStack.Scale(10.f, 10.f, 10.f);
+                    RenderMesh(meshListPredefined[TREE], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == statue1 ||
                     objectrItName->data() == statue190 ||
                     objectrItName->data() == statue1180 ||
                     objectrItName->data() == statue1270)
-				{
-					modelStack.Translate(x, 0.f, z);
+                {
+                    modelStack.Translate(x, 0.f, z);
                     if (objectrItName->data() == statue190)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1298,20 +1298,20 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Scale(20.f, 20.f, 20.f);
-					RenderMesh(meshListPredefined[STATUE1], true);
+                    modelStack.Scale(20.f, 20.f, 20.f);
+                    RenderMesh(meshListPredefined[STATUE1], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
                 if (objectrItName->data() == statue2 ||
                     objectrItName->data() == statue290 ||
                     objectrItName->data() == statue2180 ||
                     objectrItName->data() == statue2270)
-				{
+                {
 
-					modelStack.Translate(x, 0.f, z);
+                    modelStack.Translate(x, 0.f, z);
                     if (objectrItName->data() == statue290)
                     {
                         modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
@@ -1324,21 +1324,21 @@ void SceneEditor::renderObjects()
                     {
                         modelStack.Rotate(270.f, 0.f, 1.f, 0.f);
                     }
-					modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
-					modelStack.Scale(10.f, 10.f, 10.f);
-					RenderMesh(meshListPredefined[STATUE2], true);
+                    modelStack.Rotate(180.f, 0.f, 1.f, 0.f);
+                    modelStack.Scale(10.f, 10.f, 10.f);
+                    RenderMesh(meshListPredefined[STATUE2], true);
                     modelStack.PopMatrix();
                     break;
 
-				}
+                }
 
-				//modelStack.PopMatrix();
-				//break;
-			}
-		}
-		nextStep = false;
-		generateObjects++;
-	}
+                //modelStack.PopMatrix();
+                //break;
+            }
+        }
+        nextStep = false;
+        generateObjects++;
+    }
 }
 
 void SceneEditor::pause()
@@ -1383,24 +1383,8 @@ void SceneEditor::pause()
 
 void SceneEditor::renderSelectObject()
 {
-        RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 5, 5, 10, 5, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_LAMP], 15, 5, 5, 5, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_LANTERN], 20, 5, 5, 5, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_TOMBSTONE], 25, 5, 1, 1, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_TREE], 30, 5, 0.5, 0.5, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_STATUE1], 38.5, 10, 4, 4, 0, 0, 0, 1);
-
-		RenderMeshOnScreen(meshList[GEO_STATUE2], 45, 10, 2, 2, 0, 0, 0, 1);
-
-
 
     RenderMeshOnScreen(meshList[LEVELEDITOR], 40.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
-
 
     if (passCol == true)
     {
@@ -1469,7 +1453,7 @@ void SceneEditor::renderSelectObject()
         RenderMeshOnScreen(meshList[SELECTION], 88.f, 30.f, 80.f, 60.f, 1.f, 0.f, 0.f, 0.f, 1.f);
         break;
     }
-    
+
     //1
     RenderMeshOnScreen(meshList[GEO_MOUNTAIN], 4.f, 1.5f, 5.f, 5.f, 6.f, rotateSelections, 0.f, 1.f, 0.f);
     //2
@@ -1485,7 +1469,6 @@ void SceneEditor::renderSelectObject()
     //7
     RenderMeshOnScreen(meshList[GEO_STATUE2], 51.5f, 4.f, 1.f, 1.2f, 1.f, rotateSelections, 0.f, 1.f, 0.f);
 
-
 }
 
 void SceneEditor::addObject()
@@ -1493,8 +1476,8 @@ void SceneEditor::addObject()
     if (selectObject == MOUNTAIN)
     {
         if (selectRotations == ZERO)
-        { 
-            objectName.push_back("OBJ//mountain.obj"); 
+        {
+            objectName.push_back("OBJ//mountain.obj");
         }
         else if (selectRotations == NINETY)
         {
@@ -1508,7 +1491,7 @@ void SceneEditor::addObject()
         {
             objectName.push_back("OBJ//mountain270.obj");
         }
-            
+
         objectTexture.push_back("Image//objects.tga");
     }
     if (selectObject == LAMP)
@@ -1654,17 +1637,17 @@ void SceneEditor::removeObject()
         bool toTexture = false, toPosition = false;
         for (vector<string>::iterator objIt = objectName.begin(); objIt < objectName.end(); objIt++)
         {
-     
-            for (vector<string>::iterator texIt = objectTexture.begin() + generateMesh; 
-				toTexture == false;)
+
+            for (vector<string>::iterator texIt = objectTexture.begin() + generateMesh;
+                toTexture == false;)
             {
-				toTexture = true;
-					
-                for (vector<string>::iterator posXIt = objectPosX.begin() + generateMesh; 
-					toPosition == false;)
+                toTexture = true;
+
+                for (vector<string>::iterator posXIt = objectPosX.begin() + generateMesh;
+                    toPosition == false;)
                 {
-					toPosition = true;
-                    for (vector<string>::iterator posZIt = objectPosZ.begin() + generateMesh; 
+                    toPosition = true;
+                    for (vector<string>::iterator posZIt = objectPosZ.begin() + generateMesh;
                         posZIt != objectPosZ.end();)
                     {
                         ofstream outputFile;
@@ -1677,7 +1660,7 @@ void SceneEditor::removeObject()
                     }
 
                 }
- 
+
             }
             generateMesh++;
             toTexture = false;
@@ -1720,7 +1703,7 @@ void SceneEditor::removeObject()
         outputFile.open(choosenLevel);
         outputFile.close();
     }
-	removedObject = true;
+    removedObject = true;
 
 }
 

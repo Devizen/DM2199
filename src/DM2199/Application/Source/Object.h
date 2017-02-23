@@ -6,11 +6,21 @@
 #include <vector>
 
 class Tutorial;
+class Level1;
+class Level2;
+class Level3;
+class Level4;
+class Boss;
 
 class Object
 {
 public:
 	Object(Tutorial* scene, Vector3 pos) : _scene(scene), position_(pos){};
+    Object(Level1* scene, Vector3 pos) : level1(scene), position_(pos){};
+    Object(Level2* scene, Vector3 pos) : level2(scene), position_(pos){};
+    Object(Level3* scene, Vector3 pos) : level3(scene), position_(pos){};
+    Object(Level4* scene, Vector3 pos) : level4(scene), position_(pos){};
+    Object(Boss* scene, Vector3 pos) : boss(scene), position_(pos){};
 	Object(Vector3 pos) : position_(pos){};
 	virtual ~Object(){};
 
@@ -34,5 +44,10 @@ public:
 
 protected:
 	Tutorial * _scene;
+    Level1 * level1;
+    Level2 * level2;
+    Level3 * level3;
+    Level4 * level4;
+    Boss * boss;
 };
 #endif

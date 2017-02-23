@@ -41,13 +41,8 @@ public:
 	//Poison
 	bool poisoned = false;
 
-
 	virtual void setRange(float);
 	virtual float getRange();
-
-	//void setRange(float);
-	//float getRange();
-
 
 
 	virtual void setState(int);
