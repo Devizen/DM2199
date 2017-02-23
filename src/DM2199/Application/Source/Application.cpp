@@ -132,16 +132,15 @@ void Application::Run()
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
-    Scene *sceneTutorial/* = new Tutorial()*/;
-    Scene *sceneLevel1/* = new Level1()*/;
-    Scene *sceneLevel2/* = new Level2()*/;
-    Scene *sceneLevel3/* = new Level3()*/;
-    Scene *sceneLevel4/* = new Level4()*/;
-    Scene *sceneBoss/* = new Boss()*/;
+    Scene *sceneTutorial = sceneSplash/* = new Tutorial()*/;
+    Scene *sceneLevel1 = sceneSplash/* = new Level1()*/;
+    Scene *sceneLevel2 = sceneSplash/* = new Level2()*/;
+    Scene *sceneLevel3 = sceneSplash/* = new Level3()*/;
+    Scene *sceneLevel4 = sceneSplash/* = new Level4()*/;
+    Scene *sceneBoss = sceneSplash/* = new Boss()*/;
     Scene *sceneEditor = new SceneEditor();
 	//Scene *sceneBase = new SceneBase();
     Scene *scene = sceneSplash;
-    Scene *sceneLoadingAtBack;
     Scene *sceneLose = new SceneLose();
     scene->Init();
 
@@ -223,10 +222,14 @@ void Application::Run()
 
             if (sceneNumber == 4 && scene != sceneEditor)
             {
-                sceneLoadingAtBack = sceneEditor;
-                sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneEditor = new SceneEditor();
+                scene = sceneEditor;/* sceneLoadingAtBack;*/
+                scene->Init();
+                //sceneLoadingAtBack = sceneEditor;
+                //sceneLoadingAtBack->Init();
+                //scene->Exit();
+                //scene = sceneLoadingAtBack;
             }
         }
 
