@@ -40,6 +40,8 @@ Inventory* level3_inventory = 0;
 
 void Level3::Init()
 {
+    Object::sceneObject(3);
+    Bullet::sceneBullet(3);
     static int linePos = 1;
 
     string line = "";
@@ -101,6 +103,8 @@ void Level3::Init()
 
     numOfObjects /= 3;
     numOfObjects--;
+
+    objectsInit();
 
     // Set background color to black 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -196,12 +200,12 @@ void Level3::Init()
     }
 
     int generateMesh = 0;
-    for (vector<string>::reverse_iterator objrIt = objectName.rbegin(); objrIt != objectName.rend(); objrIt++)
+    for (vector<string>::iterator objIt = initName.begin(); objIt != initName.end(); objIt++)
     {
-        for (vector<string>::reverse_iterator texrIt = objectTexture.rbegin() + generateMesh; texrIt != objectTexture.rend(); texrIt++)
+        for (vector<string>::iterator texIt = initTexture.begin() + generateMesh; texIt != initTexture.end(); texIt++)
         {
-            meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objrIt->data(), objrIt->data());
-            meshListPredefined[generateMesh]->textureID = LoadTGA(texrIt->data());
+            meshListPredefined[generateMesh] = MeshBuilder::GenerateOBJ(objIt->data(), objIt->data());
+            meshListPredefined[generateMesh]->textureID = LoadTGA(texIt->data());
             break;
         }
         generateMesh++;
@@ -567,6 +571,35 @@ void Level3::Init()
     for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
     {
         (*it)->_Position = (*it)->currWaypoint->getPosition();
+    }
+}
+
+void Level3::objectsInit()
+{
+    string line = "";
+    ifstream myfile("objects.txt");
+    static int linePos = 1;
+
+    while (myfile.peek() != EOF)
+    {
+        getline(myfile, line);
+
+        if (linePos == 1)
+        {
+            initName.push_back(line);
+        }
+        if (linePos == 2)
+        {
+            initTexture.push_back(line);
+        }
+        if (linePos < 2)
+        {
+            linePos++;
+        }
+        else
+        {
+            linePos = 1;
+        }
     }
 }
 

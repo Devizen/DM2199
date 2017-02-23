@@ -31,6 +31,8 @@ public:
 	vector<ItemInfo*> itemList;
 	bool pointer;
 	int listposition;
+    bool sidepointer;
+
 private:
 	
 	ItemInfo* display1;

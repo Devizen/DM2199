@@ -24,6 +24,7 @@
 #include "Levels/Level3.h"
 #include "Levels/Level4.h"
 #include "Levels/Boss.h"
+#include "SceneLose.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -131,16 +132,17 @@ void Application::Run()
     Scene *sceneSplash = new SceneSplash();
     Scene *sceneMainMenu = new SceneMainMenu();
     Scene *sceneLoading = new SceneLoading();
-    Scene *sceneTutorial = new Tutorial();
-    Scene *sceneLevel1 = new Level1();
-    Scene *sceneLevel2 = new Level2();
-    Scene *sceneLevel3 = new Level3();
-    Scene *sceneLevel4 = new Level4();
-    Scene *sceneBoss = new Boss();
+    Scene *sceneTutorial/* = new Tutorial()*/;
+    Scene *sceneLevel1/* = new Level1()*/;
+    Scene *sceneLevel2/* = new Level2()*/;
+    Scene *sceneLevel3/* = new Level3()*/;
+    Scene *sceneLevel4/* = new Level4()*/;
+    Scene *sceneBoss/* = new Boss()*/;
     Scene *sceneEditor = new SceneEditor();
 	//Scene *sceneBase = new SceneBase();
     Scene *scene = sceneSplash;
     Scene *sceneLoadingAtBack;
+    Scene *sceneLose = new SceneLose();
     scene->Init();
 
     m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
@@ -166,50 +168,57 @@ void Application::Run()
             //Levels
             if (sceneNumber == 3 && scene != sceneTutorial)
             {
-                sceneLoadingAtBack = sceneTutorial;
-                sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneTutorial = new Tutorial();
+                scene = sceneTutorial;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 5 && scene != sceneLevel1)
             {
-                sceneLoadingAtBack = sceneLevel1;
-                sceneLoadingAtBack->Init();
+                //sceneLoadingAtBack = sceneLevel1;
+                //sceneLoadingAtBack->Init();
+                //scene->Exit();
+                //scene = sceneLoadingAtBack;
+
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneLevel1 = new Level1();
+                scene = sceneLevel1;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 6 && scene != sceneLevel2)
             {
-                sceneLoadingAtBack = sceneLevel2;
-                sceneLoadingAtBack->Init();
+                //sceneLoadingAtBack = sceneLevel2;
+                //sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneLevel2 = new Level2();
+                scene = sceneLevel2;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 7 && scene != sceneLevel3)
             {
-                sceneLoadingAtBack = sceneLevel3;
-                sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneLevel3 = new Level3();
+                scene = sceneLevel3;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 8 && scene != sceneLevel4)
             {
-                sceneLoadingAtBack = sceneLevel4;
-                sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneLevel4 = new Level4();
+                scene = sceneLevel4;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 9 && scene != sceneBoss)
             {
-                sceneLoadingAtBack = sceneBoss;
-                sceneLoadingAtBack->Init();
                 scene->Exit();
-                scene = sceneLoadingAtBack;
+                sceneBoss = new Boss();
+                scene = sceneBoss;/* sceneLoadingAtBack;*/
+                scene->Init();
             }
 
             if (sceneNumber == 4 && scene != sceneEditor)
@@ -219,6 +228,13 @@ void Application::Run()
                 scene->Exit();
                 scene = sceneLoadingAtBack;
             }
+        }
+
+        if (sceneNumber == 10 && scene != sceneLose)
+        {
+            scene->Exit();
+            scene = sceneLose;
+            scene->Init();
         }
 
         scene->Update(m_timer.getElapsedTime());

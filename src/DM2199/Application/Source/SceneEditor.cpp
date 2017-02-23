@@ -1,4 +1,5 @@
 #include "SceneEditor.h"
+#include "Bullet.h"
 #include "GL\glew.h"
 #include "Mtx44.h"
 #include "Application.h"
@@ -75,6 +76,8 @@ void SceneEditor::load()
 
 void SceneEditor::Init()
 {
+    Object::sceneObject(6);
+    Bullet::sceneBullet(6);
     static int linePos = 1;
 
     string line = "";
@@ -338,9 +341,51 @@ void SceneEditor::Init()
     meshList[GEO_ENEMYTORSO] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//EnemyTorso.obj");
     meshList[GEO_ENEMYTORSO]->textureID = LoadTGA("Image//Enemy//EnemyTorso.tga");
 
+    //Enemy 2
+    meshList[GEO_ENEMYRIGHTARM2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2RightArm.obj");
+    meshList[GEO_ENEMYRIGHTARM2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+    meshList[GEO_ENEMYLEFTARM2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2LeftArm.obj");
+    meshList[GEO_ENEMYLEFTARM2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+    meshList[GEO_ENEMYLEFTLEG2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2LeftLeg.obj");
+    meshList[GEO_ENEMYLEFTLEG2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+    meshList[GEO_ENEMYRIGHTLEG2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2RightLeg.obj");
+    meshList[GEO_ENEMYRIGHTLEG2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+    meshList[GEO_ENEMYTORSO2] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy2Torso.obj");
+    meshList[GEO_ENEMYTORSO2]->textureID = LoadTGA("Image//Enemy//Enemy2BodyParts.tga");
+
+    //Enemy 3
+    meshList[GEO_ENEMYRIGHTARM3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3RightArm.obj");
+    meshList[GEO_ENEMYRIGHTARM3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+    meshList[GEO_ENEMYLEFTARM3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3LeftArm.obj");
+    meshList[GEO_ENEMYLEFTARM3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+    meshList[GEO_ENEMYLEFTLEG3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3LeftLeg.obj");
+    meshList[GEO_ENEMYLEFTLEG3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+    meshList[GEO_ENEMYRIGHTLEG3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3RightLeg.obj");
+    meshList[GEO_ENEMYRIGHTLEG3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+    meshList[GEO_ENEMYTORSO3] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy3Torso.obj");
+    meshList[GEO_ENEMYTORSO3]->textureID = LoadTGA("Image//Enemy//Enemy3BodyParts.tga");
+
+    //Enemy 4
+    meshList[GEO_ENEMYRIGHTARM4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4RightArm.obj");
+    meshList[GEO_ENEMYRIGHTARM4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+    meshList[GEO_ENEMYLEFTARM4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4LeftArm.obj");
+    meshList[GEO_ENEMYLEFTARM4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+    meshList[GEO_ENEMYLEFTLEG4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4LeftLeg.obj");
+    meshList[GEO_ENEMYLEFTLEG4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+    meshList[GEO_ENEMYRIGHTLEG4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4RighLeg.obj");
+    meshList[GEO_ENEMYRIGHTLEG4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+    meshList[GEO_ENEMYTORSO4] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Enemy4Torso.obj");
+    meshList[GEO_ENEMYTORSO4]->textureID = LoadTGA("Image//Enemy//Enemy4BodyParts.tga");
+
     //Flicker
     meshList[GEO_FLICKER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//quad.obj");
     meshList[GEO_FLICKER]->textureID = LoadTGA("Image//blood//bloodflicker.tga");
+
+
+    meshList[GEO_SPIDER] = MeshBuilder::GenerateOBJ("EnemyHead", "OBJ//Enemy//Spider.obj");
+    meshList[GEO_SPIDER]->textureID = LoadTGA("Image//Enemy//RobotSpider.tga");
+
+    meshList[GEO_ENEMYHEALTHBAR] = MeshBuilder::GenerateQuad("enemyHealthBar", Color(1.0f, 0.0f, 0.0f), 1, 1);
 
     //Sprites
     meshList[GEO_HANDL1] = MeshBuilder::GenerateOBJ("handL1", "OBJ//quad.obj");
@@ -568,18 +613,16 @@ void SceneEditor::Init()
 
     //Set Pause Menu to off as default
     pauseActivate = false;
-    //
-    //
-    //    ////Player *hero = new Player();
-    //    ////Enemy *enemy = new Enemy();
-    //    checkLoad = 1;
+
+    //Enemy
+    Enemy * newEnemy2 = new Robot(70.f, 5.f, 100.f, 100.f, 1);
+    newEnemy2->addWaypoint(Vector3(300, 0, -100));
+    newEnemy2->addWaypoint(Vector3(400, 0, -400));
+    newEnemy2->addWaypoint(Vector3(-400, 0, -400));
+    newEnemy2->addWaypoint(Vector3(-400, 0, 400));
+    enemyStorage.push_back(newEnemy2);
 }
 
-//int SceneEditor::Loaded()
-//{
-//    return checkLoad;
-//}
-//
 void SceneEditor::Update(double dt)
 {
     //
@@ -594,6 +637,8 @@ void SceneEditor::Update(double dt)
         soundStorage[i]->getSoundEngine()->setListenerPosition(camPos, dir.normalize(), zero, up.normalize());
         soundStorage[i]->getSoundEngine()->update();
     }
+
+    cout << pressDelay << endl;
 
     _dt = (float)dt;
     _elapsedTime += _dt;
@@ -632,7 +677,7 @@ void SceneEditor::Update(double dt)
         rotated = false;
     }
 
-    if (Application::IsKeyPressed('E') || Application::IsKeyPressed(VK_LBUTTON) && pressDelay >= cooldownPressed)
+    if ((Application::IsKeyPressed('E') || Application::IsKeyPressed(VK_LBUTTON)) && pressDelay >= cooldownPressed)
     {
         addObject();
         pressDelay = 0.f;
@@ -828,6 +873,141 @@ void SceneEditor::Update(double dt)
     {
         rotateSelections = 270.f;
     }
+
+    //Enemy Arm Rotation
+    static float rotateLimit = 1;
+    static float rotateLeftLimit = 1;
+    static float rotateLimitIndividual = 1;
+
+    rotateArm += (float)(50 * rotateLimit * dt);
+
+    if (shootArmDown == true && rotateLeftArm == 0.f)
+    {
+        rotateIndividualArm += (float)(50 * rotateLimitIndividual * dt);
+    }
+
+    if (robotShoot == true)
+    {
+        rotateIndividualArm = 0.f;
+        if (rotateLeftArm < 90)
+        {
+            rotateLeftLimit = 1;
+            rotateLeftArm += (float)(150 * rotateLeftLimit * dt);
+        }
+        if (rotateLeftArm >= 90.f)
+        {
+            rotateLeftArm = 90.f;
+            robotShoot = false;
+            shootArmDown = false;
+        }
+    }
+    else if (shootArmDown == false && rotateLeftArm > 0.f)
+    {
+        rotateLeftLimit = -1;
+        rotateLeftArm += (float)(150 * rotateLeftLimit * dt);
+
+        if (rotateLeftArm <= 0.f)
+        {
+            rotateLeftArm = 0.f;
+            shootArmDown = true;
+            broughtDown = true;
+        }
+    }
+
+    if (rotateIndividualArm > 10.f)
+    {
+        rotateIndividualArm = 10.f;
+        rotateLimitIndividual = -1.f;
+    }
+    if (rotateIndividualArm < -10.f)
+    {
+        rotateIndividualArm = -10.f;
+        rotateLimitIndividual = 1.f;
+    }
+
+    if (rotateArm > 10)
+    {
+        rotateArm = 10.f;
+        rotateLimit = -1;
+    }
+    if (rotateArm < -10)
+    {
+        rotateArm = -10.f;
+        rotateLimit = 1;
+    }
+
+    Robot::dtFromScene(dt);
+    Robot::positionFromCamera(camera);
+    enemyUpdate(dt);
+}
+
+void SceneEditor::enemyUpdate(double dt)
+{
+    //-------This function is called in Tutorial::Update(double dt) to process Enemy interactions-----------------
+
+    for (vector<Enemy*>::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+    {
+        (*it)->update();
+
+        if ((*it)->enemytype == 2)
+        {
+            if (((*it)->_Position - camera.getPosition()).Length() < (*it)->getRange())
+            {
+                robotShoot = true;
+                broughtDown = false;
+
+            }
+            else
+            {
+
+            }
+
+            if (shootArmDown == false)
+            {
+                if (_elapsedTime >= nextRobotShoot)
+                {
+                    objFactory.createFactoryObject(new Bullet(this, { (*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z }));
+                    camera.health -= 10;
+                    nextRobotShoot = _elapsedTime + coolDown;
+                }
+            }
+        }
+
+
+        for (vector<Object*>::iterator factoryIt = factoryIt = objFactory.Container.begin(); factoryIt != objFactory.Container.end(); factoryIt++)
+        {
+            if ((*factoryIt)->type == SceneEditor::GEO_LIGHTBALL3)   //BULLET INTERACTION WITH ENEMY
+            {
+                if (((*factoryIt)->position_ - (*it)->_Position).Length() < 20 && bulletTouch == false)
+                {
+                    if ((*it)->enemytype == 1)
+                    {
+                        (*it)->_Hp -= 10;
+                        (*it)->healthBarSpider -= 2.f;
+                        damaged = true;
+                        bulletTouch = true;
+
+                        if ((*it)->_Hp == 0)
+                        {
+                            (*it)->setState(2);  //  death is at enum 2
+                        }
+                    }
+                    if ((*it)->enemytype == 2)
+                    {
+                        (*it)->_Hp -= 10;
+                        (*it)->healthBarRobot1 -= 2.f;
+                        damaged = true;
+                        bulletTouch = true;
+
+                        if ((*it)->_Hp == 0)
+                        {
+                            (*it)->setState(2);  //  death is at enum 2
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void SceneEditor::copyPositionTargetView(Vector3 position, Vector3 target, Vector3 view)
@@ -933,6 +1113,7 @@ void SceneEditor::Render()
 
 
     renderGround();
+    renderEnemy();
     renderObjects();
     renderPosition();
     renderSprites();
@@ -956,6 +1137,253 @@ void SceneEditor::Render()
     RenderMeshOnScreen(meshList[GEO_MINI_ENEMY], 10.5 + (((*it)->position_.x / 1000) * 14), 50 + (((*it)->position_.z / 1000) * 14.4), 10, 10, 1, 0, 0, 1);
     }*/
 
+}
+
+void SceneEditor::renderEnemy()
+{
+    for (vector<Enemy *> ::iterator it = enemyStorage.begin(); it != enemyStorage.end(); it++)
+    {
+        if (((*it)->_Position - camera.getPosition()).Length() < 10 && (*it)->getState() != Spider::spiderState::death &&
+            (*it)->getState() != Robot::robotState::death)
+        {
+            RenderMeshOnScreen(meshList[GEO_FLICKER], 40, 30, 80, 60, 1.f, 0.f, 0.f, 0.f, 1.f);
+            vec3df bloodStartingLocation = { camera.getPosition().x, camera.getPosition().y, camera.getPosition().z };
+            if (_elapsedTime >= nextSplatter)
+                soundStorage[1]->play3DSound(false, false, false, bloodStartingLocation);
+            nextSplatter = _elapsedTime + coolDown;
+
+            camera.health--;
+
+            if ((*it)->enemytype == 1)
+            {
+                if (Math::RandIntMinMax(0, 100) < 10)
+                {
+                    camera.poison = true;
+                }
+            }
+        }
+
+        switch ((*it)->enemytype)
+        {
+
+        case   1:    // ----------------Spider ----------------------------
+        {
+                         if ((*it)->getState() != Spider::spiderState::death)
+                         {
+                             //Spider
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_SPIDER], true);
+                             modelStack.PopMatrix();
+
+                             //Health Bar
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + 1.3f, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.Rotate(90, 0, 0, 1);
+                             if ((*it)->healthBarSpider>0)
+                                 modelStack.Scale(1, 1, (*it)->healthBarSpider);
+                             else
+                                 modelStack.Scale(1, 1, 1);
+                             RenderMesh(meshList[GEO_ENEMYHEALTHBAR], true);
+                             modelStack.PopMatrix();
+
+                         }
+        }
+            break;
+        case 2:  // ---------------Robot1 ----------------------
+        {
+                     if ((*it)->getState() != Robot::robotState::death)
+                     {
+                         if ((*it)->robotType == 1)
+                         {
+                             //Robot
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y - 30.f, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.PushMatrix();
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYTORSO], true);
+                             RenderMesh(meshList[GEO_ENEMYHEAD], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 40, 0);
+                             if (broughtDown == false)
+                             {
+                                 modelStack.Rotate(-rotateLeftArm, 0, 0, 1);
+                             }
+                             else if (rotateLeftArm == 0.f && broughtDown == true)
+                             {
+                                 modelStack.Rotate(-rotateIndividualArm, 0, 0, 1);
+                             }
+                             modelStack.Translate(0, -40, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTARM], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 40, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -40, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTARM], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 40, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -40, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTLEG], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 40, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -40, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTLEG], true);
+                             modelStack.PopMatrix();
+                             modelStack.PopMatrix();
+
+                             //Health Bar
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y + +30.f, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.Rotate(90, 0, 0, 1);
+                             if ((*it)->healthBarRobot1>0)
+                                 modelStack.Scale(1, 1, (*it)->healthBarRobot1);
+                             else
+                                 modelStack.Scale(1, 1, 1);
+                             RenderMesh(meshList[GEO_ENEMYHEALTHBAR], true);
+                             modelStack.PopMatrix();
+                         }
+
+                         if ((*it)->robotType == 2)
+                         {
+                             //Robot 2
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.PushMatrix();
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYTORSO2], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTARM2], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTARM2], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 5, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -5, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTLEG2], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 5, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -5, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTLEG2], true);
+                             modelStack.PopMatrix();
+                             modelStack.PopMatrix();
+                         }
+
+                         if ((*it)->robotType == 3)
+                         {
+                             //Robot 3
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.PushMatrix();
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYTORSO3], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTARM3], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTARM3], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 1, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -1, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTLEG3], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 1, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -1, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTLEG3], true);
+                             modelStack.PopMatrix();
+                             modelStack.PopMatrix();
+                         }
+                         if ((*it)->robotType == 4)
+                         {
+                             //Robot 4
+                             modelStack.PushMatrix();
+                             modelStack.Translate((*it)->_Position.x, (*it)->_Position.y, (*it)->_Position.z);
+                             modelStack.Rotate((*it)->_Rotation, 0, 1, 0);
+                             modelStack.PushMatrix();
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYTORSO4], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTARM4], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTARM4], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(-rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYRIGHTLEG4], true);
+                             modelStack.PopMatrix();
+                             modelStack.PushMatrix();
+                             modelStack.Translate(0, 10, 0);
+                             modelStack.Rotate(rotateArm, 0, 0, 1);
+                             modelStack.Translate(0, -10, 0);
+                             modelStack.Scale(10, 10, 10);
+                             RenderMesh(meshList[GEO_ENEMYLEFTLEG4], true);
+                             modelStack.PopMatrix();
+                             modelStack.PopMatrix();
+                         }
+                     }
+        }
+            break;
+        }
+    }
 }
 
 void SceneEditor::objectsInit()
@@ -1664,6 +2092,8 @@ void SceneEditor::renderSelectObject()
 
 void SceneEditor::addObject()
 {
+
+
     if (selectObject == MOUNTAIN)
     {
         if (selectRotations == ZERO)

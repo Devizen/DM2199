@@ -83,6 +83,8 @@ public:
 	int poisonTime = 0;
 	bool poison = false;
 	bool poisonText = false;
+
+    int maxhealth = health;
 private:
 	//----------Mouse Variables -----------
 

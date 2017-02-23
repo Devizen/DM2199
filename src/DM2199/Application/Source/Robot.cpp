@@ -1,4 +1,5 @@
 #include "Robot.h"
+#include "MyMath.h"
 
 static double copyDT = 0.f;
 static Camera3 copyPos;
@@ -36,7 +37,16 @@ void Robot::update()
 	{
 		//distance between character and  enemy
 		Vector3 distance = (_Position - copyPos.position);
-		Vector3 unitDistance = distance.Normalized();
+        Vector3 unitDistance = distance.Normalized(); 
+     /*   try
+        {*/
+		//unitDistance = distance.Normalized();
+        //}
+        //catch (DivideByZero what)
+        //{
+        //    /*cout << what.what() << endl;*/
+        //}
+
 		float moveX = unitDistance.x * getMovementSpeed()* copyDT;
 		float moveZ = unitDistance.z * getMovementSpeed()* copyDT;
 

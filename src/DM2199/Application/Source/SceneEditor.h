@@ -39,9 +39,6 @@ class SceneEditor : public Scene
         GEO_Z,
         GEO_FPS,
 
-        GEO_LIGHTBALL,
-        GEO_LIGHTBALL2,
-
         //Skybox Day
         GEO_LEFT,
         GEO_RIGHT,
@@ -61,7 +58,7 @@ class SceneEditor : public Scene
         //Environment
         GEO_GROUND,
 
-        //Enemy 
+        //Enemy 1
         GEO_ENEMYHEAD,
         GEO_ENEMYLEFTARM,
         GEO_ENEMYRIGHTARM,
@@ -69,10 +66,35 @@ class SceneEditor : public Scene
         GEO_ENEMYRIGHTLEG,
         GEO_ENEMYTORSO,
 
+        //Enemy 2
+        GEO_ENEMYLEFTARM2,
+        GEO_ENEMYRIGHTARM2,
+        GEO_ENEMYLEFTLEG2,
+        GEO_ENEMYRIGHTLEG2,
+        GEO_ENEMYTORSO2,
+
+        //Enemy 3
+        GEO_ENEMYLEFTARM3,
+        GEO_ENEMYRIGHTARM3,
+        GEO_ENEMYLEFTLEG3,
+        GEO_ENEMYRIGHTLEG3,
+        GEO_ENEMYTORSO3,
+
+        //Enemy 4
+        GEO_ENEMYLEFTARM4,
+        GEO_ENEMYRIGHTARM4,
+        GEO_ENEMYLEFTLEG4,
+        GEO_ENEMYRIGHTLEG4,
+        GEO_ENEMYTORSO4,
+
+        //Spider
+        GEO_SPIDER,
+
         GEO_FLICKER,
         GEO_HP75,
         GEO_HP50,
         GEO_HP25,
+        GEO_ENEMYHEALTHBAR,
 
         //Item & Inventory
         GEO_SWORD,
@@ -111,6 +133,8 @@ class SceneEditor : public Scene
         GEO_SWORD3,
 
         //Portal Lightball
+        GEO_LIGHTBALL,
+        GEO_LIGHTBALL2,
         GEO_LIGHTBALL3,
 
         //Pause Menu
@@ -387,6 +411,25 @@ private:
     void objectsInit();
     vector <string> initName;
     vector <string> initTexture;
+
+    //Enemy
+    void renderEnemy();
+    void enemyUpdate(double dt);
+    vector<Enemy*> enemyStorage;
+    float nextSplatter = 0.f;
+
+    float rotateArm = 0.f;
+
+    float rotateIndividualArm = 0.f;
+    float rotateLeftArm = 0.f;
+    bool robotShoot = false;
+    bool shootArmDown = true;
+    bool broughtDown = true;
+    float scaleDamage = 0.2f;
+    float nextRobotShoot = 0.f;
+    bool bulletTouch = false;
+    bool damaged = false; // character to enemy
+
 };
 
 

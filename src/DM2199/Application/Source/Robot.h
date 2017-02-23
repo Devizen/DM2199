@@ -52,4 +52,5 @@ public:
 private:
 	robotState _State;
 	Tutorial * _scene;
+    SceneEditor* levelEditor;
 };

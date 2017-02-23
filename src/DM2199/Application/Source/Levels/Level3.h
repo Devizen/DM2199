@@ -229,8 +229,6 @@ class Level3 : public Scene
 
     unsigned m_parameters[U_TOTAL];
 
-
-
 public:
     Level3();
     ~Level3();
@@ -406,6 +404,9 @@ private:
     void renderEnemy();
 
     void renderObjects();
+    void objectsInit();
+    vector <string> initName;
+    vector <string> initTexture;
 };
 
 #endif

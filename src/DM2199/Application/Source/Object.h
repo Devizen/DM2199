@@ -11,6 +11,7 @@ class Level2;
 class Level3;
 class Level4;
 class Boss;
+class SceneEditor;
 
 class Object
 {
@@ -21,6 +22,7 @@ public:
     Object(Level3* scene, Vector3 pos) : level3(scene), position_(pos){};
     Object(Level4* scene, Vector3 pos) : level4(scene), position_(pos){};
     Object(Boss* scene, Vector3 pos) : boss(scene), position_(pos){};
+    Object(SceneEditor* scene, Vector3 pos) : levelEditor(scene), position_(pos){};
 	Object(Vector3 pos) : position_(pos){};
 	virtual ~Object(){};
 
@@ -42,6 +44,8 @@ public:
 
 	unsigned type = 0;
 
+    static void sceneObject(unsigned input);
+
 protected:
 	Tutorial * _scene;
     Level1 * level1;
@@ -49,5 +53,6 @@ protected:
     Level3 * level3;
     Level4 * level4;
     Boss * boss;
+    SceneEditor* levelEditor;
 };
 #endif

@@ -109,6 +109,7 @@
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneEditor.cpp" />
     <ClCompile Include="Source\SceneLoading.cpp" />
+    <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\SceneSplash.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneEditor.h" />
     <ClInclude Include="Source\SceneLoading.h" />
+    <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\SceneSplash.h" />
     <ClInclude Include="Source\shader.hpp" />

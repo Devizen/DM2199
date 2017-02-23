@@ -153,6 +153,9 @@
     <ClCompile Include="Source\Levels\Level4.cpp">
       <Filter>Source Files\Scenes\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneLose.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="Source\Levels\Boss.h">
       <Filter>Header Files\Scenes\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneLose.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
